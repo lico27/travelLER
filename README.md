@@ -21,7 +21,7 @@ Bootstrap cards for:
     - Flights
     - Itinerary
 
-Save Itinerary button
+Save Itinerary button - modal to confirm save
 Retreive Itinerary Button
 
 Add:
