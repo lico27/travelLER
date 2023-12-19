@@ -1,4 +1,9 @@
-# group-five
+# travelLER
+
+### API keys
+- Currency: fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc
+
+## Pseudocode
 
 Bootcamp Project 1
 
@@ -64,4 +69,4 @@ JavaScript:
 
     Function to retrieve search from local storage
 
- ![wireframe](./assets/images/wire-frame.JPG) 
+ ![wireframe](Assets/images/wire-frame.JPG) 
