@@ -7,40 +7,40 @@
 
 Bootcamp Project 1
 
-create the html
-    - Input for:
-        - Start Location
-        - End Location
-        - Start Date
-        - End Date
-    - Submit Button
-    |
-    |
-    v
+    create the html
+        - Input for:
+            - Start Location
+            - End Location
+            - Start Date
+            - End Date
+        - Submit Button
+        |
+        |
+        v
 
-Jumbtron - generic travel img or pull img based on location given
+    Jumbtron - generic travel img or pull img based on location given
 
-Bootstrap cards for:
-    - Weather
-    - Currency
-    - Flights
-    - Itinerary
+    Bootstrap cards for:
+        - Weather
+        - Currency
+        - Flights
+        - Itinerary
 
-Save Itinerary button - modal to confirm save
-Retreive Itinerary Button
+    Save Itinerary button - modal to confirm save
+    Retreive Itinerary Button
 
-Add:
-    Head:
-       - Bootstrap
-       - CSS file
-    Bottom of Body:
-      - jQuery
-      - Day.js
-      - JS file
+    Add:
+        Head:
+        - Bootstrap
+        - CSS file
+        Bottom of Body:
+        - jQuery
+        - Day.js
+        - JS file
 
-Footer:
-    Logo?
-    collabs
+    Footer:
+        Logo?
+        collabs
 
 
 
