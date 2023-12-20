@@ -38,7 +38,18 @@ let currencyList = [
 for (let i = 0; i < currencyList.length; i++) {
     let eachCurrency = currencyList[i];
     currencies.append("<option>" + eachCurrency + "</option").attr("value", eachCurrency);
-}
+};
+
+// Run functions when form button is clicked
+$("#curSubmit").on("click", function(event) {
+    event.preventDefault();
+    let chosenCurrency = $("#currencies").val();
+    currencyCode = chosenCurrency.substring(0,3);
+    console.log(currencyCode);
+
+    fetchCurrency(currencyCode);
+    makeCard(chosenCurrency);
+});
 
 // Fetch currency data from API
 function fetchCurrency (currencyCode) {
@@ -48,25 +59,18 @@ function fetchCurrency (currencyCode) {
         return responseCurrency.json();
     }).then(function(dataCurrency){
         console.log(dataCurrency);
+        let currencySymbol = dataCurrency.data[currencyCode].symbol;
+        console.log(currencySymbol);
+
 });
 };
 
-// Run functions when form button is clicked
-$("#curSubmit").on("click", function(event) {
-    event.preventDefault();
-    let chosenCurrency = $("#currencies").val();
-    currencyCode = chosenCurrency.substring(0,3);
-    console.log(currencyCode);
-    fetchCurrency(currencyCode);
-    makeCard(chosenCurrency);
-});
-
 // Make card with API info
-function makeCard (chosenCurrency, currencySymbol) {
+function makeCard (chosenCurrency) {
     let main = $("#main");
     let card = $("<div>");
     card.attr("class", "card col-md-2");
     card.append("<h4>" + chosenCurrency + "</h4>");
-    card.append("<p>" + currencySymbol + "1 = £??" + "</p>");
+    // card.append("<p>" + currencySymbol + "</p>");
     main.append(card);
 };
