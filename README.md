@@ -68,5 +68,3 @@ JavaScript:
     Function for save search to local storgae
 
     Function to retrieve search from local storage
-
- ![wireframe](Assets/images/wire-frame.JPG) 
