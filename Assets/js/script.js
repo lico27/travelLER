@@ -65,3 +65,9 @@ $("#curSubmit").on("click", function(event) {
 
 // Make card with API info
 
+
+// date picker
+$( function() {
+    $( ".datepicker" ).datepicker();
+  } );
+  
