@@ -8,18 +8,15 @@
 </head>
 <body>
 
-    <form id="search-form" class="form">
-        <div class="form-inline form-group">
-          <div>
-            <input class="form-input" type="text" id="search-input"/>
-            <div class="input-group-append">
-              <button type="submit" class="btn btn-danger" id="btnTest">
-                Search
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
+    <form action="#">
+        <select name="currencies" id="currencies">
+          <option value="select">Choose your local currency</option>
+        </select>
+        <input type="submit" value="Submit" id="curSubmit"/>
+  </form>
+
+      <div id="main">
+      </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="Assets/js/script.js"></script>
