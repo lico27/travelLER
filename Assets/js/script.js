@@ -10,4 +10,11 @@ function fetchCurrency () {
 
 };
 
-fetchCurrency();
+// Run functions when form button is clicked
+$("#btnTest").on("click", function(event) {
+    event.preventDefault();
+    let searchInput = $("#search-input").val();
+    console.log(searchInput);
+    fetchCurrency();
+});
+
