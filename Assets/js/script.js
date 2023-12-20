@@ -1,3 +1,5 @@
+var dateInputEl = $('#datepicker');
+
 let currencies = $("#currencies");
 
 let currencyList = [
@@ -64,3 +66,13 @@ $("#curSubmit").on("click", function(event) {
 
 // Make card with API info
 
+// date picker
+// Datepicker widget
+$(function () {
+    $('#datepicker').datepicker({
+      changeMonth: true,
+      changeYear: true,
+      dateFormat: 'dd/mm/y',
+    });
+  });
+  
