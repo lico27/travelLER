@@ -13,96 +13,118 @@
 
     <div class="container-fluid">
 
-        <div class="container">
+        <div class="container-fluid px-0 mx-0">
             <!-- Background image -->
-            <div class="img-fluid" style="
+            <div class="navbar img-fluid" style="
             background-image: url('./Assets/images/Header-image.jpg');
-            height: 50vh;"></div>
+            height: 50vh;
+            background-size: cover;">
+            </div>
             <!-- Background image -->
         </div>
 
-        <form id="search-form" class="form">
-            <!-- select location -->
+        <form id="search-form" class="form m-3 p-3" style="display: flex; align-items: center;">
+            
             <div class="form-inline form-group col-lg-12">
-                <h2 id="form-heading" class="mt-1 h3 form-label">
+                <h2 id="form-heading" class="mt-1 h3 form-label text-center">
                     Search for a Destination:
                 </h2>
                 <div class="input-group m-3 p-3">
-                    <div id="location-inputs" class="form-inline">
+
+                    <!-- select location -->
+                    <div id="location-inputs" class="form-inline p-3">
                         <input type="text" class="form-inline" id="start-location" placeholder="Start Location">
                         <input type="text" class="form-inline" id="destination" placeholder="Destination">
                     </div>
 
-                    <div id="date-inputs" class="form-inline">
+                    <!-- select dates -->
+                    <div id="date-inputs" class="form-inline p-3">
                         <input type="text" class="form-inline" id="start-date" placeholder="Departure Date">
                         <input type="text" class="form-inline" id="return-date" placeholder="Return Date">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <!-- submit  -->
+                    <div id="search-submit" class="form-inline p-3">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- select dates -->
+            
             <div class="form-inline form-group">
             </div>
         </form>
 
         <!-- main content  -->
-        <section class="row">
-            <div class="col-4">
-                <div class="card" id="weather-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Weather</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                      </div>
-                </div>
-            </div>
+        <div>
+            <h3 class="text-center">Display search criteria here?</h3>
+            <br>
 
-            <div class="col-4">
-                <div class="card" id="flights-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Flights</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                      </div>
+            <section class="row card-group m-3">
+                <div class="col-lg-4 h-100">
+                    <div class="card rounded-3 border-black" id="weather-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Weather</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of
+                                the card's content.</p>
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="card" id="currency-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Currency</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                      </div>
+                <div class="card border-white col-lg-4 h-100">
+
+                    <div class="card rounded-3 border-black mb-3" id="flights-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Flights</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of
+                                the card's content.</p>
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>
+                    </div>
+
+                    <div class="card rounded-3 border-black mt-3" id="currency-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Currency</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of
+                                the card's content.</p>
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
 
-            <div class="col-4">
-                <div class="card" id="itinerary-card">
-                    <div class="card-body">
-                        <h5 class="card-title">My Itinerary</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                      </div>
+                <div class="col-lg-4 h-100">
+                    <div class="card rounded-3 border-black" id="itinerary-card">
+                        <div class="card-body">
+                            <h5 class="card-title">My Itinerary</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of
+                                the card's content.</p>
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
 
-        </section>
-
+            </section>
+        </div>
 
     </div>
     <!-- footer  -->
     <footer>
-        <div class="container">
+        <div class="container m-3 p-3">
             <p>&copy; Your Website 2020. All Rights Reserved.</p>
 
         </div>
