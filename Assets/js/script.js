@@ -68,6 +68,6 @@ $("#curSubmit").on("click", function(event) {
 
 // date picker
 $( function() {
-    $( ".datepicker" ).datepicker();
+    $( ".datepicker" ).datepicker({ dateFormat: "dd-mm-yy" });
   } );
   
