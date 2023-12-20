@@ -9,16 +9,12 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="./Assets/css/styles.css" />
     <title>UK Travel Dashboard</title>
-    <script>
-        $( function() {
-          $( "#datepicker" ).datepicker();
-        } );
-        </script>
+
 </head>
 
 <body>
 
-    <div class="container-fluid">
+    <div class="container-fluid gx-0">
 
         <div class="container-fluid px-0 mx-0">
             <!-- Background image -->
@@ -30,29 +26,29 @@
             <!-- Background image -->
         </div>
 
-        <form id="search-form" class="form m-3 p-3"">
+        <form id="search-form" class="form bg-light p-3 mb-3">
 
             <div class=" form-inline form-group col-lg-12">
-            <h2 id="form-heading" class="mt-1 h3 form-label text-center">
+            <h2 id="form-heading" class="my-3 h3 form-label text-center">
                 Search for a Destination:
             </h2>
 
-            <div class="input-group m-3 p-3 d-flex flex-row justify-content-center">
+            <div class="input-group m-3 p-3 d-flex justify-content-center align-item">
                 <!-- select location -->
                 <div id="location-inputs" class="d-flex p-3 h-100">
-                    <input type="text" class="d-flex" id="start-location" placeholder="Start Location">
-                    <input type="text" class="d-flex" id="destination" placeholder="Destination">
+                    <input type="text" class="d-flex m-1 p-1" id="start-location" placeholder="Start Location">
+                    <input type="text" class="d-flex m-1 p-1" id="destination" placeholder="Destination">
                 </div>
 
                 <!-- select dates -->
                 <div id="date-inputs" class="d-flex p-3 h-100">
-                    <input type="text" id="start-date" class="datepicker" placeholder="Departure Date" />
-                    <input type="text" id="end-date" class="datepicker" placeholder="Return Date" />
+                    <input type="text" id="start-date" class="datepicker m-1 p-1" placeholder="Departure Date" />
+                    <input type="text" id="end-date" class="datepicker m-1 p-1" placeholder="Return Date" />
 
                 </div>
 
                 <!-- submit  -->
-                <div id="search-submit" class="d-flex h-100">
+                <div id="search-submit" class="d-flex h-100 m-0">
                     <button type="submit" class="btn btn-primary">Search</button>
                 </div>
             </div>
@@ -66,12 +62,12 @@
 
     <!-- main content  -->
     <div>
-        <h3 class="text-center">Display search criteria here?</h3>
+        <h3 id="text-criteria" class="text-center"></h3>
         <br>
 
         <section class="row card-group m-3">
             <div class="col-lg-4 h-100">
-                <div class="card rounded-3 border-black" id="weather-card">
+                <div class="card rounded-3 border-black p-1" id="weather-card">
                     <div class="card-body">
                         <h5 class="card-title">Weather</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
@@ -82,7 +78,7 @@
 
             <div class="card border-white col-lg-4 h-100">
 
-                <div class="card rounded-3 border-black mb-3" id="flights-card">
+                <div class="card rounded-3 border-black p-1" id="flights-card">
                     <div class="card-body h-100">
                         <h5 class="card-title">Flights</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
@@ -90,7 +86,7 @@
                     </div>
                 </div>
 
-                <div class="card rounded-3 border-black mt-3" id="currency-card">
+                <div class="card rounded-3 border-black p-1" id="currency-card">
                     <div class="card-body">
                         <h5 class="card-title">Currency</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Check the currency conversion before your trip!</h6>
@@ -111,7 +107,7 @@
             </div>
 
             <div class="col-lg-4 h-100">
-                <div class="card rounded-3 border-black" id="itinerary-card">
+                <div class="card rounded-3 border-black p-1" id="itinerary-card">
                     <div class="card-body h-100">
                         <h5 class="card-title">My Itinerary</h5>
                         <h6 class="card-subtitle mb-2 text-muted">View your saved data</h6>
