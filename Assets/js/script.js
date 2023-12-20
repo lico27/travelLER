@@ -1,3 +1,5 @@
+var dateInputEl = $('#datepicker');
+
 // Make currency dropdown
 let currencies = $("#currencies");
 let currencyList = [
@@ -66,11 +68,4 @@ function fetchCurrency (currencyCode) {
 };
 
 // Make card with API info
-function makeCard (chosenCurrency) {
-    let main = $("#main");
-    let card = $("<div>");
-    card.attr("class", "card col-md-2");
-    card.append("<h4>" + chosenCurrency + "</h4>");
-    // card.append("<p>" + currencySymbol + "</p>");
-    main.append(card);
-};
+
