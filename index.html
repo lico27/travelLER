@@ -11,31 +11,103 @@
 
 <body>
 
-    <div class="container-fluid" style="max-width: 100vw">
+    <div class="container-fluid">
 
-        <h2 id="form-heading" class="mt-1 h3 form-label">
-            Search for a Destination:
-        </h2>
+        <div class="container">
+            <!-- Background image -->
+            <div class="img-fluid" style="
+            background-image: url('./Assets/images/Header-image.jpg');
+            height: 50vh;"></div>
+            <!-- Background image -->
+        </div>
+
         <form id="search-form" class="form">
             <!-- select location -->
-            <div class="form-inline form-group col-10">
-                <div class="input-group mb-3 p-3">
-                    <input type="text" class="form-control" id="start-location" placeholder="Start Location">
-                    <input type="text" class="form-control" id="destination" placeholder="Destination">
-                    <input type="text" class="form-control" id="start-date" placeholder="Departure Date">
-                    <input type="text" class="form-control" id="return-date" placeholder="Return Date">
+            <div class="form-inline form-group col-lg-12">
+                <h2 id="form-heading" class="mt-1 h3 form-label">
+                    Search for a Destination:
+                </h2>
+                <div class="input-group m-3 p-3">
+                    <div id="location-inputs" class="form-inline">
+                        <input type="text" class="form-inline" id="start-location" placeholder="Start Location">
+                        <input type="text" class="form-inline" id="destination" placeholder="Destination">
+                    </div>
+
+                    <div id="date-inputs" class="form-inline">
+                        <input type="text" class="form-inline" id="start-date" placeholder="Departure Date">
+                        <input type="text" class="form-inline" id="return-date" placeholder="Return Date">
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Search</button>
-                  </div>
+                </div>
             </div>
 
             <!-- select dates -->
             <div class="form-inline form-group">
             </div>
-
         </form>
+
+        <!-- main content  -->
+        <section class="row">
+            <div class="col-4">
+                <div class="card" id="weather-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Weather</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                      </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card" id="flights-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Flights</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                      </div>
+                </div>
+
+                <div class="card" id="currency-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Currency</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                      </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card" id="itinerary-card">
+                    <div class="card-body">
+                        <h5 class="card-title">My Itinerary</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                      </div>
+                </div>
+            </div>
+
+
+        </section>
 
 
     </div>
+    <!-- footer  -->
+    <footer>
+        <div class="container">
+            <p>&copy; Your Website 2020. All Rights Reserved.</p>
+
+        </div>
+    </footer>
+
 
     <!-- Day.js -->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
