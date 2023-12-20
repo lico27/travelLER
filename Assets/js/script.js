@@ -1,5 +1,5 @@
+// Make currency dropdown
 let currencies = $("#currencies");
-
 let currencyList = [
     "EUR - Euro",
     "USD - US Dollar",
@@ -35,16 +35,14 @@ let currencyList = [
     "THB - Thai Baht",
     "ZAR - South African Rand"
     ];
-
-// Make currency dropdown
 for (let i = 0; i < currencyList.length; i++) {
     let eachCurrency = currencyList[i];
     currencies.append("<option>" + eachCurrency + "</option").attr("value", eachCurrency);
 }
 
 // Fetch currency data from API
-function fetchCurrency (chosenCurrency) {
-    let queryURLCurrency = "https://api.freecurrencyapi.com/v1/currencies?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=" + chosenCurrency + "&base_currency=" + chosenCurrency;
+function fetchCurrency (currencyCode) {
+    let queryURLCurrency = "https://api.freecurrencyapi.com/v1/currencies?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=" + currencyCode + "&base_currency=" + currencyCode;
     fetch(queryURLCurrency)
         .then(function(responseCurrency){
         return responseCurrency.json();
@@ -57,10 +55,18 @@ function fetchCurrency (chosenCurrency) {
 $("#curSubmit").on("click", function(event) {
     event.preventDefault();
     let chosenCurrency = $("#currencies").val();
-    chosenCurrency = chosenCurrency.substring(0,3);
-    console.log(chosenCurrency);
-    fetchCurrency(chosenCurrency);
+    currencyCode = chosenCurrency.substring(0,3);
+    console.log(currencyCode);
+    fetchCurrency(currencyCode);
+    makeCard(chosenCurrency);
 });
 
 // Make card with API info
-
+function makeCard (chosenCurrency, currencySymbol) {
+    let main = $("#main");
+    let card = $("<div>");
+    card.attr("class", "card col-md-2");
+    card.append("<h4>" + chosenCurrency + "</h4>");
+    card.append("<p>" + currencySymbol + "1 = £??" + "</p>");
+    main.append(card);
+};
