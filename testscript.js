@@ -70,3 +70,4 @@ function makeCard(chosenCurrency) {
     card.append("<h3>" + chosenCurrency + "</h3>");
     main.append(card);
 };
+
