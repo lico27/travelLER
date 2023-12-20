@@ -1,5 +1,4 @@
 // Make currency dropdown
-var dateInputEl = $('#datepicker');
 
 let currencies = $("#currencies");
 let currencyList = [
@@ -71,3 +70,23 @@ $( function() {
     $( ".datepicker" ).datepicker({ dateFormat: "dd-mm-yy" });
   } );
   
+// retrieve search info
+
+$("#search-submit").on("click", function(event){
+    event.preventDefault()
+
+var startLocation = $("#start-location")
+var destination = $("#destination").val()
+var startDate = $("#start-date").val()
+var endDate = $("#end-date")
+var searchCriteria = $("#text-criteria")
+
+
+
+console.log(destination)
+console.log(startDate)
+
+searchCriteria.text("Your holiday to " + destination + " on " + startDate)
+
+})
+
