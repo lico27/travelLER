@@ -103,7 +103,12 @@ function fetchCurrency(currencyCode) {
             return responseCurrency.json();
         }).then(function (dataCurrency) {
             console.log(dataCurrency);
+            let currencySymbol = dataCurrency.data[currencyCode].symbol;
+            console.log(currencySymbol);
+
+            makeCard(currencyCode, currencySymbol);
         });
+
 };
 
 // Run functions when form button is clicked
@@ -111,17 +116,17 @@ $("#curSubmit").on("click", function (event) {
     event.preventDefault();
     let chosenCurrency = $("#currencies").val();
     currencyCode = chosenCurrency.substring(0, 3);
-    console.log(currencyCode);
+    // console.log(currencyCode);
     fetchCurrency(currencyCode);
-    makeCard(chosenCurrency);
 });
 
 // Make card with API info
-function makeCard(chosenCurrency) {
+function makeCard(currencyCode, currencySymbol) {
     let main = $("#main");
     let card = $("<div>");
     card.attr("class", "card col-md-2");
-    card.append("<h3>" + chosenCurrency + "</h3>");
+    card.append("<h5>" + currencyCode + "</h5>");
+    card.append("<p>" + currencySymbol + "1 is worth £" + "NUMBER GOES HERE (GBP) today." + "</p>")
     main.append(card);
 };
 
