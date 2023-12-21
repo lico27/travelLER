@@ -1,8 +1,8 @@
 // Make currency dropdown
-var startLocation = $("#start-location").val()
-var destination = $("#destination").val()
-var startDate = $("#start-date").val()
-var endDate = $("#end-date").val()
+var startLocation;
+var destination;
+var startDate;
+var endDate;
 var searchCriteria = $("#text-criteria")
 var dateInputEl = $('#datepicker');
 
@@ -10,6 +10,11 @@ var dateInputEl = $('#datepicker');
 // retrieve search info
 $("#search-submit").on("click", function (event) {
     event.preventDefault()
+
+    startLocation = $("#start-location").val()
+    destination = $("#destination").val()
+    startDate = $("#start-date").val()
+    endDate = $("#end-date").val()
 
     console.log(destination)
     console.log(startDate)
