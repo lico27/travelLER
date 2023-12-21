@@ -56,10 +56,29 @@ function renderItinerary(startDate) {
     var days = holidayDate.diff(today, "days");
     console.log(days)
 
-
+    // append the days and destination into a sentence
     var holidayCountdown = $("<p>")
     holidayCountdown.text(days + " days until your trip to " + $("#destination").val() + "!")
     $(".itinerary-card-text").append(holidayCountdown)
+
+    // calculate length of holiday
+    var holidayEndDate = dayjs($("#end-date").val())
+
+    var holidayLength = holidayEndDate.diff(holidayDate, "days")
+
+
+    // loop through each day and create an activity box for each
+    for (var i=0; i<holidayLength; i++) {
+        var dayBox = $("<div>")
+        var dayBoxHeading = $("<p>")
+        var dayActivity = $("<input>")
+
+        dayBoxHeading.text("Day " + i)
+
+        dayBox.append(dayBoxHeading)
+        dayBox.append(dayActivity)
+        $("#itinerary-card-body").append(dayBox)
+    }
 }
 
 // event listener to save itinerary to local storage - ROSIE

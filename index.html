@@ -54,30 +54,29 @@
                 </div>
             </div>
 
-
-
             <div class="form-inline form-group">
             </div>
         </form>
 
         <!-- main content  -->
         <div>
-            <h3 id="text-criteria" class="text-center">Display search criteria here?</h3>
+            <h3 id="text-criteria" class="text-center">All the information you need to plan your holiday</h3>
             <br>
 
-        <section class="row card-group m-3">
-            <div class="col-lg-4 h-100">
-                <div class="card rounded-3 border-black p-1" id="weather-card">
-                    <div class="card-body">
-                        <h5 class="card-title" id="weather-title">Weather</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">5 Day Forecast:</h6>
-                        <div class="card-text" id="weather-append"></div>
+            <section class="row card-group m-3">
+
+                <!-- weather div (one column)  -->
+                <div class="col-lg-4 h-100">
+                    <div class="card rounded-3 border-black p-1" id="weather-card">
+                        <div class="card-body">
+                            <h5 class="card-title" id="weather-title">Weather</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">5 Day Forecast:</h6>
+                            <div class="card-text" id="weather-append"></div>
+                        </div>
                     </div>
                 </div>
-            </div>      
 
-            <div class="card border-white col-lg-4 h-100">
-
+                <!-- news and currency div (one column) -->
                 <div class="card border-white col-lg-4 h-100">
 
                     <div class="card rounded-3 border-black p-1" id="flights-card">
@@ -91,16 +90,17 @@
                     <div class="card rounded-3 border-black p-1" id="currency-card">
                         <div class="card-body">
                             <h5 class="card-title">Currency</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Check the currency conversion before your trip!</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Check the currency conversion before your trip!
+                            </h6>
                             <p class="card-text"></p>
-    
+
                             <form action="#" class="d-flex align-middle">
                                 <select name="currencies" id="currencies" class="form-select h-100">
                                     <option value="select">Choose your local currency</option>
                                 </select>
                                 <input type="submit" value="Submit" id="curSubmit" class="btn btn-danger h-100" />
                             </form>
-    
+
                             <div id="currencyMain">
                             </div>
                         </div>
@@ -108,36 +108,36 @@
 
                 </div>
 
-
+                <!-- itinerary div (one column) -->
                 <div class="col-lg-4 h-100">
                     <div class="card rounded-3 border-black p-1" id="itinerary-card">
-                        <div class="card-body h-100">
+                        <div id="itinerary-card-body" class="card-body h-100">
                             <h5 class="card-title">My Itinerary</h5>
                             <h6 class="card-subtitle mb-2 text-muted">View your saved data</h6>
-                            <p class="itinerary-card-text"></p>
+                            <p class="card-text"></p>
                         </div>
+                        <button id="save-itinerary" type="submit" class="btn btn-primary">Save itinerary</button>
                     </div>
                 </div>
 
             </section>
 
-        </div>
-        <!-- footer  -->
-        <footer>
-            <div class="container m-3 p-3">
-                <p>&copy; Your Website 2020. All Rights Reserved.</p>
+            <!-- footer  -->
+            <footer>
+                <div class="container m-3 p-3">
+                    <p>&copy; Your Website 2020. All Rights Reserved.</p>
 
-            </div>
-        </footer>
+                </div>
+            </footer>
 
 
-        <!-- Day.js -->
-        <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-        <!-- jQuery -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-        <script src="./Assets/js/script.js"></script>
+            <!-- Day.js -->
+            <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+            <!-- jQuery -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+            <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+            <script src="./Assets/js/script.js"></script>
 </body>
 
 </html>
