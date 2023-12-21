@@ -33,12 +33,13 @@
                     Search for a Destination:
                 </h2>
 
+                <!-- select location -->
                 <div class="input-group m-3 p-3 d-flex justify-content-center align-item">
-                    <!-- select location -->
-                    <div id="location-inputs" class="d-flex p-3 h-100">
-                        <!-- <input type="text" class="d-flex m-1 p-1" id="start-location" placeholder="Start Location"> -->
-                        <input type="text" class="d-flex m-1 p-1" id="destination" placeholder="Where are you going?">
-                    </div>
+                    <form action="#" class="d-flex align-middle">
+                        <select name="cities" id="destination" class="form-select h-100">
+                            <option value="select">Where are you going?</option>
+                        </select>
+                    
 
                     <!-- select dates -->
                     <div id="date-inputs" class="d-flex p-3 h-100">
@@ -138,6 +139,7 @@
             <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
             <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
             <script src="./Assets/js/script.js"></script>
+            <script src="Assets/js/cities.js"></script>
 </body>
 
 </html>

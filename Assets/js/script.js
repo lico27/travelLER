@@ -177,13 +177,13 @@ $("#curSubmit").on("click", function (event) {
     fetchCurrency(currencyCode);
 });
 
-// Make card with API info
+// Make currency card with API info
 function makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, conversionRate2) {
     let card = $("<div>");
     card.attr("class", "card col-md-2");
     card.attr("id", "currencyCard");
     card.append("<h5>" + "Currency conversion: " + currencyCode + " to GBP" + "</h5>");
-    card.append("<p>" + currencySymbol + " 1 is worth £" + conversionRate2 + " (GBP) today." + "</p>");
+    card.append("<p>" + currencySymbol + " 1 is worth £" + conversionRate2 + " today." + "</p>");
     card.append("<p>" + " £ 1 is worth " + conversionRate1 + " " + currencyName + "." + "</p>");
     currencyMain.append(card);
 };
@@ -304,7 +304,6 @@ function getNewsInfo(destination) {
 $(function () {
     $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
 });
-
 
 
 
