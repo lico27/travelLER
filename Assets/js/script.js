@@ -1,4 +1,8 @@
 // Make currency dropdown
+
+var dateInputEl = $('#datepicker');
+
+// Make currency dropdown
 let currencies = $("#currencies");
 let currencyList = [
     "EUR - Euro",
@@ -62,12 +66,11 @@ $("#curSubmit").on("click", function(event) {
 });
 
 // Make card with API info
-function makeCard (chosenCurrency, currencySymbol) {
+function makeCard(chosenCurrency) {
     let main = $("#main");
     let card = $("<div>");
     card.attr("class", "card col-md-2");
-    card.append("<h4>" + chosenCurrency + "</h4>");
-    card.append("<p>" + currencySymbol + "1 = £??" + "</p>");
+    card.append("<h3>" + chosenCurrency + "</h3>");
     main.append(card);
 };
 
@@ -180,3 +183,32 @@ function renderWeather(i, properDate, weatherIcon, temp, wind, humidity){
         newContainerDiv.append(newH5, newDiv);
         $('#weather-append').append(newContainerDiv);
 };
+// date picker
+$( function() {
+    $( ".datepicker" ).datepicker({ dateFormat: "dd-mm-yy" });
+  } );
+  
+// retrieve search info
+
+$("#search-submit").on("click", function(event){
+    event.preventDefault()
+
+var startLocation = $("#start-location")
+var destination = $("#destination").val()
+var startDate = $("#start-date").val()
+var endDate = $("#end-date")
+var searchCriteria = $("#text-criteria")
+
+
+
+console.log(destination)
+console.log(startDate)
+
+
+if (startLocation && destination && startDate && endDate) {
+    searchCriteria.text("Your holiday to " + destination + " on " + startDate)
+} else {
+searchCriteria.text("Please complete all fields")
+}
+})
+
