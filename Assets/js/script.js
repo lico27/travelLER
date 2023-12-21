@@ -5,6 +5,7 @@ var startDate;
 var endDate;
 var searchCriteria = $("#text-criteria")
 var dateInputEl = $('#datepicker');
+var currencyMain = $("#currencyMain");
 
 // submit event listener (save search)
 // retrieve search info
@@ -27,17 +28,52 @@ $("#search-submit").on("click", function (event) {
 
     getWeatherForecast(destination);
     getNewsInfo(destination);
+    renderItinerary(startDate);
 
     // save search to local storage
+
+
 })
 
 // event listener to retrieve search
 // repopulate the other three cards based on previous search criteria
 
+
+// function to render search into itinerary
+function renderItinerary(startDate) {
+    // calculate days until holiday
+
+    // dayjs object for date of holiday
+    // console.log(typeof startDate)
+    var holidayDate = dayjs(startDate)
+
+    console.log(holidayDate)
+
+    // dayjs object for today
+    var today = dayjs().format("YYYY-MM-DD");
+    console.log(today)
+
+    // number of days between holiday and today
+    var days = holidayDate.diff(today, "days");
+    console.log(days)
+
+
+    var holidayCountdown = $("<p>")
+    holidayCountdown.text(days + " days until your trip to " + $("#destination").val() + "!")
+    $(".itinerary-card-text").append(holidayCountdown)
+}
+
 // event listener to save itinerary to local storage - ROSIE
+$("#save-itinerary").on("click", saveItinerary())
+
+function saveItinerary() {
+
+}
 
 // event listener to retrieve itinerary from local storage - ROSIE
+function retrieveItinerary() {
 
+}
 
 
 // Make currency dropdown
@@ -85,32 +121,52 @@ for (let i = 0; i < currencyList.length; i++) {
 
 // Fetch currency data from API
 function fetchCurrency(currencyCode) {
-    let queryURLCurrency = "https://api.freecurrencyapi.com/v1/currencies?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=" + currencyCode + "&base_currency=" + currencyCode;
-    fetch(queryURLCurrency)
-        .then(function (responseCurrency) {
-            return responseCurrency.json();
-        }).then(function (dataCurrency) {
-            console.log(dataCurrency);
+    let queryURLConversion1 = "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=GBP&base_currency=" + currencyCode;
+    let queryURLConversion2 = "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=" + currencyCode + "&base_currency=GBP";
+    fetch(queryURLConversion1)
+    .then(function (responseConversion1) {
+        return responseConversion1.json();
+    }).then(function (dataConversion1) {
+        let conversionRate1 = dataConversion1.data.GBP.toFixed(4);
+
+        fetch(queryURLConversion2)
+        .then(function (responseConversion2) {
+            return responseConversion2.json();
+        }).then(function (dataConversion2) {
+            let conversionRate2 = dataConversion2.data[currencyCode].toFixed(4);
+
+        let queryURLCurrency = "https://api.freecurrencyapi.com/v1/currencies?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=" + currencyCode + "&base_currency=" + currencyCode;
+        fetch(queryURLCurrency)
+            .then(function (responseCurrency) {
+                return responseCurrency.json();
+            }).then(function (dataCurrency) {
+                let currencySymbol = dataCurrency.data[currencyCode].symbol_native;
+                let currencyName = dataCurrency.data[currencyCode].name_plural;
+            makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, conversionRate2);
+            });
         });
+    });
 };
 
 // Run functions when form button is clicked
 $("#curSubmit").on("click", function (event) {
     event.preventDefault();
+    currencyMain.empty();
     let chosenCurrency = $("#currencies").val();
     currencyCode = chosenCurrency.substring(0, 3);
-    console.log(currencyCode);
+    // console.log(currencyCode);
     fetchCurrency(currencyCode);
-    makeCard(chosenCurrency);
 });
 
 // Make card with API info
-function makeCard(chosenCurrency) {
-    let main = $("#main");
+function makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, conversionRate2) {
     let card = $("<div>");
     card.attr("class", "card col-md-2");
-    card.append("<h3>" + chosenCurrency + "</h3>");
-    main.append(card);
+    card.attr("id", "currencyCard");
+    card.append("<h5>" + "Currency conversion: " + currencyCode + " to GBP" + "</h5>");
+    card.append("<p>" + currencySymbol + " 1 is worth £" + conversionRate2 + " (GBP) today." + "</p>");
+    card.append("<p>" + " £ 1 is worth " + conversionRate1 + " " + currencyName + "." + "</p>");
+    currencyMain.append(card);
 };
 
 
@@ -227,7 +283,7 @@ function getNewsInfo(destination) {
 
 // date picker
 $(function () {
-    $(".datepicker").datepicker({ dateFormat: "dd-mm-yy" });
+    $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
 });
 
 
