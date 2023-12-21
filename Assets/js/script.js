@@ -95,7 +95,11 @@ var searchCriteria = $("#text-criteria")
 console.log(destination)
 console.log(startDate)
 
-searchCriteria.text("Your holiday to " + destination + " on " + startDate)
 
+if (startLocation && destination && startDate && endDate) {
+    searchCriteria.text("Your holiday to " + destination + " on " + startDate)
+} else {
+searchCriteria.text("Please complete all fields")
+}
 })
 
