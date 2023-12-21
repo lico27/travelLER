@@ -29,41 +29,41 @@
         <form id="search-form" class="form bg-light p-3 mb-3">
 
             <div class=" form-inline form-group col-lg-12">
-            <h2 id="form-heading" class="my-3 h3 form-label text-center">
-                Search for a Destination:
-            </h2>
+                <h2 id="form-heading" class="my-3 h3 form-label text-center">
+                    Search for a Destination:
+                </h2>
 
-            <div class="input-group m-3 p-3 d-flex justify-content-center align-item">
-                <!-- select location -->
-                <div id="location-inputs" class="d-flex p-3 h-100">
-                    <input type="text" class="d-flex m-1 p-1" id="start-location" placeholder="Start Location">
-                    <input type="text" class="d-flex m-1 p-1" id="destination" placeholder="Destination">
-                </div>
+                <div class="input-group m-3 p-3 d-flex justify-content-center align-item">
+                    <!-- select location -->
+                    <div id="location-inputs" class="d-flex p-3 h-100">
+                        <!-- <input type="text" class="d-flex m-1 p-1" id="start-location" placeholder="Start Location"> -->
+                        <input type="text" class="d-flex m-1 p-1" id="destination" placeholder="Where are you going?">
+                    </div>
 
-                <!-- select dates -->
-                <div id="date-inputs" class="d-flex p-3 h-100">
-                    <input type="text" id="start-date" class="datepicker m-1 p-1" placeholder="Departure Date" />
-                    <input type="text" id="end-date" class="datepicker m-1 p-1" placeholder="Return Date" />
+                    <!-- select dates -->
+                    <div id="date-inputs" class="d-flex p-3 h-100">
+                        <input type="text" id="start-date" class="datepicker m-1 p-1" placeholder="Departure Date" />
+                        <input type="text" id="end-date" class="datepicker m-1 p-1" placeholder="Return Date" />
 
-                </div>
+                    </div>
 
-                <!-- submit  -->
-                <div id="search-submit" class="d-flex h-100 m-0 p-2">
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <!-- submit  -->
+                    <div id="search-submit" class="d-flex h-100 m-0 p-2">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
                 </div>
             </div>
-    </div>
 
 
 
-    <div class="form-inline form-group">
-    </div>
-    </form>
+            <div class="form-inline form-group">
+            </div>
+        </form>
 
-    <!-- main content  -->
-    <div>
-        <h3 id="text-criteria" class="text-center"></h3>
-        <br>
+        <!-- main content  -->
+        <div>
+            <h3 id="text-criteria" class="text-center">Display search criteria here?</h3>
+            <br>
 
         <section class="row card-group m-3">
             <div class="col-lg-4 h-100">
@@ -104,45 +104,67 @@
                     </div>
                 </div>
 
-            </div>
+                <div class="card border-white col-lg-4 h-100">
 
-        <!-- main content  -->
-        <div>
-            <h3 class="text-center">Display search criteria here?</h3>
-            <br>
+                    <div class="card rounded-3 border-black p-1" id="flights-card">
+                        <div class="card-body h-100">
+                            <h5 class="card-title">News???</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <p class="card-text">Other API data goes here.</p>
+                        </div>
+                    </div>
 
-            <section class="row card-group m-3">
-            <div class="col-lg-4 h-100">
-                <div class="card rounded-3 border-black p-1" id="itinerary-card">
-                    <div class="card-body h-100">
-                        <h5 class="card-title">My Itinerary</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">View your saved data</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of the card's content.</p>
+                    <div class="card rounded-3 border-black p-1" id="currency-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Currency</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Check the currency conversion before your trip!
+                            </h6>
+                            <p class="card-text"></p>
+
+                            <form action="#" class="d-flex align-middle">
+                                <select name="currencies" id="currencies" class="form-select h-100">
+                                    <option value="select">Choose your local currency</option>
+                                </select>
+                                <input type="submit" value="Submit" id="curSubmit" class="btn btn-danger h-100" />
+                            </form>
+
+                            <div id="main">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-4 h-100">
+                    <div class="card rounded-3 border-black p-1" id="itinerary-card">
+                        <div class="card-body h-100">
+                            <h5 class="card-title">My Itinerary</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">View your saved data</h6>
+                            <p class="itinerary-card-text"></p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </section>
-    </div>
-
-    </div>
-    <!-- footer  -->
-    <footer>
-        <div class="container m-3 p-3">
-            <p>&copy; Your Website 2020. All Rights Reserved.</p>
+            </section>
 
         </div>
-    </footer>
+        <!-- footer  -->
+        <footer>
+            <div class="container m-3 p-3">
+                <p>&copy; Your Website 2020. All Rights Reserved.</p>
+
+            </div>
+        </footer>
 
 
-    <!-- Day.js -->
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-    <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script src="./Assets/js/script.js"></script>
+        <!-- Day.js -->
+        <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+        <!-- jQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+        <script src="./Assets/js/script.js"></script>
 </body>
 
 </html>
