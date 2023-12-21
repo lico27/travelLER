@@ -5,6 +5,7 @@ var startDate;
 var endDate;
 var searchCriteria = $("#text-criteria")
 var dateInputEl = $('#datepicker');
+var currencyMain = $("#currencyMain");
 
 // submit event listener (save search)
 // retrieve search info
@@ -89,11 +90,9 @@ function fetchCurrency(currencyCode) {
         .then(function (responseCurrency) {
             return responseCurrency.json();
         }).then(function (dataCurrency) {
-            console.log(dataCurrency);
-            let currencySymbol = dataCurrency.data[currencyCode].symbol;
-            console.log(currencySymbol);
-
-            makeCard(currencyCode, currencySymbol);
+            let currencySymbol = dataCurrency.data[currencyCode].symbol_native;
+            let currencyName = dataCurrency.data[currencyCode].name_plural;
+            makeCard(currencyCode, currencySymbol, currencyName);
         });
 
 };
@@ -101,20 +100,23 @@ function fetchCurrency(currencyCode) {
 // Run functions when form button is clicked
 $("#curSubmit").on("click", function (event) {
     event.preventDefault();
+    currencyMain.empty();
     let chosenCurrency = $("#currencies").val();
     currencyCode = chosenCurrency.substring(0, 3);
     // console.log(currencyCode);
     fetchCurrency(currencyCode);
+
 });
 
 // Make card with API info
-function makeCard(currencyCode, currencySymbol) {
-    let main = $("#main");
+function makeCard(currencyCode, currencySymbol, currencyName) {
     let card = $("<div>");
     card.attr("class", "card col-md-2");
-    card.append("<h5>" + currencyCode + "</h5>");
-    card.append("<p>" + currencySymbol + "1 is worth £" + "NUMBER GOES HERE (GBP) today." + "</p>")
-    main.append(card);
+    card.attr("id", "currencyCard");
+    card.append("<h5>" + "Currency conversion: " + currencyCode + " to GBP" + "</h5>");
+    card.append("<p>" + currencySymbol + " 1 is worth £" + "NUMBER GOES HERE (GBP) today." + "</p>");
+    card.append("<p>" + " £ 1 is worth " + "NUMBER GOES HERE " + currencyName + "." + "</p>");
+    currencyMain.append(card);
 };
 
 
