@@ -26,8 +26,9 @@ $("#search-submit").on("click", function (event) {
         searchCriteria.text("Please complete all fields")
     }
 
-    getWeatherForecast(destination)
-    renderItinerary(startDate)
+    getWeatherForecast(destination);
+    getNewsInfo(destination);
+    renderItinerary(startDate);
 
     // save search to local storage
 
@@ -170,7 +171,7 @@ function makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, c
 
 
 
-/**************************** Weather API Functions ******************************************/
+/**************************** Weather API Functions (Fetch & Render) ******************************************/
 
 //I want to get the destination the user provided (#destination) to find the weather for that location
 let isToday = true;
@@ -180,9 +181,9 @@ function getWeatherForecast(destination) {
 
     weatherDiv.empty();
 
-    let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + destination + "&units=metric&appid=6b4a10c6ed815160709463b2908e2d4d";
+    let queryURLWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + destination + "&units=metric&appid=6b4a10c6ed815160709463b2908e2d4d";
 
-    fetch(queryURL)
+    fetch(queryURLWeather)
         .then(function (response) {
             return response.json();
         }).then(function (data) {
@@ -255,6 +256,31 @@ function renderWeather(i, properDate, weatherIcon, temp, wind, humidity) {
     newContainerDiv.append(newH5, newDiv);
     $('#weather-append').append(newContainerDiv);
 };
+
+/************************ End of Weather API Functions (Fetch & Render) ******************************************/
+
+
+/**************************** News API Functions ******************************************/
+let newsDiv = $('#flights-append');
+
+function getNewsInfo(destination) {
+
+    // newsDiv.empty();
+
+    let queryURLNews = "https://gnews.io/api/v4/search?q=" + destination + "&max=10&token=70cdb701813ebdb29d8d18237c3a045e"
+
+
+    fetch(queryURLNews)
+        .then(function (response) {
+            return response.json();
+        }).then(function (newsData) {
+            console.log('News data object:');
+            console.log(newsData);
+    });
+};
+
+/************************ End of News API Functions ******************************************/
+
 // date picker
 $(function () {
     $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
