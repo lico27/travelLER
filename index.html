@@ -65,13 +65,41 @@
             <h3 id="text-criteria" class="text-center">Display search criteria here?</h3>
             <br>
 
-            <section class="row card-group m-3">
-                <div class="col-lg-4 h-100">
-                    <div class="card rounded-3 border-black p-1" id="weather-card">
-                        <div class="card-body">
-                            <h5 class="card-title" id="weather-title">Weather</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">5 Day Forecast:</h6>
-                            <div class="card-text" id="weather-append"></div>
+        <section class="row card-group m-3">
+            <div class="col-lg-4 h-100">
+                <div class="card rounded-3 border-black p-1" id="weather-card">
+                    <div class="card-body">
+                        <h5 class="card-title" id="weather-title">Weather</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">5 Day Forecast:</h6>
+                        <div class="card-text" id="weather-append"></div>
+                    </div>
+                </div>
+            </div>      
+
+            <div class="card border-white col-lg-4 h-100">
+
+                <div class="card rounded-3 border-black p-1" id="flights-card">
+                    <div class="card-body h-100">
+                        <h5 class="card-title">Flights</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text">Flight API data goes here.</p>
+                    </div>
+                </div>
+
+                <div class="card rounded-3 border-black p-1" id="currency-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Currency</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Check the currency conversion before your trip!</h6>
+                        <p class="card-text"></p>
+
+                        <form action="#" class="d-flex align-middle">
+                            <select name="currencies" id="currencies" class="form-select h-100">
+                                <option value="select">Choose your local currency</option>
+                            </select>
+                            <input type="submit" value="Submit" id="curSubmit" class="btn btn-danger h-100" />
+                        </form>
+
+                        <div id="currencyMain">
                         </div>
                     </div>
                 </div>
