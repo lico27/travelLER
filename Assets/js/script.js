@@ -33,10 +33,23 @@ $("#search-submit").on("click", function (event) {
 // event listener to retrieve search
 // repopulate the other three cards based on previous search criteria
 
+// function to render search into itinerary
+function renderItinerary() {
+    var itineraryDiv = $("<div>")
+    itineraryDiv.attr('class', '');
+}
+
 // event listener to save itinerary to local storage - ROSIE
+$("#save-itinerary").on("click", saveItinerary())
+
+function saveItinerary() {
+
+}
 
 // event listener to retrieve itinerary from local storage - ROSIE
+function retrieveItinerary() {
 
+}
 
 
 // Make currency dropdown
