@@ -120,16 +120,31 @@ for (let i = 0; i < currencyList.length; i++) {
 
 // Fetch currency data from API
 function fetchCurrency(currencyCode) {
-    let queryURLCurrency = "https://api.freecurrencyapi.com/v1/currencies?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=" + currencyCode + "&base_currency=" + currencyCode;
-    fetch(queryURLCurrency)
-        .then(function (responseCurrency) {
-            return responseCurrency.json();
-        }).then(function (dataCurrency) {
-            let currencySymbol = dataCurrency.data[currencyCode].symbol_native;
-            let currencyName = dataCurrency.data[currencyCode].name_plural;
-            makeCard(currencyCode, currencySymbol, currencyName);
-        });
+    let queryURLConversion1 = "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=GBP&base_currency=" + currencyCode;
+    let queryURLConversion2 = "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=" + currencyCode + "&base_currency=GBP";
+    fetch(queryURLConversion1)
+    .then(function (responseConversion1) {
+        return responseConversion1.json();
+    }).then(function (dataConversion1) {
+        let conversionRate1 = dataConversion1.data.GBP.toFixed(4);
 
+        fetch(queryURLConversion2)
+        .then(function (responseConversion2) {
+            return responseConversion2.json();
+        }).then(function (dataConversion2) {
+            let conversionRate2 = dataConversion2.data[currencyCode].toFixed(4);
+
+        let queryURLCurrency = "https://api.freecurrencyapi.com/v1/currencies?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=" + currencyCode + "&base_currency=" + currencyCode;
+        fetch(queryURLCurrency)
+            .then(function (responseCurrency) {
+                return responseCurrency.json();
+            }).then(function (dataCurrency) {
+                let currencySymbol = dataCurrency.data[currencyCode].symbol_native;
+                let currencyName = dataCurrency.data[currencyCode].name_plural;
+            makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, conversionRate2);
+            });
+        });
+    });
 };
 
 // Run functions when form button is clicked
@@ -140,17 +155,16 @@ $("#curSubmit").on("click", function (event) {
     currencyCode = chosenCurrency.substring(0, 3);
     // console.log(currencyCode);
     fetchCurrency(currencyCode);
-
 });
 
 // Make card with API info
-function makeCard(currencyCode, currencySymbol, currencyName) {
+function makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, conversionRate2) {
     let card = $("<div>");
     card.attr("class", "card col-md-2");
     card.attr("id", "currencyCard");
     card.append("<h5>" + "Currency conversion: " + currencyCode + " to GBP" + "</h5>");
-    card.append("<p>" + currencySymbol + " 1 is worth £" + "NUMBER GOES HERE (GBP) today." + "</p>");
-    card.append("<p>" + " £ 1 is worth " + "NUMBER GOES HERE " + currencyName + "." + "</p>");
+    card.append("<p>" + currencySymbol + " 1 is worth £" + conversionRate2 + " (GBP) today." + "</p>");
+    card.append("<p>" + " £ 1 is worth " + conversionRate1 + " " + currencyName + "." + "</p>");
     currencyMain.append(card);
 };
 
