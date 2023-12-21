@@ -26,17 +26,39 @@ $("#search-submit").on("click", function (event) {
     }
 
     getWeatherForecast(destination)
+    renderItinerary(startDate)
 
     // save search to local storage
+
+
 })
 
 // event listener to retrieve search
 // repopulate the other three cards based on previous search criteria
 
+
 // function to render search into itinerary
-function renderItinerary() {
-    var itineraryDiv = $("<div>")
-    itineraryDiv.attr('class', '');
+function renderItinerary(startDate) {
+    // calculate days until holiday
+
+    // dayjs object for date of holiday
+    // console.log(typeof startDate)
+    var holidayDate = dayjs(startDate)
+
+    console.log(holidayDate)
+
+    // dayjs object for today
+    var today = dayjs().format("YYYY-MM-DD");
+    console.log(today)
+
+    // number of days between holiday and today
+    var days = holidayDate.diff(today, "days");
+    console.log(days)
+
+
+    var holidayCountdown = $("<p>")
+    holidayCountdown.text(days + " days until your trip to " + $("#destination").val() + "!")
+    $(".itinerary-card-text").append(holidayCountdown)
 }
 
 // event listener to save itinerary to local storage - ROSIE
@@ -219,7 +241,7 @@ function renderWeather(i, properDate, weatherIcon, temp, wind, humidity) {
 };
 // date picker
 $(function () {
-    $(".datepicker").datepicker({ dateFormat: "dd-mm-yy" });
+    $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
 });
 
 
