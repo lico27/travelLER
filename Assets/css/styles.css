@@ -12,6 +12,7 @@ h5 {
 }
 
 #currencyCard {
+    width: 90%;
     padding: 10px;
     margin: 0 0 0 10px;
 }
