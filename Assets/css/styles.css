@@ -11,8 +11,17 @@ h5 {
     font-size: 18px;
 }
 
+.hide {
+    display: none;
+}
+
 #currencyCard {
     width: 90%;
     padding: 10px;
     margin: 0 0 0 10px;
+}
+
+#search-history {
+    width: 90%;
+    margin: auto;
 }
