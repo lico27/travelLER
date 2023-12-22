@@ -6,7 +6,8 @@ var endDate;
 var searchCriteria = $("#text-criteria")
 var dateInputEl = $('#datepicker');
 var currencyMain = $("#currencyMain");
-
+var arrCities = [];
+let historySection = $("#history-container");
 
 // submit event listener (save search)
 // retrieve search info
@@ -28,21 +29,30 @@ $("#search-submit").on("click", function (event) {
         searchCriteria.text("Please complete all fields")
     }
 
+    // Call functions
     getWeatherForecast(destination);
     getNewsInfo(destination);
     renderItinerary(startDate);
-    
-
-    // save search to local storage
-    function buildHistory() {
-        
-    };
- 
+    buildHistory();
 })
 
-// event listener to retrieve search
-// repopulate the other three cards based on previous search criteria
+// Function to save search to local storage
+function buildHistory() {
+    arrCities.push(destination);
+    let stringCities = JSON.stringify(arrCities);
+    localStorage.setItem("cities", stringCities);
+    let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory");
+    historySection.prepend(storedCity);  
+};
 
+// event listener to retrieve search
+
+if (localStorage.getItem("cities")) {
+    arrCities = JSON.parse(localStorage.getItem("cities"));
+    // historySection.empty();
+    };
+
+// repopulate the other three cards based on previous search criteria
 
 // function to render search into itinerary
 function renderItinerary(startDate) {
