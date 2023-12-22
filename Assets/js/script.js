@@ -41,40 +41,41 @@ $("#search-submit").on("click", function (event) {
 
 // function to render search into itinerary
 function renderItinerary(startDate) {
-    // calculate days until holiday
+
+ 
+
+    var holidayCountdown = $("<p>")
+    var dayBoxHeading
 
     // dayjs object for date of holiday
-    // console.log(typeof startDate)
     var holidayDate = dayjs(startDate)
-
-    console.log(holidayDate)
+    var holidayEndDate = dayjs($("#end-date").val())
 
     // dayjs object for today
     var today = dayjs().format("YYYY-MM-DD");
-    console.log(today)
 
+    // calculate days until holiday
     // number of days between holiday and today
     var days = holidayDate.diff(today, "days");
-    console.log(days)
 
     // append the days and destination into a sentence
-    var holidayCountdown = $("<p>")
-    holidayCountdown.text(days + " days until your trip to " + $("#destination").val() + "!")
+    holidayCountdown.text(days + " day(s) until your trip to " + $("#destination").val() + "!")
     $(".itinerary-card-text").append(holidayCountdown)
 
     // calculate length of holiday
-    var holidayEndDate = dayjs($("#end-date").val())
-
     var holidayLength = holidayEndDate.diff(holidayDate, "days")
 
 
-    // loop through each day and create an activity box for each
-    for (var i=0; i<holidayLength; i++) {
+    // loop through each day of holiday and create an activity box for each
+    for (var i = 0; i < holidayLength; i++) {
         var dayBox = $("<div>")
-        var dayBoxHeading = $("<p>")
+        dayBoxHeading = $("<p>")
         var dayActivity = $("<input>")
 
-        dayBoxHeading.text("Day " + i)
+        dayActivity.attr("placeholder", "Plan your activities here and then hit save")
+        dayBoxHeading.text("Day " + (i + 1) + " in " + $("#destination").val())
+        dayBoxHeading.addClass("pt-2")
+        // console.log("Day " + i)
 
         dayBox.append(dayBoxHeading)
         dayBox.append(dayActivity)
@@ -143,28 +144,28 @@ function fetchCurrency(currencyCode) {
     let queryURLConversion1 = "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=GBP&base_currency=" + currencyCode;
     let queryURLConversion2 = "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=" + currencyCode + "&base_currency=GBP";
     fetch(queryURLConversion1)
-    .then(function (responseConversion1) {
-        return responseConversion1.json();
-    }).then(function (dataConversion1) {
-        let conversionRate1 = dataConversion1.data.GBP.toFixed(4);
+        .then(function (responseConversion1) {
+            return responseConversion1.json();
+        }).then(function (dataConversion1) {
+            let conversionRate1 = dataConversion1.data.GBP.toFixed(4);
 
-        fetch(queryURLConversion2)
-        .then(function (responseConversion2) {
-            return responseConversion2.json();
-        }).then(function (dataConversion2) {
-            let conversionRate2 = dataConversion2.data[currencyCode].toFixed(4);
+            fetch(queryURLConversion2)
+                .then(function (responseConversion2) {
+                    return responseConversion2.json();
+                }).then(function (dataConversion2) {
+                    let conversionRate2 = dataConversion2.data[currencyCode].toFixed(4);
 
-        let queryURLCurrency = "https://api.freecurrencyapi.com/v1/currencies?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=" + currencyCode + "&base_currency=" + currencyCode;
-        fetch(queryURLCurrency)
-            .then(function (responseCurrency) {
-                return responseCurrency.json();
-            }).then(function (dataCurrency) {
-                let currencySymbol = dataCurrency.data[currencyCode].symbol_native;
-                let currencyName = dataCurrency.data[currencyCode].name_plural;
-            makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, conversionRate2);
-            });
+                    let queryURLCurrency = "https://api.freecurrencyapi.com/v1/currencies?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=" + currencyCode + "&base_currency=" + currencyCode;
+                    fetch(queryURLCurrency)
+                        .then(function (responseCurrency) {
+                            return responseCurrency.json();
+                        }).then(function (dataCurrency) {
+                            let currencySymbol = dataCurrency.data[currencyCode].symbol_native;
+                            let currencyName = dataCurrency.data[currencyCode].name_plural;
+                            makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, conversionRate2);
+                        });
+                });
         });
-    });
 };
 
 // Run functions when form button is clicked
@@ -295,7 +296,7 @@ function getNewsInfo(destination) {
         }).then(function (newsData) {
             console.log('News data object:');
             console.log(newsData);
-    });
+        });
 };
 
 /************************ End of News API Functions ******************************************/
