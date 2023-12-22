@@ -47,12 +47,16 @@ function buildHistory() {
 
 // event listener to retrieve search
 
+
 if (localStorage.getItem("cities")) {
     arrCities = JSON.parse(localStorage.getItem("cities"));
     // historySection.empty();
     };
 
 // repopulate the other three cards based on previous search criteria
+
+/**************************** Itinerary Functions ******************************************/
+
 
 // function to render search into itinerary
 function renderItinerary(startDate) {
@@ -84,17 +88,30 @@ function renderItinerary(startDate) {
     for (var i = 0; i < holidayLength; i++) {
 
         var dayBox = $("<div>")
-        dayBoxHeading = $("<p>")
-        var dayActivity = $("<input>")
 
-        dayActivity.attr("placeholder", "Plan your activities here and then hit save")
-        dayActivity.addClass("flex-row")
-        dayBoxHeading.text("Day " + (i + 1) + " in " + $("#destination").val())
-        dayBoxHeading.addClass("pt-2")
-        // console.log("Day " + i)
+        var dayActivityDiv = $("<div>")
+        var dayActivitySpan = $("<span>")
+        var dayActivityInput = $("<input>")
 
-        dayBox.append(dayBoxHeading)
-        dayBox.append(dayActivity)
+        // input for user's plans
+        dayActivityInput.attr("placeholder", "Plan your activities here and then hit save")
+        dayActivityInput.attr("type", "text")
+        // dayActivityInput.addClass("flex-row input-group")
+
+        // section attached to each input box with the day
+        dayActivitySpan.text("Day " + (i + 1))
+        dayActivitySpan.addClass("input-group-text")
+
+        // add padding between day divs
+        dayActivityDiv.addClass("py-3 input-group")
+
+        // append the span and input box to each day's activity div
+        dayActivityDiv.append(dayActivitySpan)
+        dayActivityDiv.append(dayActivityInput)
+
+
+        // dayBox.append(dayBoxHeading)
+        dayBox.append(dayActivityDiv)
         $("#itinerary-card-text").append(dayBox)
     }
 }
@@ -110,6 +127,8 @@ function saveItinerary() {
 function retrieveItinerary() {
 
 }
+
+/**************************** End of Itinerary Functions ******************************************/
 
 /**************************** Currencies API Functions (Fetch & Render) ******************************************/
 
