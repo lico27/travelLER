@@ -46,8 +46,8 @@
 
                                     <!-- select dates -->
                                     <div id="date-inputs" class="d-flex p-3 h-100">
-                                        <input type="text" id="start-date" class="datepicker m-1 p-1 " autocomplete="off"
-                                            placeholder="Departure Date" />
+                                        <input type="text" id="start-date" class="datepicker m-1 p-1 "
+                                            autocomplete="off" placeholder="Departure Date" />
                                         <input type="text" id="end-date" class="datepicker m-1 p-1" autocomplete="off"
                                             placeholder="Return Date" />
 
@@ -128,15 +128,23 @@
                             <div id="itinerary-card-text"></div>
                         </div>
                         <button id="save-itinerary" type="submit" class="btn btn-primary">Save itinerary</button>
+                        <button id="clear-itinerary" type="submit" class="btn btn-light" data-bs-toggle="modal"
+                            data-target="#exampleModal">Clear itinerary</button>
+
                     </div>
                 </div>
 
+
+
             </section>
 
-            <section id="search-history" class="hi/de">
-                <div class="card rounded-3 border-black p-1" id="flights-card">
-                    <div class="card-body h-100">
-                        <h5 class="card-title">Search History</h5>
+            <section id="past-searches">
+                <div class="card rounded-3 border-black p-1">
+                    <div class="card-body h-100" id="history">
+                        <h5 class="card-title">Trip History</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Click to view past searches</h6>
+                        <div id="history-container">
+                        </div>
                     </div>
                 </div>
             </section>
@@ -149,15 +157,17 @@
                 </div>
             </footer>
 
+        </div>
 
-            <!-- Day.js -->
-            <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-            <!-- jQuery -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-            <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-            <script src="./Assets/js/script.js"></script>
-            <script src="Assets/js/cities.js"></script>
+
+        <!-- Day.js -->
+        <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+        <!-- jQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+        <script src="./Assets/js/script.js"></script>
+        <script src="Assets/js/cities.js"></script>
 </body>
 
 </html>
