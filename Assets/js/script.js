@@ -251,12 +251,12 @@ function renderWeather(i, properDate, weatherIcon, temp, wind, humidity) {
     const newContainerDiv = $('<div>');
     newContainerDiv.attr({ 'id': `weather-${i}`, 'class': 'my-2 p-2' });
     newContainerDiv.css({ 'background-color': '#304356', 'color': 'white', 'border-radius': '5px' });
-    const newH5 = $('<h6>').text(properDate).attr('class', ' mb-0');
+    const newH6 = $('<h6>').text(properDate).attr('class', ' mb-0');
 
     const newImg = $('<img>');
     newImg.attr('src', weatherIcon);
     newImg.css('height', '25px');
-    newH5.append(newImg);
+    newH6.append(newImg);
 
     const newDiv = $('<div>');
     newDiv.attr('class', 'row mx-auto');
@@ -278,7 +278,7 @@ function renderWeather(i, properDate, weatherIcon, temp, wind, humidity) {
 
     newDiv.append(newTemp, newWind, newHumidity)
 
-    newContainerDiv.append(newH5, newDiv);
+    newContainerDiv.append(newH6, newDiv);
     $('#weather-append').append(newContainerDiv);
 };
 
@@ -286,13 +286,13 @@ function renderWeather(i, properDate, weatherIcon, temp, wind, humidity) {
 
 
 /**************************** News API Functions ******************************************/
-let newsDiv = $('#flights-append');
+let newsDiv = $('#news-append');
 
 function getNewsInfo(destination) {
 
     // newsDiv.empty();
 
-    let queryURLNews = "https://gnews.io/api/v4/search?q=" + destination + "&max=10&token=70cdb701813ebdb29d8d18237c3a045e"
+    let queryURLNews = "https://gnews.io/api/v4/search?q=" + destination + "&country=uk&max=5&token=0cdb701813ebdb29d8d18237c3a045e"// - this is my key
 
 
     fetch(queryURLNews)
@@ -301,7 +301,32 @@ function getNewsInfo(destination) {
         }).then(function (newsData) {
             console.log('News data object:');
             console.log(newsData);
+
+            $('#news-title').text(`News for ${destination}`);
+
+            for(let i = 0; i < newsData.articles.length; i++) {
+
+                let articleTitle = newsData.articles[i].title;
+                let articleDescription = newsData.articles[i].description;
+                let articleLink = newsData.articles[i].source.url;
+
+                renderNewsArticles(i, articleTitle, articleDescription, articleLink);
+            };
+
         });
+};
+
+function renderNewsArticles(i, articleTitle, articleDescription, articleLink) {
+
+    const newContainerDiv = $('<div>');
+    newContainerDiv.attr({ 'id': `news-${i}`, 'class': 'my-2 p-2' });
+    newContainerDiv.css({ 'background-color': '#304356', 'color': 'white', 'border-radius': '5px' });
+    const newH6 = $('<h6>').text(articleTitle).attr('class', ' mb-0');
+    const newP = $('<p>'). text(articleDescription);
+    const newAnchor = $('<a>').text('Click here for full story').attr('href', `${articleLink}`);
+
+    newContainerDiv.append(newH6, newP, newAnchor);
+    newsDiv.append(newContainerDiv);
 };
 
 /************************ End of News API Functions ******************************************/
