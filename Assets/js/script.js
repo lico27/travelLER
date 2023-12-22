@@ -7,6 +7,7 @@ var searchCriteria = $("#text-criteria")
 var dateInputEl = $('#datepicker');
 var currencyMain = $("#currencyMain");
 
+
 // submit event listener (save search)
 // retrieve search info
 $("#search-submit").on("click", function (event) {
@@ -33,8 +34,10 @@ $("#search-submit").on("click", function (event) {
     
 
     // save search to local storage
-
-
+    function buildHistory() {
+        
+    };
+ 
 })
 
 // event listener to retrieve search
@@ -98,6 +101,7 @@ function retrieveItinerary() {
 
 }
 
+/**************************** Currencies API Functions (Fetch & Render) ******************************************/
 
 // Make currency dropdown
 let currencies = $("#currencies");
@@ -136,7 +140,6 @@ let currencyList = [
     "THB - Thai Baht",
     "ZAR - South African Rand"
 ];
-
 for (let i = 0; i < currencyList.length; i++) {
     let eachCurrency = currencyList[i];
     currencies.append("<option>" + eachCurrency + "</option").attr("value", eachCurrency);
@@ -171,13 +174,12 @@ function fetchCurrency(currencyCode) {
         });
 };
 
-// Run functions when form button is clicked
+// Run functions when currencies search button is clicked
 $("#curSubmit").on("click", function (event) {
     event.preventDefault();
     currencyMain.empty();
     let chosenCurrency = $("#currencies").val();
     currencyCode = chosenCurrency.substring(0, 3);
-    // console.log(currencyCode);
     fetchCurrency(currencyCode);
 });
 
@@ -192,7 +194,7 @@ function makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, c
     currencyMain.append(card);
 };
 
-
+/**************************** End of Currencies API Functions (Fetch & Render) ******************************************/
 
 /**************************** Weather API Functions (Fetch & Render) ******************************************/
 
