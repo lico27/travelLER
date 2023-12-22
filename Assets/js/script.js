@@ -10,6 +10,7 @@ var currencyMain = $("#currencyMain");
 // submit event listener (save search)
 // retrieve search info
 $("#search-submit").on("click", function (event) {
+    
     event.preventDefault()
 
     startLocation = $("#start-location").val()
@@ -29,6 +30,7 @@ $("#search-submit").on("click", function (event) {
     getWeatherForecast(destination);
     getNewsInfo(destination);
     renderItinerary(startDate);
+    
 
     // save search to local storage
 
@@ -41,8 +43,7 @@ $("#search-submit").on("click", function (event) {
 
 // function to render search into itinerary
 function renderItinerary(startDate) {
-
- 
+    $("#itinerary-card-text").empty()
 
     var holidayCountdown = $("<p>")
     var dayBoxHeading
@@ -60,26 +61,28 @@ function renderItinerary(startDate) {
 
     // append the days and destination into a sentence
     holidayCountdown.text(days + " day(s) until your trip to " + $("#destination").val() + "!")
-    $(".itinerary-card-text").append(holidayCountdown)
+    $("#itinerary-card-text").append(holidayCountdown)
 
     // calculate length of holiday
     var holidayLength = holidayEndDate.diff(holidayDate, "days")
-
+    console.log(holidayLength)
 
     // loop through each day of holiday and create an activity box for each
     for (var i = 0; i < holidayLength; i++) {
+
         var dayBox = $("<div>")
         dayBoxHeading = $("<p>")
         var dayActivity = $("<input>")
 
         dayActivity.attr("placeholder", "Plan your activities here and then hit save")
+        dayActivity.addClass("flex-row")
         dayBoxHeading.text("Day " + (i + 1) + " in " + $("#destination").val())
         dayBoxHeading.addClass("pt-2")
         // console.log("Day " + i)
 
         dayBox.append(dayBoxHeading)
         dayBox.append(dayActivity)
-        $("#itinerary-card-body").append(dayBox)
+        $("#itinerary-card-text").append(dayBox)
     }
 }
 
