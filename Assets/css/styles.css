@@ -36,3 +36,7 @@ h5 {
     border: solid 1px black;
     border-radius: 7px;
 }
+
+#btnClearHistory {
+    margin: 0 0 10px 0;
+}
