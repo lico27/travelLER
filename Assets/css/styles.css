@@ -18,29 +18,31 @@ h5 {
 }
 
 #past-searches {
-    /* width: 90%; */
-    /* margin: auto; */
+    width: 90%;
+    margin: auto;
 }
 
 #history-container {
-    /* display: flexbox;
+    display: flexbox;
     flex-direction: row;
-    flex-wrap: wrap; */
+    flex-wrap: wrap;
 }
 
 .btnHistory {
-    /* text-align: center;
+    text-align: center;
     width: 18rem;
     padding: 3px;
     margin: 0 5px 5px 0;
     border: solid 1px black;
-
     border-radius: 7px;
 }
 
 #btnClearHistory {
     margin: 0 0 10px 0;
+<<<<<<< HEAD
 
-    border-radius: 7px; */
+=======
+>>>>>>> 28921f46a664b4957d1f4ff72cd3b0e0eea51afd
+    border-radius: 7px;
 
 }
