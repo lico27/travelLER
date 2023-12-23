@@ -97,9 +97,7 @@ function renderItinerary(startDate) {
         var dayActivityDiv = $("<div>")
         var dayActivitySpan = $("<span>")
         var dayActivityInput = $("<input>")
-        var dayActivityObj = {
-            
-        }
+        var dayActivityArray = []
 
         // input for user's plans
         dayActivityInput.attr("placeholder", "Plan your activities here and then hit save")
@@ -118,14 +116,14 @@ function renderItinerary(startDate) {
         dayActivityDiv.append(dayActivityInput)
 
 
-        dayActivityObj.dayActivitySpan = dayActivityInput
-        console.log(dayActivityObj)
+        // dayActivityObj.dayActivitySpan = dayActivityInput
+        // console.log(dayActivityObj)
 
         // add the content for each day to an array
-        // dayActivityArray.push(dayActivitySpan.val())
-        // dayActivityArray.push(dayActivityInput.val())
+        dayActivityArray.push(dayActivitySpan.val())
+        dayActivityArray.push(dayActivityInput.val())
 
-        // console.log(dayActivityArray)
+        console.log(dayActivityArray)
 
         // save array to local storage
         // localStorage.setItem()
