@@ -24,12 +24,12 @@
             height: 50vh;
             background-size: cover;">
 
-                <div class="">
+                <div class="row p-3">
                     <h1 class="text-center">UK Travel Dashboard</h1>
 
                     <form id="search-form" class="form p-3 mb-3">
 
-                        <div class=" form-inline form-group col-lg-12">
+                        <div class=" form-inline form-group">
                             <h2 id="form-heading" class="my-3 h3 form-label text-center">
                                 Search for a Destination:
                             </h2>
@@ -38,25 +38,27 @@
                             <div class="input-group m-3 p-3 d-flex justify-content-center">
 
                                 <!-- select location -->
-                                <form action="#" class="align-items-center justify-content-center">
-                                    <select name="cities" id="destination" class="form-select d-flex p-2 b-0 h-100">
+                                <form action="#" class="">
+
+                                    <select name="cities" id="destination" class="form-select d-flex h-100 m-1">
                                         <option value="select">Where are you going?</option>
                                     </select>
 
-
                                     <!-- select dates -->
-                                    <div id="date-inputs" class="d-flex p-3 h-100">
-                                        <input type="text" id="start-date" class="datepicker m-1 p-1 "
-                                            autocomplete="off" placeholder="Departure Date" />
-                                        <input type="text" id="end-date" class="datepicker m-1 p-1" autocomplete="off"
+                                    <div id="date-inputs" class="d-flex h-100">
+                                        <input type="text" id="start-date" class="datepicker p-1 m-1" autocomplete="off"
+                                            placeholder="Departure Date" />
+                                        <input type="text" id="end-date" class="datepicker p-1 m-1" autocomplete="off"
                                             placeholder="Return Date" />
 
                                     </div>
 
                                     <!-- submit  -->
                                     <div id="search-submit" class="d-flex h-100 m-0 p-2">
-                                        <button type="submit" class="btn btn-primary">Search</button>
+                                        <button type="submit" class="btn btn-primary d-flex h-100 m-1">Search</button>
                                     </div>
+
+                                </form>
                             </div>
                         </div>
 
@@ -138,6 +140,7 @@
 
             </section>
 
+
             <section id="past-searches">
                 <div class="card rounded-3 border-black p-1">
                     <div class="card-body h-100" id="history">
@@ -147,9 +150,18 @@
                         </button>
                         <div id="history-container">
                         </div>
+
+            <!-- <section id="past-searches" classs="row"> -->
+            <div class="card rounded-3 border-black row m-4">
+                <div class="card-body h-100" id="history">
+                    <h5 class="card-title">Trip History</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Click to view past searches</h6>
+                    <div id="history-container">
+
                     </div>
                 </div>
-            </section>
+            </div>
+            <!-- </section> -->
 
             <!-- footer  -->
             <footer>
