@@ -40,12 +40,6 @@ $("#search-submit").on("click", function (event) {
     getWeatherForecast(destination);
     getNewsInfo(destination);
     renderItinerary(startDate);
-
-    // save search to local storage
-    function buildHistory() {
-
-    };
-
     buildHistory();
 })
 
@@ -73,17 +67,6 @@ if (localStorage.getItem("cities")) {
 
         });
     };
-
-    let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory");
-    historySection.prepend(storedCity);
-};
-
-// event listener to retrieve search
-
-if (localStorage.getItem("cities")) {
-    arrCities = JSON.parse(localStorage.getItem("cities"));
-    // historySection.empty();
-
 };
 
 // repopulate the other three cards based on previous search criteria
