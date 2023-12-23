@@ -38,7 +38,7 @@ $("#search-submit").on("click", function (event) {
 
     // Call functions
     getWeatherForecast(destination);
-    getNewsInfo(destination);
+    // getNewsInfo(destination);
     renderItinerary(startDate);
 
     // save search to local storage
@@ -281,6 +281,7 @@ function makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, c
 /**************************** Weather API Functions (Fetch & Render) ******************************************/
 
 //I want to get the destination the user provided (#destination) to find the weather for that location
+let firstWeatherDate;
 let isToday = true;
 const weatherDiv = $('#weather-append');
 
@@ -295,12 +296,16 @@ function getWeatherForecast(destination) {
             return response.json();
         }).then(function (data) {
             console.log(data);
-
+           
             let apiCity = data.city.name;
-            $('#weather-title').text(`Weather for ${apiCity}`);
-
-            let timeTest = data.list[1].dt_txt.substr(11, 2);
-            console.log(timeTest);
+            if(destination == 'select'){
+                $('#weather-title').text(`Weather`);
+            }else{
+                $('#weather-title').text(`Weather for ${apiCity}`);
+            };
+            
+            let forecastLength = 0;
+            firstWeatherDate = data.list[0].dt_txt.substr(0, 10);
 
             for (let i = 0; i < data.list.length; i++) {
 
@@ -312,11 +317,15 @@ function getWeatherForecast(destination) {
                 let humidity = data.list[i].main.humidity;
                 let time = data.list[i].dt_txt.substr(11, 2); //to obtain the hour from the date text of the API - to use to show only midday forecasts
 
-                if (isToday) { // render the forecast for todays most current time  
+                if(destination == 'select'){
+                    return;
+                }else if (isToday) { // render the forecast for todays most current time  
                     renderWeather(i, properDate, weatherIcon, temp, wind, humidity);
                     isToday = false;
-                } else if (!isToday && (time == 12)) { //then only render 12pm forecasts for dates that aren't today
+                    forecastLength ++;
+                } else if (!isToday && !(apiDate == firstWeatherDate) && (time == 12) && (forecastLength < 5)) { //then only render 12pm forecasts for dates that aren't today and only renders a 5 day forecast
                     renderWeather(i, properDate, weatherIcon, temp, wind, humidity);
+                    forecastLength ++;
                 };
             };
             isToday = true; //after for loop runs, change isToday back to true so when fetchCityForecast() runs again, the today section is rendered
@@ -367,14 +376,14 @@ function renderWeather(i, properDate, weatherIcon, temp, wind, humidity) {
 /************************ End of Weather API Functions (Fetch & Render) ******************************************/
 
 
-/**************************** News API Functions ******************************************/
+/**************************** News API Functions (Fetch & Render) ******************************************/
 let newsDiv = $('#news-append');
 
 function getNewsInfo(destination) {
 
-    // newsDiv.empty();
+    newsDiv.empty();
 
-    let queryURLNews = "https://gnews.io/api/v4/search?q=" + destination + "&country=uk&max=5&token=0cdb701813ebdb29d8d18237c3a045e"// - this is my key
+    let queryURLNews = "https://gnews.io/api/v4/search?q=" + destination + "&country=uk&max=5&token=70cdb701813ebdb29d8d18237c3a045e"// - this is my key
 
 
     fetch(queryURLNews)
@@ -384,7 +393,11 @@ function getNewsInfo(destination) {
             console.log('News data object:');
             console.log(newsData);
 
-            $('#news-title').text(`News for ${destination}`);
+            if(destination == 'select'){
+                $('#news-title').text(`News`);
+            }else{
+                $('#news-title').text(`News for ${destination}`);
+            };
 
             for (let i = 0; i < newsData.articles.length; i++) {
 
@@ -392,7 +405,11 @@ function getNewsInfo(destination) {
                 let articleDescription = newsData.articles[i].description;
                 let articleLink = newsData.articles[i].source.url;
 
+                if(destination == 'select'){
+                    return;
+                }else{
                 renderNewsArticles(i, articleTitle, articleDescription, articleLink);
+                };
             };
 
         });
@@ -411,11 +428,11 @@ function renderNewsArticles(i, articleTitle, articleDescription, articleLink) {
     newsDiv.append(newContainerDiv);
 };
 
-/************************ End of News API Functions ******************************************/
+/************************ End of News API Functions (Fetch & Render) ******************************************/
 
 // date picker
 $(function () {
-    $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+    $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" }); 
 });
 
 
