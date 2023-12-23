@@ -9,7 +9,14 @@ var currencyMain = $("#currencyMain");
 var arrCities = [];
 let historySection = $("#history-container");
 
-// submit event listener (save search)
+// Clear saved and visible search history
+$("#btnClearHistory").on("click", function(event){
+    event.preventDefault();
+    historySection.empty();
+    localStorage.removeItem("cities");
+    arrCities = [];
+});
+
 // retrieve search info
 $("#search-submit").on("click", function (event) {
 
@@ -42,11 +49,31 @@ $("#search-submit").on("click", function (event) {
     buildHistory();
 })
 
-// Function to save search to local storage
+// Function to save search to local storage and display in search history
 function buildHistory() {
     arrCities.push(destination);
     let stringCities = JSON.stringify(arrCities);
     localStorage.setItem("cities", stringCities);
+
+    let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory").attr("id", destination);
+    historySection.prepend(storedCity);  
+};
+
+// event listener to retrieve search from localstorage and display in search history
+if (localStorage.getItem("cities")) {
+    arrCities = JSON.parse(localStorage.getItem("cities"));
+
+    for (let i = 0; i < arrCities.length; i++) {
+        let searchCity = arrCities[i];
+        let storedCity = $("<button>" + searchCity + "</button>").attr("class", "btn btnHistory").attr("id", destination);
+        historySection.prepend(storedCity); 
+        $("#" + searchCity).on("click", function(event){
+            event.preventDefault();
+            console.log(searchCity);
+
+        });
+    };
+
     let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory");
     historySection.prepend(storedCity);
 };
@@ -56,6 +83,7 @@ function buildHistory() {
 if (localStorage.getItem("cities")) {
     arrCities = JSON.parse(localStorage.getItem("cities"));
     // historySection.empty();
+
 };
 
 // repopulate the other three cards based on previous search criteria
