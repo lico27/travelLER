@@ -171,6 +171,11 @@ function saveItinerary() {
     // but the console.log will refer to the specific button I clicked
     console.log($(this).siblings(".day-activity").val())
 
+     // get the content for the block
+     var text = $(this).siblings(".textArea").val()
+     // ID of the parent block, access via jquery attribute method
+     var key = $(this).parent().attr("id")
+
 }
 
 function init() {
