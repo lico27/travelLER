@@ -10,7 +10,7 @@ var arrCities = [];
 let historySection = $("#history-container");
 
 // Clear saved and visible search history
-$("#btnClearHistory").on("click", function(event){
+$("#btnClearHistory").on("click", function (event) {
     event.preventDefault();
     historySection.empty();
     localStorage.removeItem("cities");
@@ -38,7 +38,7 @@ $("#search-submit").on("click", function (event) {
 
     // Call functions
     getWeatherForecast(destination);
-    getNewsInfo(destination);
+    // getNewsInfo(destination);
     renderItinerary(startDate);
     buildHistory();
 })
@@ -50,7 +50,7 @@ function buildHistory() {
     localStorage.setItem("cities", stringCities);
 
     let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory").attr("id", destination);
-    historySection.prepend(storedCity);  
+    historySection.prepend(storedCity);
 };
 
 // event listener to retrieve search from localstorage and display in search history
@@ -60,8 +60,8 @@ if (localStorage.getItem("cities")) {
     for (let i = 0; i < arrCities.length; i++) {
         let searchCity = arrCities[i];
         let storedCity = $("<button>" + searchCity + "</button>").attr("class", "btn btnHistory").attr("id", destination);
-        historySection.prepend(storedCity); 
-        $("#" + searchCity).on("click", function(event){
+        historySection.prepend(storedCity);
+        $("#" + searchCity).on("click", function (event) {
             event.preventDefault();
             console.log(searchCity);
 
@@ -72,6 +72,10 @@ if (localStorage.getItem("cities")) {
 // repopulate the other three cards based on previous search criteria
 
 /**************************** Itinerary Functions ******************************************/
+
+
+// array for daily activity objects
+var dayActivityArray = []
 
 
 // function to render search into itinerary
@@ -108,11 +112,11 @@ function renderItinerary(startDate) {
         var dayActivityDiv = $("<div>")
         var dayActivitySpan = $("<span>")
         var dayActivityInput = $("<input>")
-        var dayActivityArray = []
 
         // input for user's plans
         dayActivityInput.attr("placeholder", "Plan your activities here and then hit save")
         dayActivityInput.attr("type", "text")
+        dayActivityInput.addClass("day-activity")
         // dayActivityInput.addClass("flex-row input-group")
 
         // section attached to each input box with the day
@@ -126,43 +130,52 @@ function renderItinerary(startDate) {
         dayActivityDiv.append(dayActivitySpan)
         dayActivityDiv.append(dayActivityInput)
 
-
-        // dayActivityObj.dayActivitySpan = dayActivityInput
-        // console.log(dayActivityObj)
-
-        // add the content for each day to an array
-        dayActivityArray.push(dayActivitySpan.val())
-        dayActivityArray.push(dayActivityInput.val())
-
-        console.log(dayActivityArray)
-
-        // save array to local storage
-        // localStorage.setItem()
-
-
         // dayBox.append(dayBoxHeading)
         dayBox.append(dayActivityDiv)
         $("#itinerary-card-text").append(dayBox)
 
-        // console.log(dayActivityArray)
     }
 
-    saveItinerary(dayActivityDiv)
 }
+
+
+
+// make an array of all the activity inputs
+var activityInputsEl = $(".day-activity")
 
 // event listener to save itinerary to local storage - ROSIE
-// $("#save-itinerary").on("click", saveItinerary())
+$("#save-itinerary").on("click", saveItinerary())
 
-function saveItinerary(dayActivityDiv) {
+// save the inputs for retrieval
+function saveItinerary() {
+
+        // 'this' refers to the element that called the function (i.e. save button)
+    // and is applied to all the save buttons
+    // but the console.log will refer to the specific button I clicked
+    console.log($(this).siblings(".day-activity").val())
+
+     // get the content for the block
+     var text = $(this).siblings(".textArea").val()
+     // ID of the parent block, access via jquery attribute method
+     var key = $(this).parent().attr("id")
+
+}
+
+function init() {
+
     // check if there is anything already in local storage
-    // save the holiday countdown
-    // save the activities for each day
+    var storedActivities = JSON.parse(localStorage.getItem("activities"))
+
+    // if activities were retrieved from local storage update the array with them
+    if (storedActivities !== null) {
+        dayActivityArray = storedActivities
+    }
+
+    // render the activities to the itinerary card
+    renderItinerary(startDate);
+
 }
 
-// event listener to retrieve itinerary from local storage - ROSIE
-function retrieveItinerary() {
-
-}
 
 /**************************** End of Itinerary Functions ******************************************/
 
