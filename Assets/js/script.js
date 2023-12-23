@@ -10,7 +10,7 @@ var arrCities = [];
 let historySection = $("#history-container");
 
 // Clear saved and visible search history
-$("#btnClearHistory").on("click", function(event){
+$("#btnClearHistory").on("click", function (event) {
     event.preventDefault();
     historySection.empty();
     localStorage.removeItem("cities");
@@ -56,7 +56,7 @@ function buildHistory() {
     localStorage.setItem("cities", stringCities);
 
     let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory").attr("id", destination);
-    historySection.prepend(storedCity);  
+    historySection.prepend(storedCity);
 };
 
 // event listener to retrieve search from localstorage and display in search history
@@ -66,8 +66,8 @@ if (localStorage.getItem("cities")) {
     for (let i = 0; i < arrCities.length; i++) {
         let searchCity = arrCities[i];
         let storedCity = $("<button>" + searchCity + "</button>").attr("class", "btn btnHistory").attr("id", destination);
-        historySection.prepend(storedCity); 
-        $("#" + searchCity).on("click", function(event){
+        historySection.prepend(storedCity);
+        $("#" + searchCity).on("click", function (event) {
             event.preventDefault();
             console.log(searchCity);
 
@@ -130,14 +130,10 @@ function renderItinerary(startDate) {
         var dayActivitySpan = $("<span>")
         var dayActivityInput = $("<input>")
 
-        // object for day-activity key-value pairs
-        var dayActivityObject = {
-
-        }
-
         // input for user's plans
         dayActivityInput.attr("placeholder", "Plan your activities here and then hit save")
         dayActivityInput.attr("type", "text")
+        dayActivityInput.addClass("day-activity")
         // dayActivityInput.addClass("flex-row input-group")
 
         // section attached to each input box with the day
@@ -155,25 +151,27 @@ function renderItinerary(startDate) {
         dayBox.append(dayActivityDiv)
         $("#itinerary-card-text").append(dayBox)
 
-        // push key-value pairs into an object
-        dayActivityObject.dayActivitySpan = dayActivityInput.val
-        console.log(dayActivityObject)
-
-        // push the object to the day activity array
-        dayActivityArray.push(dayActivityObject)
-
-        console.log(dayActivityArray)
-
-        // save the array for retrieval
-        function saveItinerary() {
-            localStorage.setItem("itinerary", dayActivityArray)
-        }
     }
-    saveItinerary()
+
 }
+
+
+
+// make an array of all the activity inputs
+var activityInputsEl = $(".day-activity")
 
 // event listener to save itinerary to local storage - ROSIE
 $("#save-itinerary").on("click", saveItinerary())
+
+// save the inputs for retrieval
+function saveItinerary() {
+
+        // 'this' refers to the element that called the function (i.e. save button)
+    // and is applied to all the save buttons
+    // but the console.log will refer to the specific button I clicked
+    console.log($(this).siblings(".day-activity").val())
+
+}
 
 function init() {
 
