@@ -12,7 +12,7 @@ let historySection = $("#history-container");
 // submit event listener (save search)
 // retrieve search info
 $("#search-submit").on("click", function (event) {
-    
+
     event.preventDefault()
 
     startLocation = $("#start-location").val()
@@ -33,6 +33,12 @@ $("#search-submit").on("click", function (event) {
     getWeatherForecast(destination);
     getNewsInfo(destination);
     renderItinerary(startDate);
+
+    // save search to local storage
+    function buildHistory() {
+
+    };
+
     buildHistory();
 })
 
@@ -42,16 +48,15 @@ function buildHistory() {
     let stringCities = JSON.stringify(arrCities);
     localStorage.setItem("cities", stringCities);
     let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory");
-    historySection.prepend(storedCity);  
+    historySection.prepend(storedCity);
 };
 
 // event listener to retrieve search
 
-
 if (localStorage.getItem("cities")) {
     arrCities = JSON.parse(localStorage.getItem("cities"));
     // historySection.empty();
-    };
+};
 
 // repopulate the other three cards based on previous search criteria
 
@@ -92,6 +97,9 @@ function renderItinerary(startDate) {
         var dayActivityDiv = $("<div>")
         var dayActivitySpan = $("<span>")
         var dayActivityInput = $("<input>")
+        var dayActivityObj = {
+            
+        }
 
         // input for user's plans
         dayActivityInput.attr("placeholder", "Plan your activities here and then hit save")
@@ -110,17 +118,36 @@ function renderItinerary(startDate) {
         dayActivityDiv.append(dayActivityInput)
 
 
+        dayActivityObj.dayActivitySpan = dayActivityInput
+        console.log(dayActivityObj)
+
+        // add the content for each day to an array
+        // dayActivityArray.push(dayActivitySpan.val())
+        // dayActivityArray.push(dayActivityInput.val())
+
+        // console.log(dayActivityArray)
+
+        // save array to local storage
+        // localStorage.setItem()
+
+
         // dayBox.append(dayBoxHeading)
         dayBox.append(dayActivityDiv)
         $("#itinerary-card-text").append(dayBox)
+
+        // console.log(dayActivityArray)
     }
+
+    saveItinerary(dayActivityDiv)
 }
 
 // event listener to save itinerary to local storage - ROSIE
-$("#save-itinerary").on("click", saveItinerary())
+// $("#save-itinerary").on("click", saveItinerary())
 
-function saveItinerary() {
-
+function saveItinerary(dayActivityDiv) {
+    // check if there is anything already in local storage
+    // save the holiday countdown
+    // save the activities for each day
 }
 
 // event listener to retrieve itinerary from local storage - ROSIE
@@ -333,7 +360,7 @@ function getNewsInfo(destination) {
 
             $('#news-title').text(`News for ${destination}`);
 
-            for(let i = 0; i < newsData.articles.length; i++) {
+            for (let i = 0; i < newsData.articles.length; i++) {
 
                 let articleTitle = newsData.articles[i].title;
                 let articleDescription = newsData.articles[i].description;
@@ -351,7 +378,7 @@ function renderNewsArticles(i, articleTitle, articleDescription, articleLink) {
     newContainerDiv.attr({ 'id': `news-${i}`, 'class': 'my-2 p-2' });
     newContainerDiv.css({ 'background-color': '#304356', 'color': 'white', 'border-radius': '5px' });
     const newH6 = $('<h6>').text(articleTitle).attr('class', ' mb-0');
-    const newP = $('<p>'). text(articleDescription);
+    const newP = $('<p>').text(articleDescription);
     const newAnchor = $('<a>').text('Click here for full story').attr('href', `${articleLink}`);
 
     newContainerDiv.append(newH6, newP, newAnchor);

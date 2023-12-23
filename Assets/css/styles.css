@@ -18,21 +18,21 @@ h5 {
 }
 
 #past-searches {
-    width: 90%;
-    margin: auto;
+    /* width: 90%; */
+    /* margin: auto; */
 }
 
 #history-container {
-    display: flexbox;
+    /* display: flexbox;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: wrap; */
 }
 
 .btnHistory {
-    text-align: center;
+    /* text-align: center;
     width: 18rem;
     padding: 3px;
     margin: 0 5px 5px 0;
     border: solid 1px black;
-    border-radius: 7px;
+    border-radius: 7px; */
 }
