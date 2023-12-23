@@ -11,7 +11,7 @@ var currencyMain = $("#currencyMain");
 // submit event listener (save search)
 // retrieve search info
 $("#search-submit").on("click", function (event) {
-    
+
     event.preventDefault()
 
     startLocation = $("#start-location").val()
@@ -31,13 +31,12 @@ $("#search-submit").on("click", function (event) {
     getWeatherForecast(destination);
     getNewsInfo(destination);
     renderItinerary(startDate);
-    
 
     // save search to local storage
     function buildHistory() {
-        
+
     };
- 
+
 })
 
 // event listener to retrieve search
@@ -101,13 +100,17 @@ function renderItinerary(startDate) {
         dayBox.append(dayActivityDiv)
         $("#itinerary-card-text").append(dayBox)
     }
+    
+    saveItinerary(dayActivityDiv)
 }
 
 // event listener to save itinerary to local storage - ROSIE
-$("#save-itinerary").on("click", saveItinerary())
+// $("#save-itinerary").on("click", saveItinerary())
 
-function saveItinerary() {
-
+function saveItinerary(dayActivityDiv) {
+    // check if there is anything already in local storage
+    // save the holiday countdown
+    // save the activities for each day
 }
 
 // event listener to retrieve itinerary from local storage - ROSIE
