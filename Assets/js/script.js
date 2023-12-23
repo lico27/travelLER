@@ -8,6 +8,8 @@ var dateInputEl = $('#datepicker');
 var currencyMain = $("#currencyMain");
 var arrCities = [];
 let historySection = $("#history-container");
+const weatherDiv = $('#weather-append');
+let weatherTitle = $('#weather-title');
 
 // Clear saved and visible search history
 $("#btnClearHistory").on("click", function (event) {
@@ -48,9 +50,15 @@ function buildHistory() {
     arrCities.push(destination);
     let stringCities = JSON.stringify(arrCities);
     localStorage.setItem("cities", stringCities);
-
     let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory").attr("id", destination);
-    historySection.prepend(storedCity);
+    historySection.prepend(storedCity);  
+
+    for (let i = 0; i < arrCities.length; i++) {
+        $("#" + destination).on("click", function(event) {
+            weatherDiv.empty();
+            recallSearches(destination);
+        });
+    };
 };
 
 // event listener to retrieve search from localstorage and display in search history
@@ -59,17 +67,25 @@ if (localStorage.getItem("cities")) {
 
     for (let i = 0; i < arrCities.length; i++) {
         let searchCity = arrCities[i];
-        let storedCity = $("<button>" + searchCity + "</button>").attr("class", "btn btnHistory").attr("id", destination);
-        historySection.prepend(storedCity);
-        $("#" + searchCity).on("click", function (event) {
-            event.preventDefault();
-            console.log(searchCity);
+        let storedCity = $("<button>" + searchCity + "</button>").attr("class", "btn btnHistory").attr("id", searchCity);
+        historySection.prepend(storedCity); 
 
+        $("#" + searchCity).on("click", function(event) {
+            weatherDiv.empty();
+            destination = searchCity;
+            recallSearches(destination);
         });
     };
 };
 
-// repopulate the other three cards based on previous search criteria
+// Function to recall previous searches
+function recallSearches(destination) {
+    getWeatherForecast(destination);
+    // getNewsInfo(destination);
+    // function to get saved itinerary goes here
+};
+
+
 
 /**************************** Itinerary Functions ******************************************/
 
@@ -298,7 +314,6 @@ function makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, c
 
 //I want to get the destination the user provided (#destination) to find the weather for that location
 let isToday = true;
-const weatherDiv = $('#weather-append');
 
 function getWeatherForecast(destination) {
 
@@ -313,7 +328,7 @@ function getWeatherForecast(destination) {
             console.log(data);
 
             let apiCity = data.city.name;
-            $('#weather-title').text(`Weather for ${apiCity}`);
+            weatherTitle.text(`Weather for ${apiCity}`);
 
             let timeTest = data.list[1].dt_txt.substr(11, 2);
             console.log(timeTest);
