@@ -41,7 +41,7 @@ $("#search-submit").on("click", function (event) {
 
     // Call functions
     getWeatherForecast(destination);
-    getNewsInfo(destination);
+    // getNewsInfo(destination);
     renderItinerary(startDate);
     buildHistory();
 })
