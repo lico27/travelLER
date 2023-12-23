@@ -30,7 +30,7 @@ $("#search-submit").on("click", function (event) {
     console.log(destination)
     console.log(startDate)
 
-    if (startLocation && destination && startDate && endDate) {
+    if (destination && startDate && endDate) {
         searchCriteria.text("Your holiday to " + destination + " on " + startDate)
     } else {
         searchCriteria.text("Please complete all fields")
@@ -83,7 +83,6 @@ function renderItinerary(startDate) {
     $("#itinerary-card-text").empty()
 
     var holidayCountdown = $("<p>")
-    var dayBoxHeading
 
     // dayjs object for date of holiday
     var holidayDate = dayjs(startDate)
@@ -117,6 +116,7 @@ function renderItinerary(startDate) {
         dayActivityInput.attr("placeholder", "Plan your activities here and then hit save")
         dayActivityInput.attr("type", "text")
         dayActivityInput.addClass("day-activity")
+        dayActivityInput.attr("id", "Day" + (i + 1))
         // dayActivityInput.addClass("flex-row input-group")
 
         // section attached to each input box with the day
@@ -125,6 +125,8 @@ function renderItinerary(startDate) {
 
         // add padding between day divs
         dayActivityDiv.addClass("py-3 input-group")
+        // make the id of the parent element e.g. Day1
+        // dayActivityDiv.attr("id", "Day" + (i + 1))
 
         // append the span and input box to each day's activity div
         dayActivityDiv.append(dayActivitySpan)
@@ -133,6 +135,17 @@ function renderItinerary(startDate) {
         // dayBox.append(dayBoxHeading)
         dayBox.append(dayActivityDiv)
         $("#itinerary-card-text").append(dayBox)
+
+        $("#save-itinerary").on("click", function () {
+            // save to local storage
+
+            // get the content for the block
+            var text = $(".day-activity").val()
+            console.log(text)
+            var key = $(".day-activity").attr("id")
+            console.log(key)
+
+        })
 
     }
 
@@ -144,22 +157,29 @@ function renderItinerary(startDate) {
 var activityInputsEl = $(".day-activity")
 
 // event listener to save itinerary to local storage - ROSIE
-$("#save-itinerary").on("click", saveItinerary())
+// $("#save-itinerary").on("click", saveItinerary())
+
+
 
 // save the inputs for retrieval
-function saveItinerary() {
+function saveItinerary() { }
 
-        // 'this' refers to the element that called the function (i.e. save button)
-    // and is applied to all the save buttons
-    // but the console.log will refer to the specific button I clicked
-    console.log($(this).siblings(".day-activity").val())
+// // 'this' refers to the element that called the function (i.e. save button)
+// // and is applied to all the save buttons
+// // but the console.log will refer to the specific button I clicked
+// console.log($(this).siblings(".day-activity").val())
 
-     // get the content for the block
-     var text = $(this).siblings(".textArea").val()
-     // ID of the parent block, access via jquery attribute method
-     var key = $(this).parent().attr("id")
+//  // get the content for the block
+//  var text = $(this).siblings(".day-activity").val()
 
-}
+//  // ID of the parent block, access via jquery attribute method
+//  var key = $(this).parent().attr("id")
+
+//  // then save both to local storage using .setItem
+// localStorage.setItem(key, text)
+// console.log(localStorage)
+
+
 
 function init() {
 
