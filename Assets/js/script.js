@@ -8,6 +8,9 @@ var dateInputEl = $('#datepicker');
 var currencyMain = $("#currencyMain");
 var arrCities = [];
 let historySection = $("#history-container");
+const weatherDiv = $('#weather-append');
+let weatherTitle = $('#weather-title');
+let newsTitle = $('#news-title');
 
 // Clear saved and visible search history
 $("#btnClearHistory").on("click", function (event) {
@@ -48,9 +51,15 @@ function buildHistory() {
     arrCities.push(destination);
     let stringCities = JSON.stringify(arrCities);
     localStorage.setItem("cities", stringCities);
-
     let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory").attr("id", destination);
-    historySection.prepend(storedCity);
+    historySection.prepend(storedCity);  
+
+    for (let i = 0; i < arrCities.length; i++) {
+        $("#" + destination).on("click", function(event) {
+            weatherDiv.empty();
+            recallSearches(destination);
+        });
+    };
 };
 
 // event listener to retrieve search from localstorage and display in search history
@@ -59,17 +68,25 @@ if (localStorage.getItem("cities")) {
 
     for (let i = 0; i < arrCities.length; i++) {
         let searchCity = arrCities[i];
-        let storedCity = $("<button>" + searchCity + "</button>").attr("class", "btn btnHistory").attr("id", destination);
-        historySection.prepend(storedCity);
-        $("#" + searchCity).on("click", function (event) {
-            event.preventDefault();
-            console.log(searchCity);
+        let storedCity = $("<button>" + searchCity + "</button>").attr("class", "btn btnHistory").attr("id", searchCity);
+        historySection.prepend(storedCity); 
 
+        $("#" + searchCity).on("click", function(event) {
+            weatherDiv.empty();
+            destination = searchCity;
+            recallSearches(destination);
         });
     };
 };
 
-// repopulate the other three cards based on previous search criteria
+// Function to recall previous searches
+function recallSearches(destination) {
+    getWeatherForecast(destination);
+    // getNewsInfo(destination);
+    // function to get saved itinerary goes here
+};
+
+
 
 /**************************** Itinerary Functions ******************************************/
 
@@ -299,8 +316,8 @@ function makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, c
 /**************************** Weather API Functions (Fetch & Render) ******************************************/
 
 //I want to get the destination the user provided (#destination) to find the weather for that location
+let firstWeatherDate;
 let isToday = true;
-const weatherDiv = $('#weather-append');
 
 function getWeatherForecast(destination) {
 
@@ -313,12 +330,16 @@ function getWeatherForecast(destination) {
             return response.json();
         }).then(function (data) {
             console.log(data);
-
+           
             let apiCity = data.city.name;
-            $('#weather-title').text(`Weather for ${apiCity}`);
-
-            let timeTest = data.list[1].dt_txt.substr(11, 2);
-            console.log(timeTest);
+            if(destination == 'select'){
+                weatherTitle.text(`Weather`);
+            }else{
+               weatherTitle.text(`Weather for ${apiCity}`);
+            };
+            
+            let forecastLength = 0;
+            firstWeatherDate = data.list[0].dt_txt.substr(0, 10);
 
             for (let i = 0; i < data.list.length; i++) {
 
@@ -330,11 +351,15 @@ function getWeatherForecast(destination) {
                 let humidity = data.list[i].main.humidity;
                 let time = data.list[i].dt_txt.substr(11, 2); //to obtain the hour from the date text of the API - to use to show only midday forecasts
 
-                if (isToday) { // render the forecast for todays most current time  
+                if(destination == 'select'){
+                    return;
+                }else if (isToday) { // render the forecast for todays most current time  
                     renderWeather(i, properDate, weatherIcon, temp, wind, humidity);
                     isToday = false;
-                } else if (!isToday && (time == 12)) { //then only render 12pm forecasts for dates that aren't today
+                    forecastLength ++;
+                } else if (!isToday && !(apiDate == firstWeatherDate) && (time == 12) && (forecastLength < 5)) { //then only render 12pm forecasts for dates that aren't today and only renders a 5 day forecast
                     renderWeather(i, properDate, weatherIcon, temp, wind, humidity);
+                    forecastLength ++;
                 };
             };
             isToday = true; //after for loop runs, change isToday back to true so when fetchCityForecast() runs again, the today section is rendered
@@ -385,14 +410,14 @@ function renderWeather(i, properDate, weatherIcon, temp, wind, humidity) {
 /************************ End of Weather API Functions (Fetch & Render) ******************************************/
 
 
-/**************************** News API Functions ******************************************/
+/**************************** News API Functions (Fetch & Render) ******************************************/
 let newsDiv = $('#news-append');
 
 function getNewsInfo(destination) {
 
-    // newsDiv.empty();
+    newsDiv.empty();
 
-    let queryURLNews = "https://gnews.io/api/v4/search?q=" + destination + "&country=uk&max=5&token=0cdb701813ebdb29d8d18237c3a045e"// - this is my key
+    let queryURLNews = "https://gnews.io/api/v4/search?q=" + destination + "&country=uk&max=5&token=70cdb701813ebdb29d8d18237c3a045e"// - this is my key
 
 
     fetch(queryURLNews)
@@ -402,7 +427,11 @@ function getNewsInfo(destination) {
             console.log('News data object:');
             console.log(newsData);
 
-            $('#news-title').text(`News for ${destination}`);
+            if(destination == 'select'){
+                newsTitle.text(`News`);
+            }else{
+                newsTitle.text(`News for ${destination}`);
+            };
 
             for (let i = 0; i < newsData.articles.length; i++) {
 
@@ -410,7 +439,11 @@ function getNewsInfo(destination) {
                 let articleDescription = newsData.articles[i].description;
                 let articleLink = newsData.articles[i].source.url;
 
+                if(destination == 'select'){
+                    return;
+                }else{
                 renderNewsArticles(i, articleTitle, articleDescription, articleLink);
+                };
             };
 
         });
@@ -429,11 +462,11 @@ function renderNewsArticles(i, articleTitle, articleDescription, articleLink) {
     newsDiv.append(newContainerDiv);
 };
 
-/************************ End of News API Functions ******************************************/
+/************************ End of News API Functions (Fetch & Render) ******************************************/
 
 // date picker
 $(function () {
-    $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+    $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" }); 
 });
 
 
