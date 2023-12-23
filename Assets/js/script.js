@@ -10,6 +10,7 @@ var arrCities = [];
 let historySection = $("#history-container");
 const weatherDiv = $('#weather-append');
 let weatherTitle = $('#weather-title');
+let newsTitle = $('#news-title');
 
 // Clear saved and visible search history
 $("#btnClearHistory").on("click", function (event) {
@@ -330,9 +331,9 @@ function getWeatherForecast(destination) {
            
             let apiCity = data.city.name;
             if(destination == 'select'){
-                $('#weather-title').text(`Weather`);
+                weatherTitle.text(`Weather`);
             }else{
-                $('#weather-title').text(`Weather for ${apiCity}`);
+               weatherTitle.text(`Weather for ${apiCity}`);
             };
             
             let forecastLength = 0;
@@ -425,9 +426,9 @@ function getNewsInfo(destination) {
             console.log(newsData);
 
             if(destination == 'select'){
-                $('#news-title').text(`News`);
+                newsTitle.text(`News`);
             }else{
-                $('#news-title').text(`News for ${destination}`);
+                newsTitle.text(`News for ${destination}`);
             };
 
             for (let i = 0; i < newsData.articles.length; i++) {
