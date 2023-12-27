@@ -143,7 +143,6 @@ function renderItinerary(startDate) {
         // var saveIcon = $("<i>").addClass("far fa-save")
         saveItineraryBtn.text("save")
 
-
         // section attached to each input box with the day
         dayActivitySpan.text("Day " + (i + 1))
         dayActivitySpan.addClass("input-group-text")
@@ -196,9 +195,12 @@ var activityInputsEl = $(".day-activity")
 
 // loop through all the days and get the content from the inputs
 function retrieveItinerary() {
-    for (i = 0; i < textAreaEl.length; i++) {
-        console.log(activityInputsEl[i])
+    for (i = 0; i < activityInputsEl.length; i++) {
 
+        // // make an array of all the activity inputs
+        // var activityInputsEl = $(".day-activity")
+
+        console.log(activityInputsEl[i])
 
         // the key we want is the ID of the parent (ie the block number)
         // make a variable for key for each
@@ -213,27 +215,19 @@ function retrieveItinerary() {
     }
 }
 
-// retrieveItinerary()
+retrieveItinerary()
 
 $("#clear-itinerary").on("click", clearItinerary)
 
 function clearItinerary(event) {
     console.log("modal works")
     event.preventDefault();
+    localStorage.removeItem("itinerary")
     // $("#itinerary-card-text").empty()
     // // localStorage.clear()
     // // localStorage.removeItem(key)
 
 }
-
-// event.preventDefault();
-// historySection.empty();
-// localStorage.removeItem("cities");
-// arrCities = [];
-
-
-
-
 
 /**************************** End of Itinerary Functions ******************************************/
 
@@ -276,6 +270,7 @@ let currencyList = [
     "THB - Thai Baht",
     "ZAR - South African Rand"
 ];
+
 for (let i = 0; i < currencyList.length; i++) {
     let eachCurrency = currencyList[i];
     currencies.append("<option>" + eachCurrency + "</option").attr("value", eachCurrency);
