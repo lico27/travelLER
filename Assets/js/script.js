@@ -52,10 +52,10 @@ function buildHistory() {
     let stringCities = JSON.stringify(arrCities);
     localStorage.setItem("cities", stringCities);
     let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory").attr("id", destination);
-    historySection.prepend(storedCity);  
+    historySection.prepend(storedCity);
 
     for (let i = 0; i < arrCities.length; i++) {
-        $("#" + destination).on("click", function(event) {
+        $("#" + destination).on("click", function (event) {
             weatherDiv.empty();
             recallSearches(destination);
         });
@@ -69,9 +69,9 @@ if (localStorage.getItem("cities")) {
     for (let i = 0; i < arrCities.length; i++) {
         let searchCity = arrCities[i];
         let storedCity = $("<button>" + searchCity + "</button>").attr("class", "btn btnHistory").attr("id", searchCity);
-        historySection.prepend(storedCity); 
+        historySection.prepend(storedCity);
 
-        $("#" + searchCity).on("click", function(event) {
+        $("#" + searchCity).on("click", function (event) {
             weatherDiv.empty();
             destination = searchCity;
             recallSearches(destination);
@@ -161,38 +161,35 @@ function renderItinerary(startDate) {
         // dayBox.append(dayActivityDiv)
         $("#itinerary-card-text").append(dayActivityDiv)
 
-
-        // **************************** save itinerary function ****************************************
-        $(".saveItinerary").on("click", saveItinerary)
-
-
-        // save the inputs for retrieval
-        function saveItinerary() {
-            // console.log($(this).siblings(".day-activity").val())
-
-            // get the input block content
-            var text = $(this).siblings(".day-activity").val()
-
-            // get the ID of the parent block
-            var key = $(this).parent().attr("id")
-
-            // save to local storage as a key-value pair
-            // localStorage.setItem(key, text)
-
-            var itineraryObject = {}
-
-            // save to object as a key-value pair
-            for (var i = 0; i < holidayLength; i++) {
-                itineraryObject[key] = text
-            }
-
-            console.log(itineraryObject)
-
-            // save object to local storage
-        }
-
     }
 
+     // **************************** save itinerary function ****************************************
+     $(".saveItinerary").on("click", saveItinerary)
+
+}
+
+// save the inputs for retrieval
+function saveItinerary() {
+    // console.log($(this).siblings(".day-activity").val())
+
+    // get the input block content
+    var text = $(this).siblings(".day-activity").val()
+
+    // get the ID of the parent block
+    var key = $(this).parent().attr("id")
+
+    var itineraryArray = []
+    var itineraryObject = {}
+    itineraryArray.push(itineraryObject)
+
+    // save to object as a key-value pair
+    itineraryObject[key] = text
+
+    console.log(itineraryObject)
+    console.log(itineraryArray)
+    // save object to local storage
+
+    localStorage.setItem("itinerary", itineraryArray)
 }
 
 // make an array of all the activity inputs
@@ -221,7 +218,7 @@ var activityInputsEl = $(".day-activity")
 
 $("#clear-itinerary").on("click", clearItinerary)
 
-function clearItinerary(event){
+function clearItinerary(event) {
     event.preventDefault();
     $("#itinerary-card-text").empty()
     // localStorage.clear()
@@ -352,14 +349,14 @@ function getWeatherForecast(destination) {
             return response.json();
         }).then(function (data) {
             console.log(data);
-           
+
             let apiCity = data.city.name;
-            if(destination == 'select'){
+            if (destination == 'select') {
                 weatherTitle.text(`Weather`);
-            }else{
-               weatherTitle.text(`Weather for ${apiCity}`);
+            } else {
+                weatherTitle.text(`Weather for ${apiCity}`);
             };
-            
+
             let forecastLength = 0;
             firstWeatherDate = data.list[0].dt_txt.substr(0, 10);
 
@@ -373,20 +370,20 @@ function getWeatherForecast(destination) {
                 let humidity = data.list[i].main.humidity;
                 let time = data.list[i].dt_txt.substr(11, 2); //to obtain the hour from the date text of the API - to use to show only midday forecasts
 
-                if(destination == 'select'){
+                if (destination == 'select') {
                     const newContainerDiv = $('<div>');
                     newContainerDiv.css({ 'background-color': '#dc3545', 'color': 'white', 'border-radius': '5px', 'padding': '5px', 'text-align': 'center' });
                     const newH6 = $('<h6>').text('Please select a destination to see the forecast').attr('class', ' mb-0');
                     newContainerDiv.append(newH6);
                     $('#weather-append').append(newContainerDiv);
                     i = 40;
-                }else if (isToday) { // render the forecast for todays most current time  
+                } else if (isToday) { // render the forecast for todays most current time  
                     renderWeather(i, properDate, weatherIcon, temp, wind, humidity);
                     isToday = false;
-                    forecastLength ++;
+                    forecastLength++;
                 } else if (!isToday && !(apiDate == firstWeatherDate) && (time == 12) && (forecastLength < 5)) { //then only render 12pm forecasts for dates that aren't today and only renders a 5 day forecast
                     renderWeather(i, properDate, weatherIcon, temp, wind, humidity);
-                    forecastLength ++;
+                    forecastLength++;
                 };
             };
             isToday = true; //after for loop runs, change isToday back to true so when fetchCityForecast() runs again, the today section is rendered
@@ -454,9 +451,9 @@ function getNewsInfo(destination) {
             console.log('News data object:');
             console.log(newsData);
 
-            if(destination == 'select'){
+            if (destination == 'select') {
                 newsTitle.text(`News`);
-            }else{
+            } else {
                 newsTitle.text(`News for ${destination}`);
             };
 
@@ -466,15 +463,15 @@ function getNewsInfo(destination) {
                 let articleDescription = newsData.articles[i].description;
                 let articleLink = newsData.articles[i].source.url;
 
-                if(destination == 'select'){
+                if (destination == 'select') {
                     const newContainerDiv = $('<div>');
                     newContainerDiv.css({ 'background-color': '#dc3545', 'color': 'white', 'border-radius': '5px', 'padding': '5px', 'text-align': 'center' });
                     const newH6 = $('<h6>').text('Please select a destination to see the News').attr('class', ' mb-0');
                     newContainerDiv.append(newH6);
                     $('#news-append').append(newContainerDiv);
                     i = 6;
-                }else{
-                renderNewsArticles(i, articleTitle, articleDescription, articleLink);
+                } else {
+                    renderNewsArticles(i, articleTitle, articleDescription, articleLink);
                 };
             };
 
@@ -498,7 +495,7 @@ function renderNewsArticles(i, articleTitle, articleDescription, articleLink) {
 
 // date picker
 $(function () {
-    $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" }); 
+    $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
 });
 
 
