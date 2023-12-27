@@ -163,8 +163,8 @@ function renderItinerary(startDate) {
 
     }
 
-     // **************************** save itinerary function ****************************************
-     $(".saveItinerary").on("click", saveItinerary)
+    // **************************** save itinerary function ****************************************
+    $(".saveItinerary").on("click", saveItinerary)
 
 }
 
@@ -180,12 +180,11 @@ function saveItinerary() {
 
     var itineraryArray = []
     var itineraryObject = {}
-    itineraryArray.push(itineraryObject)
+    itineraryArray.unshift(itineraryObject)
 
     // save to object as a key-value pair
     itineraryObject[key] = text
 
-    console.log(itineraryObject)
     console.log(itineraryArray)
     // save object to local storage
 
@@ -196,33 +195,34 @@ function saveItinerary() {
 var activityInputsEl = $(".day-activity")
 
 // loop through all the days and get the content from the inputs
-// function retrieveItinerary(){
-//     for (i = 0; i < textAreaEl.length; i++) {
-//         console.log(activityInputsEl[i])
+function retrieveItinerary() {
+    for (i = 0; i < textAreaEl.length; i++) {
+        console.log(activityInputsEl[i])
 
 
-//         // the key we want is the ID of the parent (ie the block number)
-//         // make a variable for key for each
-//         var keyEl = $(activityInputsEl[i]).parent().attr("id")
-//         console.log(keyEl)
+        // the key we want is the ID of the parent (ie the block number)
+        // make a variable for key for each
+        var keyEl = $(activityInputsEl[i]).parent().attr("id")
+        console.log(keyEl)
 
-//         // call the content by its key
-//         localStorage.getItem(keyEl)
+        // call the content by its key
+        localStorage.getItem(keyEl)
 
-//         // set the contents of textArea to the content from local storage
-//         activityInputsEl[i].textContent = localStorage.getItem(keyEl)
-//     }
-// }
+        // set the contents of textArea to the content from local storage
+        activityInputsEl[i].textContent = localStorage.getItem(keyEl)
+    }
+}
 
 // retrieveItinerary()
 
 $("#clear-itinerary").on("click", clearItinerary)
 
 function clearItinerary(event) {
+    console.log("modal works")
     event.preventDefault();
-    $("#itinerary-card-text").empty()
-    // localStorage.clear()
-    // localStorage.removeItem(key)
+    // $("#itinerary-card-text").empty()
+    // // localStorage.clear()
+    // // localStorage.removeItem(key)
 
 }
 
