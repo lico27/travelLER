@@ -118,9 +118,9 @@ function renderItinerary(startDate) {
     $("#itinerary-card-text").append(holidayCountdown)
 
 
-
     // calculate length of holiday
-    var holidayLength = holidayEndDate.diff(holidayDate, "days")
+    // var holidayLength = holidayEndDate.diff(holidayDate, "days")
+    var holidayLength = 5
 
 
     // loop through each day of holiday and create an activity div for each,
@@ -208,8 +208,12 @@ function retrieveItinerary(){
 
 retrieveItinerary()
 
+$("#clear-itinerary").on("click", clearItinerary)
 
-
+function clearItinerary(){
+    $("#itinerary-card-text").empty()
+    localStorage.clear()
+}
 
 
 
