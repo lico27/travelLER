@@ -177,7 +177,18 @@ function renderItinerary(startDate) {
             var key = $(this).parent().attr("id")
 
             // save to local storage as a key-value pair
-            localStorage.setItem(key, text)
+            // localStorage.setItem(key, text)
+
+            var itineraryObject = {}
+
+            // save to object as a key-value pair
+            for (var i = 0; i < holidayLength; i++) {
+                itineraryObject[key] = text
+            }
+
+            console.log(itineraryObject)
+
+            // save object to local storage
         }
 
     }
@@ -188,33 +199,40 @@ function renderItinerary(startDate) {
 var activityInputsEl = $(".day-activity")
 
 // loop through all the days and get the content from the inputs
-function retrieveItinerary(){
-    for (i = 0; i < textAreaEl.length; i++) {
-        console.log(activityInputsEl[i])
+// function retrieveItinerary(){
+//     for (i = 0; i < textAreaEl.length; i++) {
+//         console.log(activityInputsEl[i])
 
 
-        // the key we want is the ID of the parent (ie the block number)
-        // make a variable for key for each
-        var keyEl = $(activityInputsEl[i]).parent().attr("id")
-        console.log(keyEl)
+//         // the key we want is the ID of the parent (ie the block number)
+//         // make a variable for key for each
+//         var keyEl = $(activityInputsEl[i]).parent().attr("id")
+//         console.log(keyEl)
 
-        // call the content by its key
-        localStorage.getItem(keyEl)
+//         // call the content by its key
+//         localStorage.getItem(keyEl)
 
-        // set the contents of textArea to the content from local storage
-        activityInputsEl[i].textContent = localStorage.getItem(keyEl)
-    }
-}
+//         // set the contents of textArea to the content from local storage
+//         activityInputsEl[i].textContent = localStorage.getItem(keyEl)
+//     }
+// }
 
-retrieveItinerary()
+// retrieveItinerary()
 
 $("#clear-itinerary").on("click", clearItinerary)
 
-function clearItinerary(){
+function clearItinerary(event){
+    event.preventDefault();
     $("#itinerary-card-text").empty()
-    localStorage.clear()
+    // localStorage.clear()
+    // localStorage.removeItem(key)
+
 }
 
+// event.preventDefault();
+// historySection.empty();
+// localStorage.removeItem("cities");
+// arrCities = [];
 
 
 
