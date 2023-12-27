@@ -208,8 +208,12 @@ function retrieveItinerary(){
 
 retrieveItinerary()
 
+$("#clear-itinerary").on("click", clearItinerary)
 
-
+function clearItinerary(){
+    $("#itinerary-card-text").empty()
+    localStorage.clear()
+}
 
 
 
