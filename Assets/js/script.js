@@ -356,7 +356,12 @@ function getWeatherForecast(destination) {
                 let time = data.list[i].dt_txt.substr(11, 2); //to obtain the hour from the date text of the API - to use to show only midday forecasts
 
                 if(destination == 'select'){
-                    return;
+                    const newContainerDiv = $('<div>');
+                    newContainerDiv.css({ 'background-color': '#dc3545', 'color': 'white', 'border-radius': '5px', 'padding': '5px', 'text-align': 'center' });
+                    const newH6 = $('<h6>').text('Please select a destination to see the forecast').attr('class', ' mb-0');
+                    newContainerDiv.append(newH6);
+                    $('#weather-append').append(newContainerDiv);
+                    i = 40;
                 }else if (isToday) { // render the forecast for todays most current time  
                     renderWeather(i, properDate, weatherIcon, temp, wind, humidity);
                     isToday = false;
@@ -444,7 +449,12 @@ function getNewsInfo(destination) {
                 let articleLink = newsData.articles[i].source.url;
 
                 if(destination == 'select'){
-                    return;
+                    const newContainerDiv = $('<div>');
+                    newContainerDiv.css({ 'background-color': '#dc3545', 'color': 'white', 'border-radius': '5px', 'padding': '5px', 'text-align': 'center' });
+                    const newH6 = $('<h6>').text('Please select a destination to see the News').attr('class', ' mb-0');
+                    newContainerDiv.append(newH6);
+                    $('#news-append').append(newContainerDiv);
+                    i = 6;
                 }else{
                 renderNewsArticles(i, articleTitle, articleDescription, articleLink);
                 };
