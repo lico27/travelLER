@@ -1,75 +1,30 @@
-# travelLER
+# travel.ler v1
 
-### API keys
-- Currency: fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc
+## Description
+A dashboard to display information for visitors to the UK.
 
-## Pseudocode
+### Project Deliverables
+Coming soon
 
-Bootcamp Project 1
+### Installation
+No installation required.
 
-    create the html
-        - Input for:
-            - Start Location
-            - End Location
-            - Start Date
-            - End Date
-        - Submit Button
-        |
-        |
-        v
+### Usage
+The webpage can be viewed at https://lico27.github.io/travelLER
+ <!-- and the JavaScript can be viewed in the repository at /script.js. -->
 
-    Jumbtron - generic travel img or pull img based on location given
+### Screenshot
+<!-- ![Screenshot of completed project](/screenshot.png) -->
+Coming soon
 
-    Bootstrap cards for:
-        - Weather
-        - Currency
-        - Flights
-        - Itinerary
+## Credits
+Project designed and delivered by [Liam Cottrell](https://github.com/lico27), [Emma Davies](https://github.com/E-Davies) and [Rosie Galezia](https://github.com/rosiegalezia). 
 
-    Save Itinerary button - modal to confirm save
-    Retreive Itinerary Button
+## License
+Produced under the MIT license.
 
-    Add:
-        Head:
-        - Bootstrap
-        - CSS file
-        Bottom of Body:
-        - jQuery
-        - Day.js
-        - JS file
+## Badges
+![Static Badge](https://img.shields.io/badge/project-in_progress-blue)
 
-    Footer:
-        Logo?
-        collabs
-
-
-
-
-
-JavaScript:
-
-    event listeners:
-        - Submit Button -> (save search)
-        - Save Itinerary
-        - Retreive Itinerary
-        - Retrieve Search
-        
-    Get user input to declare API url's
-
-    Fetch API's;
-        - Seperate functions for each API request
-
-    Function to render API info onto various bootstrap cards using jquery
-
-    Function for save itinerary to local storgae
-
-    Function to retrieve itinerary from local storage
-
-    Function for save search to local storgae
-
-    Function to retrieve search from local storage
-
- ![wireframe](./assets/images/wire-frame.JPG) 
-
-
-https://unsplash.com/photos/aerial-photography-of-airliner-rf6ywHVkrlY
+<!-- ## Badges
+![Static Badge](https://img.shields.io/badge/project-complete-brightgreen) -->
