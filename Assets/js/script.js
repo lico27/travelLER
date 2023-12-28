@@ -329,10 +329,10 @@ function makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, c
 
 /**************************** Weather API Functions (Fetch & Render) ******************************************/
 
-//I want to get the destination the user provided (#destination) to find the weather for that location
 let firstWeatherDate;
 let isToday = true;
 
+//I want to get the destination the user provided (#destination) to find the weather for that location
 function getWeatherForecast(destination) {
 
     weatherDiv.empty();
@@ -346,7 +346,7 @@ function getWeatherForecast(destination) {
             console.log(data);
 
             let apiCity = data.city.name;
-            if (destination == 'select') {
+            if (destination == 'select') { // if user doesn't select a city, change weather title to 'Weather'
                 weatherTitle.text(`Weather`);
             } else {
                 weatherTitle.text(`Weather for ${apiCity}`);
@@ -365,7 +365,7 @@ function getWeatherForecast(destination) {
                 let humidity = data.list[i].main.humidity;
                 let time = data.list[i].dt_txt.substr(11, 2); //to obtain the hour from the date text of the API - to use to show only midday forecasts
 
-                if (destination == 'select') {
+                if (destination == 'select') { // if user doesn't select a city, display an alert
                     const newContainerDiv = $('<div>');
                     newContainerDiv.css({ 'background-color': '#dc3545', 'color': 'white', 'border-radius': '5px', 'padding': '5px', 'text-align': 'center' });
                     const newH6 = $('<h6>').text('Please select a destination to see the forecast').attr('class', ' mb-0');
@@ -437,7 +437,8 @@ function getNewsInfo(destination) {
     newsDiv.empty();
 
     let queryURLNews = "https://gnews.io/api/v4/search?q=" + destination + "&country=uk&max=5&token=70cdb701813ebdb29d8d18237c3a045e"// - this is my key
-
+    console.log('queryURLNews:');
+    console.log(queryURLNews);
 
     fetch(queryURLNews)
         .then(function (response) {
@@ -446,7 +447,7 @@ function getNewsInfo(destination) {
             console.log('News data object:');
             console.log(newsData);
 
-            if (destination == 'select') {
+            if (destination == 'select') { // if user doesn't select a city, change weather title to 'News'
                 newsTitle.text(`News`);
             } else {
                 newsTitle.text(`News for ${destination}`);
@@ -455,10 +456,13 @@ function getNewsInfo(destination) {
             for (let i = 0; i < newsData.articles.length; i++) {
 
                 let articleTitle = newsData.articles[i].title;
+                let apiArticleDate = newsData.articles[i].publishedAt.substr(0, 10); //.substr(0, 10) keeps the first 10 characters of the string so from this: 2023-12-18 12:00:00 to this: 2023-12-18; // i.e. publishedAt: "2023-11-22T05:00:00Z"
+                let articleDate = dayjs(`${apiArticleDate}`, `YYYY-MM-DD`).format(`DD/MM/YYYY`); // converts the API date to a different format
+                let articleSource = newsData.articles[i].source.name;
                 let articleDescription = newsData.articles[i].description;
-                let articleLink = newsData.articles[i].source.url;
+                let articleLink = newsData.articles[i].url;
 
-                if (destination == 'select') {
+                if (destination == 'select') { // if user doesn't select a city, display an alert
                     const newContainerDiv = $('<div>');
                     newContainerDiv.css({ 'background-color': '#dc3545', 'color': 'white', 'border-radius': '5px', 'padding': '5px', 'text-align': 'center' });
                     const newH6 = $('<h6>').text('Please select a destination to see the News').attr('class', ' mb-0');
@@ -466,23 +470,24 @@ function getNewsInfo(destination) {
                     $('#news-append').append(newContainerDiv);
                     i = 6;
                 } else {
-                    renderNewsArticles(i, articleTitle, articleDescription, articleLink);
+                    renderNewsArticles(i, articleTitle, articleDate, articleSource, articleDescription, articleLink);
                 };
             };
 
         });
 };
 
-function renderNewsArticles(i, articleTitle, articleDescription, articleLink) {
+function renderNewsArticles(i, articleTitle, articleDate, articleSource, articleDescription, articleLink) {
 
     const newContainerDiv = $('<div>');
     newContainerDiv.attr({ 'id': `news-${i}`, 'class': 'my-2 p-2' });
     newContainerDiv.css({ 'background-color': '#304356', 'color': 'white', 'border-radius': '5px' });
     const newH6 = $('<h6>').text(articleTitle).attr('class', ' mb-0');
+    const newPDateSource = $('<p>').text(`${articleDate} - ${articleSource}`).attr('class', ' mb-0 small text-muted');
     const newP = $('<p>').text(articleDescription);
-    const newAnchor = $('<a>').text('Click here for full story').attr('href', `${articleLink}`);
+    const newAnchor = $('<a>').text('Click here for full story').attr({'href': `${articleLink}`, 'target':'_blank'});
 
-    newContainerDiv.append(newH6, newP, newAnchor);
+    newContainerDiv.append(newH6, newPDateSource, newP, newAnchor);
     newsDiv.append(newContainerDiv);
 };
 
