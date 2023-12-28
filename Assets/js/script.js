@@ -290,7 +290,7 @@ function fetchCurrency(currencyCode) {
                 .then(function (responseConversion2) {
                     return responseConversion2.json();
                 }).then(function (dataConversion2) {
-                    let conversionRate2 = dataConversion2.data[currencyCode].toFixed(4);
+                    let conversionRate2 = dataConversion2.data[currencyCode].toFixed(2);
 
                     let queryURLCurrency = "https://api.freecurrencyapi.com/v1/currencies?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=" + currencyCode + "&base_currency=" + currencyCode;
                     fetch(queryURLCurrency)
