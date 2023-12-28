@@ -119,8 +119,8 @@ function renderItinerary(startDate) {
 
 
     // calculate length of holiday
-    // var holidayLength = holidayEndDate.diff(holidayDate, "days")
-    var holidayLength = 5
+    var holidayLength = holidayEndDate.diff(holidayDate, "days")
+    // var holidayLength = 5
 
 
     // loop through each day of holiday and create an activity div for each,
