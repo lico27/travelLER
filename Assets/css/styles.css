@@ -14,7 +14,9 @@
 }
 
 h1 {
-    color: #7fc9cb;
+    color: white;
+    /* color: #7fc9cb; */
+    /* color: #1d6a8aff; */
     font-size: 24px;
     margin: auto;
 }
@@ -33,7 +35,7 @@ h5 {
 }
 
 .form-box {
-    background:rgba(0, 0, 0, 0.6);
+    background:rgba(24, 70, 89, 0.6);
     height: 60vh;
     max-width: 100%;
     /* border-radius: 15px;
