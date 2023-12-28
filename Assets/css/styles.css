@@ -77,12 +77,18 @@ h5 {
     margin-bottom: 10px;
 }
 
+#currencyCard {
+    width: 90%;
+    margin: auto;
+    padding: 10px;
+}
+
 #past-searches {
     margin: auto;
     margin-top: 10px;
 }
 
-#search-form{
+#search-form {
     width: 100%;
     background-color: #7fc9cb;
     --bs-gutter-x: 0;

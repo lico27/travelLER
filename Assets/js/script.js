@@ -317,7 +317,7 @@ $("#curSubmit").on("click", function (event) {
 // Make currency card with API info
 function makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, conversionRate2) {
     let card = $("<div>");
-    card.attr("class", "card col-md-2");
+    card.attr("class", "card");
     card.attr("id", "currencyCard");
     card.append("<h5>" + "Currency conversion: " + currencyCode + " to GBP" + "</h5>");
     card.append("<p>" + currencySymbol + " 1 is worth £" + conversionRate2 + " today." + "</p>");
