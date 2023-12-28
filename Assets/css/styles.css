@@ -1,3 +1,7 @@
+*{
+    font-family: 'Sarabun', sans-serif;
+}
+
 .form-select {
     width: 50%;
     margin: 10px 0 0 10px;
@@ -7,19 +11,67 @@
     margin: 10px;
 }
 
+h1 {
+    color: #7fc9cb;
+    font-size: 24px;
+    margin: auto;
+}
+
 h5 {
     font-size: 18px;
 }
 
-#currencyCard {
-    width: 90%;
-    padding: 10px;
-    margin: 0 0 0 10px;
+.navbar {
+    display: flexbox;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
-#past-searches {
+.form-box {
+    background:rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    max-height: fit-content;
+    max-width: 80%;
+    display: flexbox;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#logo {
+    flex: 1;
+    overflow: hidden;
+    max-width: fit-content;
+    
+}
+
+#welcome {
+    flex: 1;
+    overflow: hidden;
+    padding: 10px;
+}
+
+#welcome p {
+    color: white;
+}
+
+#news-card, #weather-card {
+    margin-bottom: 10px;
+}
+
+#search-form, #past-searches {
     width: 90%;
     margin: auto;
+}
+
+.footer {
+    margin: 20px 0 0 0;
+    background-color: #212241;
+    padding: 10px 0 10px 0;
+    color: #7fc9cb;
 }
 
 #history-container {
@@ -39,7 +91,6 @@ h5 {
 
 #btnClearHistory {
     margin: 0 0 10px 0;
-
     border-radius: 7px;
 
 }
