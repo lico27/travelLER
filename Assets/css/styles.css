@@ -122,3 +122,11 @@ h5 {
     border-radius: 7px;
 
 }
+
+.hideSection{
+    display: none;
+}
+
+.showSection{
+    display:'';
+}

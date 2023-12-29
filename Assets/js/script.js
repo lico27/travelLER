@@ -39,11 +39,11 @@ $("#search-submit").on("click", function (event) {
         console.log('select has been submitted')
         $("#select-city").modal('show');
         return
-    // }else if (destination && startDate && endDate) {
-    //     searchCriteria.text("Your holiday to " + destination + " on " + startDate)
     }else {
         searchCriteria.text("Your holiday to " + destination + " on " + startDate)
-        // searchCriteria.text("Please complete all fields")
+        $('#weather-div').removeClass("hideSection").addClass("showSection");
+        $('#news-currency-div').removeClass("hideSection").addClass("showSection");
+        $('#itinerary-div').removeClass("hideSection").addClass("showSection");
     }
 
     // Call functions
