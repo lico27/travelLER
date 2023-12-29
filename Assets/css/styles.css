@@ -9,10 +9,14 @@
 
 .btn {
     margin: 10px;
+    /* background-color: #1c376c;
+    border: 0px; */
 }
 
 h1 {
-    color: #7fc9cb;
+    color: white;
+    /* color: #7fc9cb; */
+    /* color: #1d6a8aff; */
     font-size: 24px;
     margin: auto;
 }
@@ -26,15 +30,17 @@ h5 {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
+
 }
 
 .form-box {
-    background:rgba(0, 0, 0, 0.6);
-    border-radius: 15px;
-    max-height: fit-content;
-    max-width: 80%;
-    display: flexbox;
+    background:rgba(24, 70, 89, 0.6);
+    height: 60vh;
+    max-width: 100%;
+    /* border-radius: 15px;
+    max-width: 80%; */
+    /* display: flexbox; */
     overflow: hidden;
     justify-content: center;
     align-items: center;
@@ -58,13 +64,35 @@ h5 {
     color: white;
 }
 
+#destination {
+    /* display: inline-flex;
+    width: 10vw !important; */
+}
+
+.input-group {
+    width: auto !important;
+}
+
 #news-card, #weather-card {
     margin-bottom: 10px;
 }
 
-#search-form, #past-searches {
+#currencyCard {
     width: 90%;
     margin: auto;
+    padding: 10px;
+}
+
+#past-searches {
+    margin: auto;
+    margin-top: 10px;
+}
+
+#search-form {
+    width: 100%;
+    background-color: #7fc9cb;
+    --bs-gutter-x: 0;
+    /* margin: auto; */
 }
 
 .footer {
