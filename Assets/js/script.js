@@ -494,9 +494,9 @@ function renderNewsArticles(i, articleTitle, articleDate, articleSource, article
     newContainerDiv.attr({ 'id': `news-${i}`, 'class': 'my-2 p-2' });
     newContainerDiv.css({ 'background-color': '#304356', 'color': 'white', 'border-radius': '5px' });
     const newH6 = $('<h6>').text(articleTitle).attr('class', ' mb-0');
-    const newPDateSource = $('<p>').text(`${articleDate} - ${articleSource}`).attr('class', ' mb-0 small text-muted');
-    const newP = $('<p>').text(articleDescription);
-    const newAnchor = $('<a>').text('Click here for full story').attr({'href': `${articleLink}`, 'target':'_blank'});
+    const newPDateSource = $('<p>').text(`${articleDate} - ${articleSource}`).attr('class', ' mb-2 small text-muted').css('font-size', '10px');
+    const newP = $('<p>').text(articleDescription).attr('class', ' mb-0').css('font-size', '12px');
+    const newAnchor = $('<a>').text('Click here for full story').attr({'href': `${articleLink}`, 'target':'_blank'}).css('font-size', '12px');
 
     newContainerDiv.append(newH6, newPDateSource, newP, newAnchor);
     newsDiv.append(newContainerDiv);
