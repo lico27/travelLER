@@ -83,7 +83,7 @@
             <section class="row card-group m-3 p-3">
 
                 <!-- weather div (one column)  -->
-                <div class="col-lg-4 h-100">
+                <div id="weather-div" class="col-lg-4 h-100 hideSection">
                     <div class="card rounded-3 border-black p-1" id="weather-card">
                         <div class="card-body">
                             <h5 class="card-title" id="weather-title">Weather</h5>
@@ -94,12 +94,11 @@
                 </div>
 
                 <!-- news and currency div (one column) -->
-                <div class="card border-white col-lg-4 h-100">
+                <div id="news-currency-div" class="card border-white col-lg-4 h-100 hideSection">
 
                     <div class="card rounded-3 border-black p-1" id="news-card">
                         <div class="card-body">
                             <h5 class="card-title" id="news-title">News</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
                             <div class="card-text" id="news-append"></div>
                         </div>
                     </div>
@@ -126,7 +125,7 @@
                 </div>
 
                 <!-- itinerary div (one column) -->
-                <div class="col-lg-4 h-100 pt-sm-2 pt-lg-0">
+                <div id="itinerary-div" class="col-lg-4 h-100 pt-sm-2 pt-lg-0 hideSection">
                     <div class="card rounded-3 border-black p-1" id="itinerary-card">
                         <div id="itinerary-card-body" class="card-body h-100">
                             <h5 class="card-title">My Itinerary</h5>
@@ -140,18 +139,19 @@
                     </div>
                 </div>
 
-            <div id="past-searches" class="col-lg-12">
-                <div class="card rounded-3 border-black">
-                    <div class="card-body h-100" id="history">
-                        <h5 class="card-title">Trip History</h5>
-                        <button class="btn btn-dark" id="btnClearHistory">
-                            Clear past searches
-                        </button>
-                        <div id="history-container">
+                <!-- Past Searches div -->
+                <div id="past-searches" class="col-lg-12">
+                    <div class="card rounded-3 border-black">
+                        <div class="card-body h-100" id="history">
+                            <h5 class="card-title">Trip History</h5>
+                            <button class="btn btn-dark" id="btnClearHistory">
+                                Clear past searches
+                            </button>
+                            <div id="history-container">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
             </section>
 
@@ -179,7 +179,7 @@
                         Please ensure all fields are completed.
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="clear-modal" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-dark" id="clear-modal" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
