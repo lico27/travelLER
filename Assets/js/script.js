@@ -33,10 +33,17 @@ $("#search-submit").on("click", function (event) {
     console.log(destination)
     console.log(startDate)
 
-    if (destination && startDate && endDate) {
+
+
+    if((destination == 'select') || (startDate == '') || (endDate == '')){
+        console.log('select has been submitted')
+        $("#select-city").modal('show');
+        return
+    // }else if (destination && startDate && endDate) {
+    //     searchCriteria.text("Your holiday to " + destination + " on " + startDate)
+    }else {
         searchCriteria.text("Your holiday to " + destination + " on " + startDate)
-    } else {
-        searchCriteria.text("Please complete all fields")
+        // searchCriteria.text("Please complete all fields")
     }
 
     // Call functions
@@ -48,12 +55,16 @@ $("#search-submit").on("click", function (event) {
 
 // Function to save search to local storage and display in search history
 function buildHistory() {
-    arrCities.push(destination);
-    let stringCities = JSON.stringify(arrCities);
-    localStorage.setItem("cities", stringCities);
-    let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory").attr("id", destination);
-    historySection.prepend(storedCity);
 
+    if(arrCities.includes(destination) || destination == 'select'){ // to prevent duplication of search history button or creatign a button if the user doesn't select a destination
+        return
+    }else{
+        arrCities.push(destination);
+        let stringCities = JSON.stringify(arrCities);
+        localStorage.setItem("cities", stringCities);
+        let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory").attr("id", destination);
+        historySection.prepend(storedCity);
+    }
     for (let i = 0; i < arrCities.length; i++) {
         $("#" + destination).on("click", function (event) {
             weatherDiv.empty();
@@ -384,7 +395,7 @@ function getWeatherForecast(destination) {
             isToday = true; //after for loop runs, change isToday back to true so when fetchCityForecast() runs again, the today section is rendered
 
         }).catch(function (error) {
-            console.log('incorrect city added');
+            console.log('error');
             //create an alert on html or a modal pop up to alet user to try again
         });
 
@@ -436,7 +447,7 @@ function getNewsInfo(destination) {
 
     newsDiv.empty();
 
-    let queryURLNews = "https://gnews.io/api/v4/search?q=" + destination + "&country=uk&max=5&token=70cdb701813ebdb29d8d18237c3a045e"// - this is my key
+    let queryURLNews = "https://gnews.io/api/v4/search?q=" + destination + "&country=uk&lang=en&max=5&token=70cdb701813ebdb29d8d18237c3a045e"// - this is my key 
     console.log('queryURLNews:');
     console.log(queryURLNews);
 
