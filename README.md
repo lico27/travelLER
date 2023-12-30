@@ -34,6 +34,8 @@ Coming soon
 ## Credits
 Project designed and delivered by [Liam Cottrell](https://github.com/lico27), [Emma Davies](https://github.com/E-Davies) and [Rosie Galezia](https://github.com/rosiegalezia). 
 
+https://bootstrapcolors.com was used to generate CSS for custom buttons with bootstrap-style hover effects.
+
 ## License
 Produced under the MIT license.
 
