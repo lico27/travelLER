@@ -26,7 +26,7 @@
             height: 60vh;
             background-size: cover;">
 
-                <div class="row p-5 form-box">
+                <div class="row p-5 welcome-box">
                     <div id="logo">
                         <img src="Assets/images/logo.png" width="150px">
                     </div>
@@ -82,8 +82,8 @@
 
             <section class="row card-group m-3 p-3">
 
-                <!-- weather div (one column)  -->
-                <div class="col-lg-4 h-100">
+                <!-- weather div and currency (one column)  -->
+                <div id="weather-currency-div" class="col-lg-4 h-100 hideSection">
                     <div class="card rounded-3 border-black p-1" id="weather-card">
                         <div class="card-body">
                             <h5 class="card-title" id="weather-title">Weather</h5>
@@ -91,20 +91,8 @@
                             <div class="card-text" id="weather-append"></div>
                         </div>
                     </div>
-                </div>
 
-                <!-- news and currency div (one column) -->
-                <div class="card border-white col-lg-4 h-100">
-
-                    <div class="card rounded-3 border-black p-1" id="news-card">
-                        <div class="card-body">
-                            <h5 class="card-title" id="news-title">News</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <div class="card-text" id="news-append"></div>
-                        </div>
-                    </div>
-
-                    <div class="card rounded-3 border-black p-1" id="currency-card">
+                    <div class="card rounded-3 border-black" id="currency-card">
                         <div class="card-body">
                             <h5 class="card-title">Currency</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Check the currency conversion before your trip!
@@ -125,8 +113,18 @@
 
                 </div>
 
+                <!-- news and currency div (one column) -->
+                <div id="news-div" class="card border-white col-lg-4 h-100 hideSection">
+                    <div class="card rounded-3 border-black p-1" id="news-card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4" id="news-title">News</h5>
+                            <div class="card-text" id="news-append"></div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- itinerary div (one column) -->
-                <div class="col-lg-4 h-100">
+                <div id="itinerary-div" class="col-lg-4 h-100 pt-sm-2 pt-lg-0 hideSection">
                     <div class="card rounded-3 border-black p-1" id="itinerary-card">
                         <div id="itinerary-card-body" class="card-body h-100">
                             <h5 class="card-title">My Itinerary</h5>
@@ -140,17 +138,19 @@
                     </div>
                 </div>
 
-            </section>
-
-            <section id="past-searches" class="row col-lg-12 m-3 p-3" style="width: 97%;">
-                <div class="card rounded-3 border-black">
-                    <div class="card-body h-100" id="history">
-                        <h5 class="card-title">Trip History</h5>
-                        <button class="btn btn-dark" id="btnClearHistory">
-                            Clear past searches
-                        </button>
-                        <div id="history-container">
+                <!-- Past Searches div -->
+                <div id="past-searches" class="col-lg-12">
+                    <div class="card rounded-3 border-black">
+                        <div class="card-body h-100" id="history">
+                            <h5 class="card-title">Trip History</h5>
+                            <button class="btn btn-dark" id="btnClearHistory">
+                                Clear past searches
+                            </button>
+                            <div id="history-container">
+                            </div>
                         </div>
+                    </div>
+                </div>
 
             </section>
 
@@ -159,13 +159,31 @@
             <footer>
                 <div class="text-center footer p-5">
                     <p>Bootcamp Project 1, January 2024<br>
-                        Rosie Galezia, Emma Davies and Liam Cottrell.</p>
+                        Liam Cottrell, Emma Davies and Rosie Galezia</p>
                 </div>
             </footer>
 
         </div>
 
-        <!-- Modal -->
+        <!-- Modals -->
+
+        <div class="modal fade" id="select-city" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="select-city-label">City not selected</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Please ensure all fields are completed.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" id="clear-modal" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade" id="clearModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -186,9 +204,14 @@
         </div>
 
         <!-- Bootstrap -->
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
 
         <!-- Day.js -->
         <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>

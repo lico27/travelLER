@@ -33,33 +33,42 @@ $("#search-submit").on("click", function (event) {
     console.log(destination)
     console.log(startDate)
 
-    if (destination && startDate && endDate) {
-        searchCriteria.text("Your holiday to " + destination + " on " + startDate)
-    } else {
-        searchCriteria.text("Please complete all fields")
-    }
+
+
+    if((destination == 'select') || (startDate == '') || (endDate == '')){
+        $("#select-city").modal('show');
+        return
+    }else {
+        searchCriteria.text("Your holiday to " + destination + " on " + startDate);
+        showInfo();
+    };
 
     // Call functions
     getWeatherForecast(destination);
     // getNewsInfo(destination);
     renderItinerary(startDate);
-    buildHistory();
+    buildHistory(destination);
 })
 
-// Function to save search to local storage and display in search history
-function buildHistory() {
-    arrCities.push(destination);
-    let stringCities = JSON.stringify(arrCities);
-    localStorage.setItem("cities", stringCities);
-    let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory").attr("id", destination);
-    historySection.prepend(storedCity);
+// function to remove display:hidden on info divs
+function showInfo(){
+    $('#weather-currency-div').removeClass("hideSection").addClass("showSection");
+    $('#news-div').removeClass("hideSection").addClass("showSection");
+    $('#itinerary-div').removeClass("hideSection").addClass("showSection");
+}
 
-    for (let i = 0; i < arrCities.length; i++) {
-        $("#" + destination).on("click", function (event) {
-            weatherDiv.empty();
-            recallSearches(destination);
-        });
-    };
+// Function to save search to local storage and display in search history
+function buildHistory(destination) {
+
+    if(arrCities.includes(destination) || destination == 'select'){ // to prevent duplication of search history button or creating a button if the user doesn't select a destination
+        return
+    }else{
+        arrCities.push(destination);
+        let stringCities = JSON.stringify(arrCities);
+        localStorage.setItem("cities", stringCities);
+        let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory").attr('data-destination', `${destination}`);
+        historySection.prepend(storedCity);
+    }
 };
 
 // event listener to retrieve search from localstorage and display in search history
@@ -68,16 +77,19 @@ if (localStorage.getItem("cities")) {
 
     for (let i = 0; i < arrCities.length; i++) {
         let searchCity = arrCities[i];
-        let storedCity = $("<button>" + searchCity + "</button>").attr("class", "btn btnHistory").attr("id", searchCity);
+        let storedCity = $("<button>" + searchCity + "</button>").attr("class", "btn btnHistory").attr('data-destination', `${searchCity}`);
         historySection.prepend(storedCity);
-
-        $("#" + searchCity).on("click", function (event) {
-            weatherDiv.empty();
-            destination = searchCity;
-            recallSearches(destination);
-        });
     };
 };
+
+//bring up the city info when a search history button is clicked
+historySection.on('click', '.btnHistory', function(event){ 
+    let target = event.target.dataset.destination;
+    showInfo();
+    recallSearches(target);
+});
+
+
 
 // Function to recall previous searches
 function recallSearches(destination) {
@@ -317,7 +329,7 @@ $("#curSubmit").on("click", function (event) {
 // Make currency card with API info
 function makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, conversionRate2) {
     let card = $("<div>");
-    card.attr("class", "card col-md-2");
+    card.attr("class", "card");
     card.attr("id", "currencyCard");
     card.append("<h5>" + "Currency conversion: " + currencyCode + " to GBP" + "</h5>");
     card.append("<p>" + currencySymbol + " 1 is worth £" + conversionRate2 + " today." + "</p>");
@@ -384,7 +396,7 @@ function getWeatherForecast(destination) {
             isToday = true; //after for loop runs, change isToday back to true so when fetchCityForecast() runs again, the today section is rendered
 
         }).catch(function (error) {
-            console.log('incorrect city added');
+            console.log('error');
             //create an alert on html or a modal pop up to alet user to try again
         });
 
@@ -436,7 +448,7 @@ function getNewsInfo(destination) {
 
     newsDiv.empty();
 
-    let queryURLNews = "https://gnews.io/api/v4/search?q=" + destination + "&country=uk&max=5&token=70cdb701813ebdb29d8d18237c3a045e"// - this is my key
+    let queryURLNews = "https://gnews.io/api/v4/search?q=" + destination + "&country=uk&lang=en&max=5&token=70cdb701813ebdb29d8d18237c3a045e"// - this is my key 
     console.log('queryURLNews:');
     console.log(queryURLNews);
 
@@ -483,9 +495,9 @@ function renderNewsArticles(i, articleTitle, articleDate, articleSource, article
     newContainerDiv.attr({ 'id': `news-${i}`, 'class': 'my-2 p-2' });
     newContainerDiv.css({ 'background-color': '#304356', 'color': 'white', 'border-radius': '5px' });
     const newH6 = $('<h6>').text(articleTitle).attr('class', ' mb-0');
-    const newPDateSource = $('<p>').text(`${articleDate} - ${articleSource}`).attr('class', ' mb-0 small text-muted');
-    const newP = $('<p>').text(articleDescription);
-    const newAnchor = $('<a>').text('Click here for full story').attr({'href': `${articleLink}`, 'target':'_blank'});
+    const newPDateSource = $('<p>').text(`${articleDate} - ${articleSource}`).attr('class', ' mb-2 small text-muted').css('font-size', '10px');
+    const newP = $('<p>').text(articleDescription).attr('class', ' mb-0').css('font-size', '12px');
+    const newAnchor = $('<a>').text('Click here for full story').attr({'href': `${articleLink}`, 'target':'_blank'}).css('font-size', '12px');
 
     newContainerDiv.append(newH6, newPDateSource, newP, newAnchor);
     newsDiv.append(newContainerDiv);
