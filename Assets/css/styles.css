@@ -218,7 +218,6 @@ a {
 /************************ STYLING THE DATEPICKER **********************************/
 
 
-
 /* current day */
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
     border: 1px solid #9dd7d9;
@@ -230,6 +229,7 @@ a {
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
     border: 1px solid rgb(92, 147, 149);
     background: #7fc9cb;
+    opacity: 0.6;
     font-weight: normal;
     color: #ffffff;
 }
@@ -244,10 +244,17 @@ a {
 
 /* hover state  */
 .ui-datepicker-calendar .ui-state-hover {
-  background: #cfe9ea;
+  background: #7fc9cb;
+  opacity: 0.6;
 }
 
 /* highlight the weekends for improved UI  */
-.ui-datepicker-calendar .ui-datepicker-week-end {
-    background: red;
+.ui-datepicker-calendar .ui-datepicker-week-end > a {
+    background: #e7e7e7;
+}
+
+/* add hover and active states to save  */
+.saveItinerary:hover {
+    color: var(--bs-btn-hover-color);
+    background-color: rgb(215, 215, 215);
 }
