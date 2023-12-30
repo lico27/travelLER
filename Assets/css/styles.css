@@ -34,10 +34,10 @@ h5 {
 
 }
 
-.form-box {
+.welcome-box {
     background:rgba(24, 70, 89, 0.6);
     height: 60vh;
-    max-width: 100%;
+    width: 100%;
     /* border-radius: 15px;
     max-width: 80%; */
     /* display: flexbox; */
@@ -58,6 +58,7 @@ h5 {
     flex: 1;
     overflow: hidden;
     padding: 10px;
+    max-width: fit-content;
 }
 
 #welcome p {
