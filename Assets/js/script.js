@@ -36,41 +36,39 @@ $("#search-submit").on("click", function (event) {
 
 
     if((destination == 'select') || (startDate == '') || (endDate == '')){
-        console.log('select has been submitted')
         $("#select-city").modal('show');
         return
     }else {
-        searchCriteria.text("Your holiday to " + destination + " on " + startDate)
-        $('#weather-div').removeClass("hideSection").addClass("showSection");
-        $('#news-currency-div').removeClass("hideSection").addClass("showSection");
-        $('#itinerary-div').removeClass("hideSection").addClass("showSection");
-    }
+        searchCriteria.text("Your holiday to " + destination + " on " + startDate);
+        showInfo();
+    };
 
     // Call functions
     getWeatherForecast(destination);
     // getNewsInfo(destination);
     renderItinerary(startDate);
-    buildHistory();
+    buildHistory(destination);
 })
 
-// Function to save search to local storage and display in search history
-function buildHistory() {
+// function to remove display:hidden on info divs
+function showInfo(){
+    $('#weather-currency-div').removeClass("hideSection").addClass("showSection");
+    $('#news-div').removeClass("hideSection").addClass("showSection");
+    $('#itinerary-div').removeClass("hideSection").addClass("showSection");
+}
 
-    if(arrCities.includes(destination) || destination == 'select'){ // to prevent duplication of search history button or creatign a button if the user doesn't select a destination
+// Function to save search to local storage and display in search history
+function buildHistory(destination) {
+
+    if(arrCities.includes(destination) || destination == 'select'){ // to prevent duplication of search history button or creating a button if the user doesn't select a destination
         return
     }else{
         arrCities.push(destination);
         let stringCities = JSON.stringify(arrCities);
         localStorage.setItem("cities", stringCities);
-        let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory").attr("id", destination);
+        let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory").attr('data-destination', `${destination}`);
         historySection.prepend(storedCity);
     }
-    for (let i = 0; i < arrCities.length; i++) {
-        $("#" + destination).on("click", function (event) {
-            weatherDiv.empty();
-            recallSearches(destination);
-        });
-    };
 };
 
 // event listener to retrieve search from localstorage and display in search history
@@ -79,16 +77,19 @@ if (localStorage.getItem("cities")) {
 
     for (let i = 0; i < arrCities.length; i++) {
         let searchCity = arrCities[i];
-        let storedCity = $("<button>" + searchCity + "</button>").attr("class", "btn btnHistory").attr("id", searchCity);
+        let storedCity = $("<button>" + searchCity + "</button>").attr("class", "btn btnHistory").attr('data-destination', `${searchCity}`);
         historySection.prepend(storedCity);
-
-        $("#" + searchCity).on("click", function (event) {
-            weatherDiv.empty();
-            destination = searchCity;
-            recallSearches(destination);
-        });
     };
 };
+
+//bring up the city info when a search history button is clicked
+historySection.on('click', '.btnHistory', function(event){ 
+    let target = event.target.dataset.destination;
+    showInfo();
+    recallSearches(target);
+});
+
+
 
 // Function to recall previous searches
 function recallSearches(destination) {
