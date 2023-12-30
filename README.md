@@ -4,7 +4,21 @@
 A dashboard to display information for visitors to the UK.
 
 ### Project Deliverables
-Coming soon
+To meet the project Acceptance Criteria, the app:
+- Uses at least two server-side APIs ✅ 
+  - OpenWeather
+  - Freecurrency
+  - GNews
+- Is interactive (accepts and responds to user input) ✅ 
+  - Accepts user selection via dropdown menu and date picker
+  - Responds to user choices to save/clear itinerary and past searches
+- Uses Bootstrap ✅ 
+  - Cards
+  - Twelve column grid system
+- Uses modals ✅ 
+- Uses client-side storage to store persistent data ✅ 
+- Is responsive ✅ 
+- Is deployed to GitHub Pages ✅ 
 
 ### Installation
 No installation required.
