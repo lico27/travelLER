@@ -507,7 +507,8 @@ function renderNewsArticles(i, articleTitle, articleDate, articleSource, article
 
 // date picker
 $(function () {
-    $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+    $(".datepicker").datepicker({dateFormat: "yy-mm-dd", firstDay: 1 });
+
 });
 
 
