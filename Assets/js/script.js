@@ -143,17 +143,17 @@ function renderItinerary(startDate) {
         var dayActivityDiv = $("<div>")
         var dayActivitySpan = $("<span>")
         var dayActivityInput = $("<input>")
-        var saveItineraryBtn = $("<button>").addClass("saveItinerary")
+        var saveItineraryBtn = $("<button>").addClass("saveItinerary input-group-text rounded-end")
 
         // input for user's plans
-        dayActivityInput.attr("placeholder", "Plan your activities here and then hit save")
+        dayActivityInput.attr("placeholder", "Plan your activities here and save")
         dayActivityInput.attr("type", "text")
-        dayActivityInput.addClass("day-activity")
+        dayActivityInput.addClass("day-activity w-auto border-light p-1 px-3")
         dayActivityInput.attr("id", "Day" + (i + 1))
 
         // add a save icon to each save button 
         // var saveIcon = $("<i>").addClass("far fa-save")
-        saveItineraryBtn.text("save")
+        saveItineraryBtn.text("Save")
 
         // section attached to each input box with the day
         dayActivitySpan.text("Day " + (i + 1))
@@ -406,7 +406,7 @@ function renderWeather(i, properDate, weatherIcon, temp, wind, humidity) {
 
     const newContainerDiv = $('<div>');
     newContainerDiv.attr({ 'id': `weather-${i}`, 'class': 'my-2 p-2' });
-    newContainerDiv.css({ 'background-color': '#304356', 'color': 'white', 'border-radius': '5px' });
+    newContainerDiv.css({ 'background-color': '#7fc9cb', 'color': '#212241', 'border-radius': '5px' });
     const newH6 = $('<h6>').text(properDate).attr('class', ' mb-0');
 
     const newImg = $('<img>');
