@@ -15,8 +15,11 @@ To meet the project Acceptance Criteria, the app:
 - Uses Bootstrap ✅ 
   - Cards
   - Twelve column grid system
+  - Buttons
 - Uses modals ✅ 
 - Uses client-side storage to store persistent data ✅ 
+  - Search history
+  - Itinerary activities
 - Is responsive ✅ 
 - Is deployed to GitHub Pages ✅ 
 

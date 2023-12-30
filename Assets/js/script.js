@@ -507,7 +507,10 @@ function renderNewsArticles(i, articleTitle, articleDate, articleSource, article
 
 // date picker
 $(function () {
-    $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+    $(".datepicker").datepicker({
+        dateFormat: "yy-mm-dd";
+        // dayNamesMin: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+});
 });
 
 
