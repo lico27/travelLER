@@ -45,7 +45,7 @@ $("#search-submit").on("click", function (event) {
 
     // Call functions
     getWeatherForecast(destination);
-    // getNewsInfo(destination);
+    getNewsInfo(destination);
     renderItinerary(startDate);
     buildHistory(destination);
 })
@@ -94,7 +94,7 @@ historySection.on('click', '.btnHistory', function(event){
 // Function to recall previous searches
 function recallSearches(destination) {
     getWeatherForecast(destination);
-    // getNewsInfo(destination);
+    getNewsInfo(destination);
     // function to get saved itinerary goes here
 };
 
@@ -379,7 +379,7 @@ function getWeatherForecast(destination) {
 
                 if (destination == 'select') { // if user doesn't select a city, display an alert
                     const newContainerDiv = $('<div>');
-                    newContainerDiv.css({ 'background-color': '#dc3545', 'color': 'white', 'border-radius': '5px', 'padding': '5px', 'text-align': 'center' });
+                    newContainerDiv.css({ 'background-color': '#7fc9cb', 'color': '#212241', 'border-radius': '5px', 'padding': '5px', 'text-align': 'center' });
                     const newH6 = $('<h6>').text('Please select a destination to see the forecast').attr('class', ' mb-0');
                     newContainerDiv.append(newH6);
                     $('#weather-append').append(newContainerDiv);
@@ -492,12 +492,12 @@ function getNewsInfo(destination) {
 function renderNewsArticles(i, articleTitle, articleDate, articleSource, articleDescription, articleLink) {
 
     const newContainerDiv = $('<div>');
-    newContainerDiv.attr({ 'id': `news-${i}`, 'class': 'my-2 p-2' });
-    newContainerDiv.css({ 'background-color': '#304356', 'color': 'white', 'border-radius': '5px' });
+    newContainerDiv.attr({ 'id': `news-${i}`, 'class': 'my-2 p-3' });
+    newContainerDiv.css({ 'background-color': '#7fc9cb', 'color': '#212241', 'border-radius': '5px' });
     const newH6 = $('<h6>').text(articleTitle).attr('class', ' mb-0');
-    const newPDateSource = $('<p>').text(`${articleDate} - ${articleSource}`).attr('class', ' mb-2 small text-muted').css('font-size', '10px');
+    const newPDateSource = $('<p>').text(`${articleDate} - ${articleSource}`).attr('class', ' mb-2 small text-secondary py-1').css({'font-size': '12px' });
     const newP = $('<p>').text(articleDescription).attr('class', ' mb-0').css('font-size', '12px');
-    const newAnchor = $('<a>').text('Click here for full story').attr({'href': `${articleLink}`, 'target':'_blank'}).css('font-size', '12px');
+    const newAnchor = $('<a>').text('Click here for full story').attr({'href': `${articleLink}`, 'target':'_blank'}).css({'color': 'white', 'font-size': '12px' });
 
     newContainerDiv.append(newH6, newPDateSource, newP, newAnchor);
     newsDiv.append(newContainerDiv);
@@ -508,7 +508,6 @@ function renderNewsArticles(i, articleTitle, articleDate, articleSource, article
 // date picker
 $(function () {
     $(".datepicker").datepicker({dateFormat: "yy-mm-dd", firstDay: 1 });
-
 });
 
 
