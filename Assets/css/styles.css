@@ -87,6 +87,11 @@ h5 {
     width: auto !important;
 }
 
+#itinerary-card-text {
+    overflow: scroll;
+    height: 75vh;
+}
+
 #news-card,
 #weather-card {
     margin-bottom: 10px;
