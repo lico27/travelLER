@@ -3,7 +3,11 @@
 <p align="center"> <img src="Assets/images/logo.png" width="30%"> </p>
 
 ## Description
-A dashboard to display information for visitors to the UK :airplane:🇬🇧
+A dashboard to display information for visitors to the UK :airplane:
+
+Whatever your destination, travel.ler will give you all the information you need about the weather 🌦, the news 🗞️, and exchange rates 💰
+
+Enjoy your stay in the UK! 🇬🇧
 
 ### Project Deliverables
 To meet the project Acceptance Criteria, the app:
