@@ -87,12 +87,12 @@ h5 {
     width: auto !important;
 }
 
-#itinerary-card-text {
+#itinerary-card-text, #news-append {
     overflow: scroll;
-    height: 75vh;
+    max-height: 70vh;
 }
 
-#news-card,
+#currency-card,
 #weather-card {
     margin-bottom: 10px;
 }
@@ -127,14 +127,16 @@ h5 {
 }
 
 #history-container {
-    display: flexbox;
-    flex-direction: row;
+    display: flex;
     flex-wrap: wrap;
+    overflow: scroll;
+    max-height: 200px;
+    justify-content: center;
 }
 
 .btnHistory {
     text-align: center;
-    width: 18rem;
+    width: 12rem;
     padding: 3px;
     margin: 0 5px 5px 0;
     border: solid 1px black;
