@@ -296,13 +296,13 @@ function fetchCurrency(currencyCode) {
         .then(function (responseConversion1) {
             return responseConversion1.json();
         }).then(function (dataConversion1) {
-            let conversionRate1 = dataConversion1.data.GBP.toFixed(4);
+            let conversionRate1 = dataConversion1.data.GBP.toFixed(2);
 
             fetch(queryURLConversion2)
                 .then(function (responseConversion2) {
                     return responseConversion2.json();
                 }).then(function (dataConversion2) {
-                    let conversionRate2 = dataConversion2.data[currencyCode].toFixed(2);
+                    let conversionRate2 = dataConversion2.data[currencyCode].toFixed(4);
 
                     let queryURLCurrency = "https://api.freecurrencyapi.com/v1/currencies?apikey=fca_live_NOCDhLaiS0pA01mLhYHikP55sb2tvwMFcFZ4m0nc&currencies=" + currencyCode + "&base_currency=" + currencyCode;
                     fetch(queryURLCurrency)
@@ -332,8 +332,8 @@ function makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, c
     card.attr("class", "card");
     card.attr("id", "currencyCard");
     card.append("<h5>" + "Currency conversion: " + currencyCode + " to GBP" + "</h5>");
-    card.append("<p>" + currencySymbol + " 1 is worth £" + conversionRate2 + " today." + "</p>");
-    card.append("<p>" + " £ 1 is worth " + conversionRate1 + " " + currencyName + "." + "</p>");
+    card.append("<p>" + currencySymbol + " 1 is worth £" + conversionRate1 + " today." + "</p>");
+    card.append("<p>" + " £ 1 is worth " + conversionRate2 + " " + currencyName + "." + "</p>");
     currencyMain.append(card);
 };
 

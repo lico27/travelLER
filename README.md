@@ -9,6 +9,7 @@ To meet the project Acceptance Criteria, the app:
   - OpenWeather
   - Freecurrency
   - GNews
+- 
 - Is interactive (accepts and responds to user input) ✅ 
   - Accepts user selection via dropdown menu and date picker
   - Responds to user choices to save/clear itinerary and past searches
