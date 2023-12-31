@@ -45,7 +45,7 @@ $("#search-submit").on("click", function (event) {
 
     // Call functions
     getWeatherForecast(destination);
-    // getNewsInfo(destination);
+    getNewsInfo(destination);
     renderItinerary(startDate);
     buildHistory(destination);
 })
@@ -94,7 +94,7 @@ historySection.on('click', '.btnHistory', function(event){
 // Function to recall previous searches
 function recallSearches(destination) {
     getWeatherForecast(destination);
-    // getNewsInfo(destination);
+    getNewsInfo(destination);
     // function to get saved itinerary goes here
 };
 
@@ -448,7 +448,16 @@ function getNewsInfo(destination) {
 
     newsDiv.empty();
 
-    let queryURLNews = "https://gnews.io/api/v4/search?q=" + destination + "&country=uk&lang=en&max=5&token=70cdb701813ebdb29d8d18237c3a045e"// - this is my key 
+    // change format passed to query URL for destination names that have dashes in them
+    let apiDestination
+    if(destination.includes('-')){
+        apiDestination = `%22${destination}%22`;
+    }else{ 
+        apiDestination = destination;
+
+    }
+
+    let queryURLNews = "https://gnews.io/api/v4/search?q=" + apiDestination + "&country=uk&lang=en&max=5&token=70cdb701813ebdb29d8d18237c3a045e"// - this is my key 
     console.log('queryURLNews:');
     console.log(queryURLNews);
 

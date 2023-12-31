@@ -115,6 +115,7 @@ let cities = [
     "Blackwood",
     "Maesteg",
     "Anglesey",
+    "Chelmsford"
     ];
 cities = cities.sort();
 let destCity = $("#destination");
