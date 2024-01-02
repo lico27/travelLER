@@ -19,6 +19,17 @@
     border-bottom-right-radius: var(--bs-border-radius) !important;
 }
 
+#curSubmit {
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    margin-left: 5px;
+}
+
+#currencies {
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
 .input-group .btn {
     position: relative;
     z-index: 0;
