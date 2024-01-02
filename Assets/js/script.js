@@ -35,7 +35,7 @@ $("#search-submit").on("click", function (event) {
 
 
 
-    if((destination == 'select') || (startDate == '') || (endDate == '')){
+    if ((destination == 'select') || (startDate == '') || (endDate == '')) {
         $("#select-city").modal('show');
         return
     } else { // TODO: change format of start date
@@ -51,7 +51,7 @@ $("#search-submit").on("click", function (event) {
 })
 
 // function to remove display:hidden on info divs
-function showInfo(){
+function showInfo() {
     $('#weather-currency-div').removeClass("hideSection").addClass("showSection");
     $('#news-div').removeClass("hideSection").addClass("showSection");
     $('#itinerary-div').removeClass("hideSection").addClass("showSection");
@@ -60,9 +60,9 @@ function showInfo(){
 // Function to save search to local storage and display in search history
 function buildHistory(destination) {
 
-    if(arrCities.includes(destination) || destination == 'select'){ // to prevent duplication of search history button or creating a button if the user doesn't select a destination
+    if (arrCities.includes(destination) || destination == 'select') { // to prevent duplication of search history button or creating a button if the user doesn't select a destination
         return
-    }else{
+    } else {
         arrCities.push(destination);
         let stringCities = JSON.stringify(arrCities);
         localStorage.setItem("cities", stringCities);
@@ -83,7 +83,7 @@ if (localStorage.getItem("cities")) {
 };
 
 //bring up the city info when a search history button is clicked
-historySection.on('click', '.btnHistory', function(event){ 
+historySection.on('click', '.btnHistory', function (event) {
     let target = event.target.dataset.destination;
     showInfo();
     recallSearches(target);
@@ -99,23 +99,40 @@ function recallSearches(destination) {
 
 /**************************** Date Picker ******************************************/
 
-$("#start-date").datepicker({ 
-    minDate: -1,
-    maxDate: "+1M +10D",
-    dateFormat: "yy-mm-dd",
-    // altFormat: "dd-mm-yy",
-    // altField: "#start-date",
-    firstDay: 1
-  });
 
-  $("#end-date").datepicker({ 
-    minDate: -1,
-    maxDate: "+12M",
-    dateFormat: "yy-mm-dd",
-    // altFormat: "dd-mm-yy",
-    // altField: "#end-date",
-    firstDay: 1
-  });
+$(function () {
+    function highlightRange(date) {
+        var startDate = $("#start-date").datepicker("getDate");
+        var endDate = $("#end-date").datepicker("getDate");
+
+        if (startDate != null && endDate != null && date >= startDate && date <= endDate) {
+            return [true, "highlight", "Vacation"];
+        }
+
+        return [true, "", ""];
+    }
+
+    $("#start-date").datepicker({
+        minDate: -1,
+        maxDate: "+1M +10D",
+        dateFormat: "yy-mm-dd",
+        // altFormat: "dd-mm-yy",
+        // altField: "#start-date",
+        firstDay: 1
+    });
+
+    $("#end-date").datepicker({
+        minDate: -1,
+        maxDate: "+12M",
+        dateFormat: "yy-mm-dd",
+        // altFormat: "dd-mm-yy",
+        // altField: "#end-date",
+        firstDay: 1
+    });
+
+    $("#start-date, #end-date").datepicker("option", "beforeShowDay", highlightRange);
+
+})
 
 
 /**************************** End of Date Picker ******************************************/
@@ -220,7 +237,8 @@ function saveItinerary() {
     // set array equal to what's in local storage, else a new array
     var itineraryArray = JSON.parse(localStorage.getItem("itinerary")) || []
     var itineraryObject = {}
-    
+
+    // create an object containing the city name and the itinerary array
     console.log(destination)
     itineraryObject.cityName = destination
     itineraryObject.array = itineraryArray
@@ -252,11 +270,11 @@ var activityInputsEl = $(".day-activity")
 // loop through all the days and get the content from the inputs
 function retrieveItinerary() {
 
-        var itineraryFromStorage = JSON.parse(localStorage.getItem("itinerary"))
-            // // make an array of all the activity inputs
-        // var activityInputsEl = $(".day-activity")
-        
-        console.log(itineraryFromStorage)
+    var itineraryFromStorage = JSON.parse(localStorage.getItem("itinerary"))
+    // // make an array of all the activity inputs
+    // var activityInputsEl = $(".day-activity")
+
+    console.log(itineraryFromStorage)
 
     for (i = 0; i < activityInputsEl.length; i++) {
 
@@ -498,9 +516,9 @@ function getNewsInfo(destination) {
 
     // change format passed to query URL for destination names that have dashes in them
     let apiDestination
-    if(destination.includes('-')){
+    if (destination.includes('-')) {
         apiDestination = `%22${destination}%22`;
-    }else{ 
+    } else {
         apiDestination = destination;
 
     }
@@ -552,9 +570,9 @@ function renderNewsArticles(i, articleTitle, articleDate, articleSource, article
     newContainerDiv.attr({ 'id': `news-${i}`, 'class': 'my-2 p-3' });
     newContainerDiv.css({ 'background-color': '#7fc9cb', 'color': '#212241', 'border-radius': '5px' });
     const newH6 = $('<h6>').text(articleTitle).attr('class', ' mb-0');
-    const newPDateSource = $('<p>').text(`${articleDate} - ${articleSource}`).attr('class', ' mb-2 small text-secondary py-1').css({'font-size': '12px' });
+    const newPDateSource = $('<p>').text(`${articleDate} - ${articleSource}`).attr('class', ' mb-2 small text-secondary py-1').css({ 'font-size': '12px' });
     const newP = $('<p>').text(articleDescription).attr('class', ' mb-0').css('font-size', '12px');
-    const newAnchor = $('<a>').text('Click here for full story').attr({'href': `${articleLink}`, 'target':'_blank'}).css({'color': 'white', 'font-size': '12px' });
+    const newAnchor = $('<a>').text('Click here for full story').attr({ 'href': `${articleLink}`, 'target': '_blank' }).css({ 'color': 'white', 'font-size': '12px' });
 
     newContainerDiv.append(newH6, newPDateSource, newP, newAnchor);
     newsDiv.append(newContainerDiv);
