@@ -31,9 +31,6 @@ $("#search-submit").on("click", function (event) {
     endDate = $("#end-date").val();
 
 
-    console.log(`Start Date: ${startDate}`);
-    console.log(`End Date: ${endDate}`);
-
     if ((destination == 'select') || (startDate == '') || (endDate == '')) {
         $("#select-info").modal('show');
         return;
@@ -84,7 +81,7 @@ if (localStorage.getItem("cities")) {
     };
 };
 
-//bring up the city info when a search history button is clicked
+// bring up the city info when a search history button is clicked
 historySection.on('click', '.btnHistory', function (event) {
     let target = event.target.dataset.destination;
     showInfo();
@@ -95,7 +92,6 @@ historySection.on('click', '.btnHistory', function (event) {
 function recallSearches(destination) {
     // getWeatherForecast(destination);
     // getNewsInfo(destination);
-    // function to get saved itinerary goes here
     retrieveItinerary(destination)
 };
 
@@ -117,28 +113,26 @@ $(function () {
 
     $("#start-date").datepicker({
         minDate: -1,
-        // maxDate: "+1M +10D",
         dateFormat: "yy-mm-dd",
         // altFormat: "dd-mm-yy",
         // altField: "#start-date",
-        firstDay: 1
+        firstDay: 1 // start the week on Mon
     });
 
     $("#end-date").datepicker({
 
         // minDate: new Date(),
-        // maxDate: "+12M",
+        maxDate: "+12M",
         dateFormat: "yy-mm-dd",
         // altFormat: "dd-mm-yy",
         // altField: "#end-date",
-        firstDay: 1
+        firstDay: 1 // start the week on Mon
     });
 
     // highlight the selected date period
     $("#start-date, #end-date").datepicker("option", "beforeShowDay", highlightRange);
 
 })
-
 
 /**************************** End of Date Picker ******************************************/
 
@@ -153,7 +147,12 @@ var dayActivityArray = [];
 // function to render search into itinerary
 function renderItinerary(startDate) {
 
-    $("#itinerary-title").text("My " + destination + " itinerary");
+    if (destination == 'select') { // if user doesn't select a city, change card title to 'My Itinerary'
+        $("#itinerary-title").text("My itinerary");
+    } else {
+        $("#itinerary-title").text("My " + destination + " itinerary")
+    };
+
 
     // empty the card's previous content
     $("#itinerary-card-text").empty();
@@ -181,21 +180,34 @@ function renderItinerary(startDate) {
     var holidayLength = holidayEndDate.diff(holidayDate, "days");
     // var holidayLength = 5
 
+    renderInputs(holidayLength)
+
+    // **************************** save itinerary function ****************************************
+    $(".saveItinerary").on("click", saveItinerary)
+
+}
+
+
+function renderInputs(number) {
+
     // loop through each day of holiday and create an activity div for each,
     // containing a span, input and save button
 
-    for (var i = 0; i < holidayLength; i++) {
+    for (var i = 0; i < number; i++) {
 
-        var dayActivityDiv = $("<div>");
-        var dayActivitySpan = $("<span>");
-        var dayActivityInput = $("<input>");
-        var saveItineraryBtn = $("<button>").addClass("saveItinerary input-group-text rounded-end");
+
+        var dayActivityDiv = $("<div>").addClass("itineraryDay")
+        var dayActivitySpan = $("<span>")
+        var dayActivityInput = $("<input>")
+        var saveItineraryBtn = $("<button>").addClass("saveItinerary input-group-text rounded-end fit-content")
 
         // input for user's plans
-        dayActivityInput.attr({"placeholder": "Plan your activities here and save", "type": "text", "id": "Day" + (i + 1)});
-        // dayActivityInput.attr("type", "text")
-        dayActivityInput.addClass("day-activity w-auto border-light p-1 px-3");
-        // dayActivityInput.attr("id", "Day" + (i + 1))
+        dayActivityInput.attr("placeholder", "Plan your activities here and save")
+        dayActivityInput.attr("type", "text")
+        dayActivityInput.addClass("day-activity w-auto border-light p-1 px-3")
+        dayActivityInput.attr("id", "Day" + (i + 1))
+        dayActivityInput.addClass("Day" + (i + 1))
+
 
         // add a save icon to each save button 
         var saveIcon = $("<i>").addClass("far fa-save");
@@ -221,17 +233,15 @@ function renderItinerary(startDate) {
         $("#itinerary-card-text").append(dayActivityDiv);
     }
 
-    // **************************** save itinerary function ****************************************
-    $(".saveItinerary").on("click", saveItinerary);
-
 }
 
 // parent object equal to what's in local storage, else create a new object
 var itineraryObject;
 
+// TODO: check if one of the objects/arrays in clearItinerary is redundant
+
 // save the inputs for retrieval
 function saveItinerary() {
-    // console.log($(this).siblings(".day-activity").val())
 
     // get the input block content
     var text = $(this).siblings(".day-activity").val();
@@ -239,88 +249,128 @@ function saveItinerary() {
     // get the ID of the parent block
     var key = $(this).parent().attr("id");
 
-
     // parent object equal to what's in local storage, else create a new object
-    // itineraryObject = JSON.parse(localStorage.getItem(destination)) || {}
-    itineraryObject = {};
+    itineraryObject = JSON.parse(localStorage.getItem(destination)) || {}
 
     // child object
     var dayActivityObject = {};
-
-
-    // create an object containing the city name and the itinerary array
-
-    itineraryObject.cityName = destination;
-    itineraryObject.array = dayActivityArray;
-
-    console.log(itineraryObject);
-
-    // expected output:
-    // {cityName: MyCity, array: [{day1:’asdf’}, {day2: ‘fdfdf’}, etc..]}
-
-
-    // itineraryArray.push(itineraryObject)
 
     // save to object as a key-value pair
     dayActivityObject[key] = text;
     console.log(dayActivityObject)
 
-    dayActivityArray.push(dayActivityObject);
+    // add the object to the array
+    dayActivityArray.push(dayActivityObject)
 
-    // console.log(itineraryObject)
+    // create a parent object containing the city name and the itinerary array
+    // itineraryObject.cityName = destination
+    itineraryObject.array = dayActivityArray
 
-    // console.log(itineraryArray)
-    // save object to local storage
+    console.log(itineraryObject)
 
-    // localStorage.setItem("itinerary", JSON.stringify(itineraryArray))
 
-    localStorage.setItem(destination, itineraryObject);
+    localStorage.setItem(destination, JSON.stringify(itineraryObject))
+
 }
 
 // make an array of all the activity inputs
 var activityInputsEl = $(".day-activity");
 
-// loop through all the days and get the content from the inputs
-// function retrieveItinerary() {
 
-//     var itineraryFromStorage = JSON.parse(localStorage.getItem("itinerary"))
-//     // // make an array of all the activity inputs
-//     // var activityInputsEl = $(".day-activity")
+function retrieveItinerary(destination) {
 
-//     console.log(itineraryFromStorage)
+    // empty the card's previous content
+    $("#itinerary-card-text").empty()
 
-//     for (i = 0; i < activityInputsEl.length; i++) {
+    console.log(destination)
+    var itinerary = JSON.parse(localStorage.getItem(destination))
+    console.log(itinerary)
+    console.log(itinerary.array)
+    console.log(itinerary.array.length)
 
-//         console.log(activityInputsEl[i])
+    // $("#itinerary-card-text").clear()
 
-//         // the key we want is the ID of the parent (ie the block number)
-//         // make a variable for key for each
-//         var keyEl = $(activityInputsEl[i]).parent().attr("id")
-//         console.log(keyEl)
+    renderInputs(itinerary.array.length)
 
-//         // call the content by its key
-//         localStorage.getItem(keyEl)
+    for (i = 0; i < itinerary.array.length; i++) {
 
-//         // set the contents of textArea to the content from local storage
-//         activityInputsEl[i].textContent = itineraryFromStorage[i]
-//     }
-// }
+        var dayID = Object.keys(itinerary.array[i])[0]
+        console.log(dayID)
 
+        // var inputEl = $("#" + dayID)
 
+        var inputEl = document.querySelector("." + dayID)
+
+        console.log(inputEl)
+
+        var day = itinerary.array[i]
+        inputEl.value = day[dayID]
+        
+    }
+
+    // for (i = 0; i < itinerary.array.length; i++) {
+    //     console.log(itinerary.array[i])
+    //     // console.log(Object.keys(itinerary.array[i]))
+
+    //     // inputEl.val("text")
+
+    //     /***************** render the contents ******************/
+
+    //     var dayActivityDiv = $("<div>").addClass("itineraryDay col")
+    //     var dayActivitySpan = $("<span>").addClass("")
+    //     var dayActivityInput = $("<input>")
+    //     var saveItineraryBtn = $("<button>").addClass("saveItinerary input-group-text rounded-end")
+
+    //     // input for user's plans
+    //     dayActivityInput.text(JSON.stringify(itinerary.array[i]))
+    //     dayActivityInput.attr("type", "text")
+    //     dayActivityInput.addClass("day-activity w-auto border-light p-1 px-3")
+    //     dayActivityInput.attr("id", "Day" + (i + 1))
+
+    //     // add a save icon to each save button 
+    //     var saveIcon = $("<i>").addClass("far fa-save")
+    //     saveItineraryBtn.append(saveIcon)
+
+    //     // section attached to each input box with the day
+    //     // TODO: add ID to the span
+    //     dayActivitySpan.text("Day " + (i + 1))
+    //     dayActivitySpan.addClass("input-group-text")
+
+    //     // add padding between day divs
+    //     dayActivityDiv.addClass("py-3 input-group d-flex")
+
+    //     // append the span, input box and save button to each day's activity div
+    //     dayActivityDiv.append(dayActivitySpan)
+    //     dayActivityDiv.append(dayActivityInput)
+    //     dayActivityDiv.append(saveItineraryBtn)
+
+    //     // dayBox.append(dayActivityDiv)
+    //     $("#itinerary-card-text").append(dayActivityDiv)
+
+    //     // access the elements by ID
+
+    //     var dayID = Object.keys(itinerary.array[i])[0]
+    //     console.log(dayID)
+
+    //     // var inputEl = $("#" + dayID)
+
+    //     var inputEl = document.getElementById(dayID)
+    //     var day = itinerary.array[i]
+    //     inputEl.value = day[dayID]
+    // }
+    $(".saveItinerary").on("click", saveItinerary)
+}
 
 $("#clear-itinerary").on("click", clearItinerary);
 
 function clearItinerary(event) {
-    console.log("modal works");
     event.preventDefault();
-    localStorage.removeItem("itinerary");
-    // $("#itinerary-card-text").empty()
-    // // localStorage.clear()
-    // // localStorage.removeItem(key)
-
+    localStorage.removeItem(destination)
+    $("#itinerary-card-text").empty()
+    itineraryObject = {}
 }
 
-/**************************** End of Itinerary Functions ******************************************/
+/**************************** End of Itinerary Functions ***********************************************/
 
 /**************************** Currencies API Functions (Fetch & Render) ******************************************/
 
