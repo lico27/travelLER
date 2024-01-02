@@ -52,7 +52,7 @@ h5 {
 }
 
 .welcome-box {
-    background: rgba(24, 70, 89, 0.6);
+    background: rgba(24, 70, 89, 0.7);
     height: 60vh;
     width: 100%;
     /* border-radius: 15px;
@@ -304,6 +304,11 @@ a.ui-button:active,
 
 /* save icon */
 i {
-    color: red;
+    color: #7fc9cb;
+    font-size: large;
+}
+
+i :hover {
+    color: rgb(92, 147, 149);
     font-size: large;
 }

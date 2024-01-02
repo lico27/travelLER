@@ -93,7 +93,6 @@ historySection.on('click', '.btnHistory', function (event) {
 function recallSearches(destination) {
     getWeatherForecast(destination);
     // getNewsInfo(destination);
-
     retrieveItinerary(destination)
 };
 
@@ -123,7 +122,6 @@ $(function () {
     });
 
     $("#end-date").datepicker({
-
         minDate: new Date(),
         maxDate: "+12M",
         dateFormat: "yy-mm-dd",
@@ -136,7 +134,6 @@ $(function () {
     $("#start-date, #end-date").datepicker("option", "beforeShowDay", highlightRange);
 
 })
-
 
 /**************************** End of Date Picker ******************************************/
 
@@ -186,7 +183,7 @@ function renderItinerary(startDate) {
         var dayActivityDiv = $("<div>")
         var dayActivitySpan = $("<span>")
         var dayActivityInput = $("<input>")
-        var saveItineraryBtn = $("<button>").addClass("saveItinerary input-group-text rounded-end")
+        var saveItineraryBtn = $("<button>").addClass("saveItinerary input-group-text rounded-end fit-content")
 
         // input for user's plans
         dayActivityInput.attr("placeholder", "Plan your activities here and save")
@@ -212,7 +209,7 @@ function renderItinerary(startDate) {
         dayActivityDiv.append(saveItineraryBtn)
 
         // ID to be used for local storage
-        dayActivityDiv.attr("id", "Day" + (i + 1))
+        // dayActivityDiv.attr("id", "Day" + (i + 1))
 
         // dayBox.append(dayActivityDiv)
         $("#itinerary-card-text").append(dayActivityDiv)
@@ -225,6 +222,8 @@ function renderItinerary(startDate) {
 
 // parent object equal to what's in local storage, else create a new object
 var itineraryObject
+
+// TODO: check if one of the objects/arrays in clearItinerary is redundant
 
 // save the inputs for retrieval
 function saveItinerary() {
@@ -252,54 +251,47 @@ function saveItinerary() {
     dayActivityArray.push(dayActivityObject)
 
     // create a parent object containing the city name and the itinerary array
-    itineraryObject.cityName = destination
+    // itineraryObject.cityName = destination
     itineraryObject.array = dayActivityArray
 
     console.log(itineraryObject)
 
 
-    localStorage.setItem("itinerary", JSON.stringify(itineraryObject))
+    localStorage.setItem(destination, JSON.stringify(itineraryObject))
 }
 
 // make an array of all the activity inputs
 var activityInputsEl = $(".day-activity")
 
 // loop through all the days and get the content from the inputs
-function retrieveItinerary() {
+function retrieveItinerary(destination) {
 
-    var itineraryFromStorage = JSON.parse(localStorage.getItem(destination))
-    // // make an array of all the activity inputs
-    // var activityInputsEl = $(".day-activity")
+    var itinerary = JSON.parse(localStorage.getItem(destination))
+    console.log(itinerary)
+    console.log(itinerary.array)
+    console.log(itinerary.array.length)
 
-    console.log(itineraryFromStorage)
 
-    for (i = 0; i < activityInputsEl.length; i++) {
+    for (i = 0; i < itinerary.array.length; i++) {
+        console.log(itinerary.array[i])
+        var dayActivity = localStorage.getItem(itinerary.array[i])
+        dayActivityDiv.append(dayActivity)
 
-        console.log(activityInputsEl[i])
-
-        // the key we want is the ID of the parent (ie the block number)
-        // make a variable for key for each
-        var keyEl = $(activityInputsEl[i]).parent().attr("id")
-        console.log(keyEl)
-
-        // call the content by its key
-        localStorage.getItem(keyEl)
-
-        // set the contents of textArea to the content from local storage
-        activityInputsEl[i].textContent = itineraryFromStorage[i]
     }
+
+    // TODO: work out scope issue for accessing the dayActivityDiv
 }
 
 $("#clear-itinerary").on("click", clearItinerary)
 
 function clearItinerary(event) {
     event.preventDefault();
-    localStorage.removeItem("itinerary")
+    localStorage.removeItem(destination)
     $("#itinerary-card-text").empty()
     itineraryObject = {}
 }
 
-/**************************** End of Itinerary Functions ******************************************/
+/**************************** End of Itinerary Functions ***********************************************/
 
 /**************************** Currencies API Functions (Fetch & Render) ******************************************/
 
