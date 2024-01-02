@@ -89,15 +89,36 @@ historySection.on('click', '.btnHistory', function(event){
     recallSearches(target);
 });
 
-
-
 // Function to recall previous searches
 function recallSearches(destination) {
     getWeatherForecast(destination);
     // getNewsInfo(destination);
     // function to get saved itinerary goes here
+    retrieveItinerary(destination)
 };
 
+/**************************** Date Picker ******************************************/
+
+$("#start-date").datepicker({ 
+    minDate: -1,
+    maxDate: "+1M +10D",
+    dateFormat: "yy-mm-dd",
+    // altFormat: "dd-mm-yy",
+    // altField: "#start-date",
+    firstDay: 1
+  });
+
+  $("#end-date").datepicker({ 
+    minDate: -1,
+    maxDate: "+12M",
+    dateFormat: "yy-mm-dd",
+    // altFormat: "dd-mm-yy",
+    // altField: "#end-date",
+    firstDay: 1
+  });
+
+
+/**************************** End of Date Picker ******************************************/
 
 
 /**************************** Itinerary Functions ******************************************/
@@ -110,6 +131,8 @@ var dayActivityArray = []
 // function to render search into itinerary
 function renderItinerary(startDate) {
 
+    $("#itinerary-title").text("My " + destination + " itinerary")
+
     // empty the card's previous content
     $("#itinerary-card-text").empty()
 
@@ -117,6 +140,9 @@ function renderItinerary(startDate) {
     // dayjs object for date of holiday
     var holidayDate = dayjs(startDate)
     var holidayEndDate = dayjs($("#end-date").val())
+
+    console.log(holidayDate)
+    console.log(holidayEndDate)
 
     // dayjs object for today
     var today = dayjs().format("YYYY-MM-DD");
@@ -169,6 +195,8 @@ function renderItinerary(startDate) {
 
         dayActivityDiv.attr("id", "Day" + (i + 1))
 
+        console.log(dayActivityDiv)
+
         // dayBox.append(dayActivityDiv)
         $("#itinerary-card-text").append(dayActivityDiv)
 
@@ -189,17 +217,33 @@ function saveItinerary() {
     // get the ID of the parent block
     var key = $(this).parent().attr("id")
 
-    var itineraryArray = []
+    // set array equal to what's in local storage, else a new array
+    var itineraryArray = JSON.parse(localStorage.getItem("itinerary")) || []
     var itineraryObject = {}
-    itineraryArray.unshift(itineraryObject)
+    
+    console.log(destination)
+    itineraryObject.cityName = destination
+    itineraryObject.array = itineraryArray
+
+    // expected output:
+    // {cityName: MyCity, array: [{day1:’asdf’}, {day2: ‘fdfdf’}, etc..]}
+
+
+
+
+    // new itinerary for days
+
+    itineraryArray.push(itineraryObject)
+
 
     // save to object as a key-value pair
     itineraryObject[key] = text
+    console.log(itineraryObject)
 
     console.log(itineraryArray)
     // save object to local storage
 
-    localStorage.setItem("itinerary", itineraryArray)
+    localStorage.setItem("itinerary", JSON.stringify(itineraryArray))
 }
 
 // make an array of all the activity inputs
@@ -207,10 +251,14 @@ var activityInputsEl = $(".day-activity")
 
 // loop through all the days and get the content from the inputs
 function retrieveItinerary() {
-    for (i = 0; i < activityInputsEl.length; i++) {
 
-        // // make an array of all the activity inputs
+        var itineraryFromStorage = JSON.parse(localStorage.getItem("itinerary"))
+            // // make an array of all the activity inputs
         // var activityInputsEl = $(".day-activity")
+        
+        console.log(itineraryFromStorage)
+
+    for (i = 0; i < activityInputsEl.length; i++) {
 
         console.log(activityInputsEl[i])
 
@@ -223,11 +271,11 @@ function retrieveItinerary() {
         localStorage.getItem(keyEl)
 
         // set the contents of textArea to the content from local storage
-        activityInputsEl[i].textContent = localStorage.getItem(keyEl)
+        activityInputsEl[i].textContent = itineraryFromStorage[i]
     }
 }
 
-retrieveItinerary()
+
 
 $("#clear-itinerary").on("click", clearItinerary)
 
@@ -513,26 +561,3 @@ function renderNewsArticles(i, articleTitle, articleDate, articleSource, article
 };
 
 /************************ End of News API Functions (Fetch & Render) ******************************************/
-
-// date picker
-// $(function () {
-//     $(".datepicker").datepicker({dateFormat: "yy-mm-dd", firstDay: 1, altFormat: "dd-mm-yy" });
-// });
-
-$("#start-date").datepicker({ 
-    minDate: -1,
-    maxDate: "+1M +10D",
-    dateFormat: "yy-mm-dd",
-    altFormat: "dd-mm-yy",
-    altField: "#start-date",
-    firstDay: 1
-  });
-
-  $("#end-date").datepicker({ 
-    minDate: -1,
-    maxDate: "+1M +10D",
-    dateFormat: "yy-mm-dd",
-    altFormat: "dd-mm-yy",
-    altField: "#end-date",
-    firstDay: 1
-  });

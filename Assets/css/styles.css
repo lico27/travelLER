@@ -88,7 +88,7 @@ h5 {
 }
 
 #itinerary-card-text, #news-append {
-    overflow: scroll;
+    overflow-y: scroll;
     max-height: 70vh;
 }
 
@@ -129,7 +129,7 @@ h5 {
 #history-container {
     display: flex;
     flex-wrap: wrap;
-    overflow: scroll;
+    overflow-y: scroll;
     max-height: 200px;
     justify-content: center;
 }
