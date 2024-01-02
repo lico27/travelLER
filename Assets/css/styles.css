@@ -235,9 +235,9 @@ a {
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-    border: 1px solid #9dd7d9;
-    background: #cfe9ea;
-    color: #8c8c8c;
+    border: 1px solid #b3d6d7;
+    background: #dcf0f0;
+    color: #545454;
 }
 
 /* selected day */
@@ -290,8 +290,8 @@ a.ui-button:active,
 }
 
 /* highlight selected timeframe  */
-.highlight {
-    background-color: rgba(92, 147, 149, 0.5) !important;
+.ui-datepicker-calendar .highlight a {
+    background-color: #7fc9cb !important;
     border: none !important; /* Remove border to cover the entire button */
 }
 
@@ -300,4 +300,10 @@ a.ui-button:active,
 .saveItinerary:hover {
     color: var(--bs-btn-hover-color);
     background-color: rgb(215, 215, 215);
+}
+
+/* save icon */
+i {
+    color: red;
+    font-size: large;
 }
