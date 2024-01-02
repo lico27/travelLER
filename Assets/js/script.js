@@ -3,7 +3,7 @@ var startLocation;
 var destination;
 var startDate;
 var endDate;
-var searchCriteria = $("#text-criteria")
+var searchCriteria = $("#text-criteria");
 var dateInputEl = $('#datepicker');
 var currencyMain = $("#currencyMain");
 var arrCities = [];
@@ -23,34 +23,36 @@ $("#btnClearHistory").on("click", function (event) {
 // retrieve search info
 $("#search-submit").on("click", function (event) {
 
-    event.preventDefault()
+    event.preventDefault();
 
-    startLocation = $("#start-location").val()
-    destination = $("#destination").val()
-    startDate = $("#start-date").val()
-    endDate = $("#end-date").val()
-
-    console.log(destination)
-    console.log(startDate)
+    startLocation = $("#start-location").val();
+    destination = $("#destination").val();
+    startDate = $("#start-date").val();
+    endDate = $("#end-date").val();
 
 
+    console.log(`Start Date: ${startDate}`);
+    console.log(`End Date: ${endDate}`);
 
     if ((destination == 'select') || (startDate == '') || (endDate == '')) {
-        $("#select-city").modal('show');
-        return
+        $("#select-info").modal('show');
+        return;
+    } else if (startDate > endDate) {
+        $("#select-correct-dates").modal('show');
+        return;
     } else { // TODO: change format of start date
         searchCriteria.text("Your holiday to " + destination + " on " + startDate);
         showInfo();
     };
 
     // Call functions
-    getWeatherForecast(destination);
+    // getWeatherForecast(destination);
     // getNewsInfo(destination);
     renderItinerary(startDate);
     buildHistory(destination);
 })
 
-// function to remove display:hidden on info divs
+// function to remove 'display:hidden' on info divs
 function showInfo() {
     $('#weather-currency-div').removeClass("hideSection").addClass("showSection");
     $('#news-div').removeClass("hideSection").addClass("showSection");
@@ -61,12 +63,12 @@ function showInfo() {
 function buildHistory(destination) {
 
     if (arrCities.includes(destination) || destination == 'select') { // to prevent duplication of search history button or creating a button if the user doesn't select a destination
-        return
+        return;
     } else {
         arrCities.push(destination);
         let stringCities = JSON.stringify(arrCities);
         localStorage.setItem("cities", stringCities);
-        let storedCity = $("<button>" + destination + "</button>").attr("class", "btn btnHistory").attr('data-destination', `${destination}`);
+        let storedCity = $("<button>" + destination + "</button>").attr({"class": "btn btnHistory", "data-destination": `${destination}`});
         historySection.prepend(storedCity);
     }
 };
@@ -77,7 +79,7 @@ if (localStorage.getItem("cities")) {
 
     for (let i = 0; i < arrCities.length; i++) {
         let searchCity = arrCities[i];
-        let storedCity = $("<button>" + searchCity + "</button>").attr("class", "btn btnHistory").attr('data-destination', `${searchCity}`);
+        let storedCity = $("<button>" + searchCity + "</button>").attr({"class": "btn btnHistory", "data-destination": `${searchCity}`});
         historySection.prepend(storedCity);
     };
 };
@@ -91,7 +93,7 @@ historySection.on('click', '.btnHistory', function (event) {
 
 // Function to recall previous searches
 function recallSearches(destination) {
-    getWeatherForecast(destination);
+    // getWeatherForecast(destination);
     // getNewsInfo(destination);
     // function to get saved itinerary goes here
     retrieveItinerary(destination)
@@ -106,7 +108,7 @@ $(function () {
         var startDate = $("#start-date").datepicker("getDate");
         var endDate = $("#end-date").datepicker("getDate");
 
-        if (startDate != null && endDate != null && date >= startDate && date <= endDate) {
+                if (startDate != null && endDate != null && date >= startDate && date <= endDate) {
             return [true, "highlight", "Vacation"];
         }
 
@@ -124,8 +126,8 @@ $(function () {
 
     $("#end-date").datepicker({
 
-        minDate: new Date(),
-        maxDate: "+12M",
+        // minDate: new Date(),
+        // maxDate: "+12M",
         dateFormat: "yy-mm-dd",
         // altFormat: "dd-mm-yy",
         // altField: "#end-date",
@@ -145,20 +147,20 @@ $(function () {
 
 
 // array for daily activity objects
-var dayActivityArray = []
+var dayActivityArray = [];
 
 
 // function to render search into itinerary
 function renderItinerary(startDate) {
 
-    $("#itinerary-title").text("My " + destination + " itinerary")
+    $("#itinerary-title").text("My " + destination + " itinerary");
 
     // empty the card's previous content
-    $("#itinerary-card-text").empty()
+    $("#itinerary-card-text").empty();
 
     // dayjs object for date of holiday
-    var holidayDate = dayjs(startDate)
-    var holidayEndDate = dayjs($("#end-date").val())
+    var holidayDate = dayjs(startDate);
+    var holidayEndDate = dayjs($("#end-date").val());
 
     console.log(holidayDate)
     console.log(holidayEndDate)
@@ -170,12 +172,13 @@ function renderItinerary(startDate) {
     var days = holidayDate.diff(today, "days");
 
     // append the days and destination into a sentence
-    var holidayCountdown = $("<p>")
-    holidayCountdown.text(days + " day(s) until your trip to " + $("#destination").val() + "!")
-    $("#itinerary-card-text").append(holidayCountdown)
+    var holidayCountdown = $("<p>");
+    holidayCountdown.text(`${days} day(s) until your trip to ${destination}!`);
+
+    $("#itinerary-card-text").append(holidayCountdown);
 
     // calculate length of holiday
-    var holidayLength = holidayEndDate.diff(holidayDate, "days")
+    var holidayLength = holidayEndDate.diff(holidayDate, "days");
     // var holidayLength = 5
 
     // loop through each day of holiday and create an activity div for each,
@@ -183,74 +186,74 @@ function renderItinerary(startDate) {
 
     for (var i = 0; i < holidayLength; i++) {
 
-        var dayActivityDiv = $("<div>")
-        var dayActivitySpan = $("<span>")
-        var dayActivityInput = $("<input>")
-        var saveItineraryBtn = $("<button>").addClass("saveItinerary input-group-text rounded-end")
+        var dayActivityDiv = $("<div>");
+        var dayActivitySpan = $("<span>");
+        var dayActivityInput = $("<input>");
+        var saveItineraryBtn = $("<button>").addClass("saveItinerary input-group-text rounded-end");
 
         // input for user's plans
-        dayActivityInput.attr("placeholder", "Plan your activities here and save")
-        dayActivityInput.attr("type", "text")
-        dayActivityInput.addClass("day-activity w-auto border-light p-1 px-3")
-        dayActivityInput.attr("id", "Day" + (i + 1))
+        dayActivityInput.attr({"placeholder": "Plan your activities here and save", "type": "text", "id": "Day" + (i + 1)});
+        // dayActivityInput.attr("type", "text")
+        dayActivityInput.addClass("day-activity w-auto border-light p-1 px-3");
+        // dayActivityInput.attr("id", "Day" + (i + 1))
 
         // add a save icon to each save button 
-        var saveIcon = $("<i>").addClass("far fa-save")
-        saveItineraryBtn.append(saveIcon)
+        var saveIcon = $("<i>").addClass("far fa-save");
+        saveItineraryBtn.append(saveIcon);
         // saveItineraryBtn.text("Save")
 
         // section attached to each input box with the day
-        dayActivitySpan.text("Day " + (i + 1))
-        dayActivitySpan.addClass("input-group-text")
+        dayActivitySpan.text("Day " + (i + 1));
+        dayActivitySpan.addClass("input-group-text");
 
         // add padding between day divs
-        dayActivityDiv.addClass("py-3 input-group d-flex")
+        dayActivityDiv.addClass("py-3 input-group d-flex");
 
         // append the span, input box and save button to each day's activity div
-        dayActivityDiv.append(dayActivitySpan)
-        dayActivityDiv.append(dayActivityInput)
-        dayActivityDiv.append(saveItineraryBtn)
+        dayActivityDiv.append(dayActivitySpan, dayActivityInput, saveItineraryBtn);
+        // dayActivityDiv.append(dayActivityInput);
+        // dayActivityDiv.append(saveItineraryBtn);
 
         // ID to be used for local storage
-        dayActivityDiv.attr("id", "Day" + (i + 1))
+        dayActivityDiv.attr("id", "Day" + (i + 1));
 
         // dayBox.append(dayActivityDiv)
-        $("#itinerary-card-text").append(dayActivityDiv)
+        $("#itinerary-card-text").append(dayActivityDiv);
     }
 
     // **************************** save itinerary function ****************************************
-    $(".saveItinerary").on("click", saveItinerary)
+    $(".saveItinerary").on("click", saveItinerary);
 
 }
 
 // parent object equal to what's in local storage, else create a new object
-var itineraryObject
+var itineraryObject;
 
 // save the inputs for retrieval
 function saveItinerary() {
     // console.log($(this).siblings(".day-activity").val())
 
     // get the input block content
-    var text = $(this).siblings(".day-activity").val()
+    var text = $(this).siblings(".day-activity").val();
 
     // get the ID of the parent block
-    var key = $(this).parent().attr("id")
+    var key = $(this).parent().attr("id");
 
 
     // parent object equal to what's in local storage, else create a new object
     // itineraryObject = JSON.parse(localStorage.getItem(destination)) || {}
-    itineraryObject = {}
+    itineraryObject = {};
 
     // child object
-    var dayActivityObject = {}
+    var dayActivityObject = {};
 
 
     // create an object containing the city name and the itinerary array
 
-    itineraryObject.cityName = destination
-    itineraryObject.array = dayActivityArray
+    itineraryObject.cityName = destination;
+    itineraryObject.array = dayActivityArray;
 
-    console.log(itineraryObject)
+    console.log(itineraryObject);
 
     // expected output:
     // {cityName: MyCity, array: [{day1:’asdf’}, {day2: ‘fdfdf’}, etc..]}
@@ -259,10 +262,10 @@ function saveItinerary() {
     // itineraryArray.push(itineraryObject)
 
     // save to object as a key-value pair
-    dayActivityObject[key] = text
+    dayActivityObject[key] = text;
     console.log(dayActivityObject)
 
-    dayActivityArray.push(dayActivityObject)
+    dayActivityArray.push(dayActivityObject);
 
     // console.log(itineraryObject)
 
@@ -271,11 +274,11 @@ function saveItinerary() {
 
     // localStorage.setItem("itinerary", JSON.stringify(itineraryArray))
 
-    localStorage.setItem(destination, itineraryObject)
+    localStorage.setItem(destination, itineraryObject);
 }
 
 // make an array of all the activity inputs
-var activityInputsEl = $(".day-activity")
+var activityInputsEl = $(".day-activity");
 
 // loop through all the days and get the content from the inputs
 // function retrieveItinerary() {
@@ -305,12 +308,12 @@ var activityInputsEl = $(".day-activity")
 
 
 
-$("#clear-itinerary").on("click", clearItinerary)
+$("#clear-itinerary").on("click", clearItinerary);
 
 function clearItinerary(event) {
-    console.log("modal works")
+    console.log("modal works");
     event.preventDefault();
-    localStorage.removeItem("itinerary")
+    localStorage.removeItem("itinerary");
     // $("#itinerary-card-text").empty()
     // // localStorage.clear()
     // // localStorage.removeItem(key)
@@ -405,8 +408,8 @@ $("#curSubmit").on("click", function (event) {
 // Make currency card with API info
 function makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, conversionRate2) {
     let card = $("<div>");
-    card.attr("class", "card");
-    card.attr("id", "currencyCard");
+    card.attr({"class": "card", "id": "currencyCard"});
+    // card.attr("id", "currencyCard");
     card.append("<h5>" + "Currency conversion: " + currencyCode + " to GBP" + "</h5>");
     card.append("<p>" + currencySymbol + " 1 is worth £" + conversionRate1 + " today." + "</p>");
     card.append("<p>" + " £ 1 is worth " + conversionRate2 + " " + currencyName + "." + "</p>");
@@ -455,7 +458,7 @@ function getWeatherForecast(destination) {
 
                 if (destination == 'select') { // if user doesn't select a city, display an alert
                     const newContainerDiv = $('<div>');
-                    newContainerDiv.css({ 'background-color': '#7fc9cb', 'color': '#212241', 'border-radius': '5px', 'padding': '5px', 'text-align': 'center' });
+                    newContainerDiv.css({ 'background-color': '#dc3545', 'color': 'white', 'border-radius': '5px', 'padding': '5px', 'text-align': 'center' });
                     const newH6 = $('<h6>').text('Please select a destination to see the forecast').attr('class', ' mb-0');
                     newContainerDiv.append(newH6);
                     $('#weather-append').append(newContainerDiv);

@@ -134,7 +134,7 @@
                             <div id="itinerary-card-text"></div>
                         </div>
                         <!-- <button id="save-itinerary" type="submit" class="btn btn-dark">Save itinerary</button> -->
-                        <button id="clear-itinerary-modal" type="submit" class="btn btn-light" data-bs-toggle="modal"
+                        <button id="clear-itinerary-modal" type="submit" class="btn btn-dark" data-bs-toggle="modal"
                             data-bs-target="#clearModal">Clear itinerary</button>
 
                     </div>
@@ -169,11 +169,11 @@
 
         <!-- Modals -->
 
-        <div class="modal fade" id="select-city" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal fade" id="select-info" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="select-city-label">City not selected</h1>
+                        <h2 class="modal-title fs-5" id="select-info-label">Missing information</h2>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -187,11 +187,29 @@
             </div>
         </div>
 
+        <div class="modal fade" id="select-correct-dates" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-5" id="select-correct-dates-label">Incorrrect dates</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Please select a start date that is before the end date.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" id="clear-modal"
+                            data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade" id="clearModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="clearModalLabel">Clear Itinerary?</h1>
+                        <h2 class="modal-title fs-5" id="clearModalLabel">Clear Itinerary?</h2>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
