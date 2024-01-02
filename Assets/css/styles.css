@@ -19,6 +19,11 @@
     border-bottom-right-radius: var(--bs-border-radius) !important;
 }
 
+.input-group .btn {
+    position: relative;
+    z-index: 0;
+}
+
 ::placeholder {
     color: black;
     opacity: 1;
@@ -87,7 +92,8 @@ h5 {
     width: auto !important;
 }
 
-#itinerary-card-text, #news-append {
+#itinerary-card-text,
+#news-append {
     overflow-y: scroll;
     max-height: 70vh;
 }
@@ -213,7 +219,7 @@ a {
 .btn-dark:active:focus,
 .btn-dark.active:focus,
 .show>.btn-dark.dropdown-toggle:focus {
-    box-shadow: inset 0 3px 5px  rgba(66, 67, 94, 0.5);
+    box-shadow: inset 0 3px 5px rgba(66, 67, 94, 0.5);
 }
 
 .btn-dark:disabled,
@@ -225,16 +231,22 @@ a {
 
 /************************ STYLING THE DATEPICKER **********************************/
 
-
 /* current day */
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
     border: 1px solid #9dd7d9;
     background: #cfe9ea;
-    color: #454545;
+    color: #8c8c8c;
 }
 
 /* selected day */
-.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active,
+.ui-button:active,
+.ui-button.ui-state-active:hover {
     border: 1px solid rgb(92, 147, 149);
     background: #7fc9cb;
     opacity: 0.6;
@@ -242,8 +254,18 @@ a {
     color: #ffffff;
 }
 
+/* selected day if weekend  */
+.ui-datepicker-calendar .ui-datepicker-week-end :active {
+    border: 1px solid rgb(92, 147, 149);
+    background: #7fc9cb;
+    opacity: 1;
+    font-weight: normal;
+    color: #8c8c8c;
+}
+
 /* background of calendar popup */
-.ui-state-default, .ui-widget-content{
+.ui-state-default,
+.ui-widget-content {
     border: 1px solid #c5c5c5;
     background: #f6f6f6;
     font-weight: normal;
@@ -252,14 +274,27 @@ a {
 
 /* hover state  */
 .ui-datepicker-calendar .ui-state-hover {
-  background: #7fc9cb;
-  opacity: 0.6;
+    background: #7fc9cb;
+    color: #454545;
+    opacity: 0.6;
 }
 
 /* highlight the weekends for improved UI  */
-.ui-datepicker-calendar .ui-datepicker-week-end > a {
+.ui-datepicker-calendar .ui-datepicker-week-end>a {
     background: #e7e7e7;
 }
+
+/* hover state for weekend  */
+.ui-datepicker-calendar .ui-datepicker-week-end :hover {
+    background: #7fc9cb;
+}
+
+/* highlight selected timeframe  */
+.highlight {
+    background-color: rgba(92, 147, 149, 0.5) !important;
+    border: none !important; /* Remove border to cover the entire button */
+}
+
 
 /* add hover and active states to save  */
 .saveItinerary:hover {
