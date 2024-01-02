@@ -38,14 +38,14 @@ $("#search-submit").on("click", function (event) {
     if((destination == 'select') || (startDate == '') || (endDate == '')){
         $("#select-city").modal('show');
         return
-    }else {
+    } else { // TODO: change format of start date
         searchCriteria.text("Your holiday to " + destination + " on " + startDate);
         showInfo();
     };
 
     // Call functions
     getWeatherForecast(destination);
-    getNewsInfo(destination);
+    // getNewsInfo(destination);
     renderItinerary(startDate);
     buildHistory(destination);
 })
@@ -94,7 +94,7 @@ historySection.on('click', '.btnHistory', function(event){
 // Function to recall previous searches
 function recallSearches(destination) {
     getWeatherForecast(destination);
-    getNewsInfo(destination);
+    // getNewsInfo(destination);
     // function to get saved itinerary goes here
 };
 
@@ -407,7 +407,7 @@ function renderWeather(i, properDate, weatherIcon, temp, wind, humidity) {
     const newContainerDiv = $('<div>');
     newContainerDiv.attr({ 'id': `weather-${i}`, 'class': 'my-2 p-2' });
     newContainerDiv.css({ 'background-color': '#7fc9cb', 'color': '#212241', 'border-radius': '5px' });
-    const newH6 = $('<h6>').text(properDate).attr('class', ' mb-0');
+    const newH6 = $('<h6>').text(properDate).attr('class', ' mb-0  p-1');
 
     const newImg = $('<img>');
     newImg.attr('src', weatherIcon);
@@ -418,17 +418,17 @@ function renderWeather(i, properDate, weatherIcon, temp, wind, humidity) {
     newDiv.attr('class', 'row mx-auto');
 
     const newTemp = $('<p>');
-    newTemp.attr('class', 'col-4 mb-0');
+    newTemp.attr('class', 'col-4 mb-0 p-1');
     newTemp.css('font-size', '12px');
     newTemp.text(`Temp: ${temp}°c`);
 
     const newWind = $('<p>');
-    newWind.attr('class', 'col-4 mb-0');
+    newWind.attr('class', 'col-4 mb-0 p-1');
     newWind.css('font-size', '12px');
     newWind.text(`Wind: ${wind} MPH`);
 
     const newHumidity = $('<p>');
-    newHumidity.attr('class', 'col-4 mb-0');
+    newHumidity.attr('class', 'col-4 mb-0 p-1');
     newHumidity.css('font-size', '12px');
     newHumidity.text(`Humidity: ${humidity}%`);
 
@@ -506,9 +506,24 @@ function renderNewsArticles(i, articleTitle, articleDate, articleSource, article
 /************************ End of News API Functions (Fetch & Render) ******************************************/
 
 // date picker
-$(function () {
-    $(".datepicker").datepicker({dateFormat: "yy-mm-dd", firstDay: 1 });
-});
+// $(function () {
+//     $(".datepicker").datepicker({dateFormat: "yy-mm-dd", firstDay: 1, altFormat: "dd-mm-yy" });
+// });
 
+$("#start-date").datepicker({ 
+    minDate: -1,
+    maxDate: "+1M +10D",
+    dateFormat: "yy-mm-dd",
+    altFormat: "dd-mm-yy",
+    altField: "#start-date",
+    firstDay: 1
+  });
 
-
+  $("#end-date").datepicker({ 
+    minDate: -1,
+    maxDate: "+1M +10D",
+    dateFormat: "yy-mm-dd",
+    altFormat: "dd-mm-yy",
+    altField: "#end-date",
+    firstDay: 1
+  });
