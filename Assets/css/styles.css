@@ -95,6 +95,7 @@ h5 {
 #itinerary-card-text,
 #news-append {
     overflow-y: scroll;
+    height: 500px;
     max-height: 70vh;
 }
 

@@ -180,7 +180,7 @@ function renderItinerary(startDate) {
 
     for (var i = 0; i < holidayLength; i++) {
 
-        var dayActivityDiv = $("<div>")
+        var dayActivityDiv = $("<div>").addClass("itineraryDay")
         var dayActivitySpan = $("<span>")
         var dayActivityInput = $("<input>")
         var saveItineraryBtn = $("<button>").addClass("saveItinerary input-group-text rounded-end fit-content")
@@ -209,7 +209,7 @@ function renderItinerary(startDate) {
         dayActivityDiv.append(saveItineraryBtn)
 
         // ID to be used for local storage
-        // dayActivityDiv.attr("id", "Day" + (i + 1))
+        dayActivityDiv.attr("id", "Day" + (i + 1))
 
         // dayBox.append(dayActivityDiv)
         $("#itinerary-card-text").append(dayActivityDiv)
@@ -265,17 +265,66 @@ var activityInputsEl = $(".day-activity")
 
 // loop through all the days and get the content from the inputs
 function retrieveItinerary(destination) {
-
+    console.log(destination)
     var itinerary = JSON.parse(localStorage.getItem(destination))
     console.log(itinerary)
     console.log(itinerary.array)
     console.log(itinerary.array.length)
 
+    renderItinerary()
 
     for (i = 0; i < itinerary.array.length; i++) {
         console.log(itinerary.array[i])
+        // console.log(Object.keys(itinerary.array[i]))
+
+        var dayID = Object.keys(itinerary.array[i])[0]
+        console.log(dayID)
+
+        // var inputEl = $("#" + dayID)
+
+        var inputEl = document.getElementById("Day1")
+        console.log(inputEl)
+        console.log(document.getElementById(dayID))
+
+
+
+        // inputEl.val("text")
+
         var dayActivity = localStorage.getItem(itinerary.array[i])
-        dayActivityDiv.append(dayActivity)
+        $("#itinerary-card-text").append(JSON.stringify(itinerary.array[i]))
+
+        //***************** render the contents */
+
+        var dayActivityDiv = $("<div>").addClass("itineraryDay")
+        var dayActivitySpan = $("<span>")
+        var dayActivityInput = $("<input>")
+        var saveItineraryBtn = $("<button>").addClass("saveItinerary input-group-text rounded-end fit-content")
+
+        // input for user's plans
+        dayActivityInput.text(JSON.stringify(itinerary.array[i]))
+        dayActivityInput.attr("type", "text")
+        dayActivityInput.addClass("day-activity w-auto border-light p-1 px-3")
+        dayActivityInput.attr("id", "Day" + (i + 1))
+
+        // add a save icon to each save button 
+        var saveIcon = $("<i>").addClass("far fa-save")
+        saveItineraryBtn.append(saveIcon)
+
+        // section attached to each input box with the day
+        // TODO: add ID to the span
+        dayActivitySpan.text("Day " + (i + 1))
+        dayActivitySpan.addClass("input-group-text")
+
+        // add padding between day divs
+        dayActivityDiv.addClass("py-3 input-group d-flex")
+
+        // append the span, input box and save button to each day's activity div
+        dayActivityDiv.append(dayActivitySpan)
+        dayActivityDiv.append(dayActivityInput)
+        dayActivityDiv.append(saveItineraryBtn)
+
+        // dayBox.append(dayActivityDiv)
+        $("#itinerary-card-text").append(dayActivityDiv)
 
     }
 
