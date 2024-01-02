@@ -93,7 +93,7 @@ historySection.on('click', '.btnHistory', function (event) {
 function recallSearches(destination) {
     getWeatherForecast(destination);
     // getNewsInfo(destination);
-    // function to get saved itinerary goes here
+
     retrieveItinerary(destination)
 };
 
@@ -238,83 +238,65 @@ function saveItinerary() {
 
 
     // parent object equal to what's in local storage, else create a new object
-    // itineraryObject = JSON.parse(localStorage.getItem(destination)) || {}
-    itineraryObject = {}
+    itineraryObject = JSON.parse(localStorage.getItem(destination)) || {}
+    // itineraryObject = {}
 
     // child object
     var dayActivityObject = {}
-
-
-    // create an object containing the city name and the itinerary array
-
-    itineraryObject.cityName = destination
-    itineraryObject.array = dayActivityArray
-
-    console.log(itineraryObject)
-
-    // expected output:
-    // {cityName: MyCity, array: [{day1:’asdf’}, {day2: ‘fdfdf’}, etc..]}
-
-
-    // itineraryArray.push(itineraryObject)
 
     // save to object as a key-value pair
     dayActivityObject[key] = text
     console.log(dayActivityObject)
 
+    // add the object to the array
     dayActivityArray.push(dayActivityObject)
 
-    // console.log(itineraryObject)
+    // create a parent object containing the city name and the itinerary array
+    itineraryObject.cityName = destination
+    itineraryObject.array = dayActivityArray
 
-    // console.log(itineraryArray)
-    // save object to local storage
+    console.log(itineraryObject)
 
-    // localStorage.setItem("itinerary", JSON.stringify(itineraryArray))
 
-    localStorage.setItem(destination, itineraryObject)
+    localStorage.setItem("itinerary", JSON.stringify(itineraryObject))
 }
 
 // make an array of all the activity inputs
 var activityInputsEl = $(".day-activity")
 
 // loop through all the days and get the content from the inputs
-// function retrieveItinerary() {
+function retrieveItinerary() {
 
-//     var itineraryFromStorage = JSON.parse(localStorage.getItem("itinerary"))
-//     // // make an array of all the activity inputs
-//     // var activityInputsEl = $(".day-activity")
+    var itineraryFromStorage = JSON.parse(localStorage.getItem(destination))
+    // // make an array of all the activity inputs
+    // var activityInputsEl = $(".day-activity")
 
-//     console.log(itineraryFromStorage)
+    console.log(itineraryFromStorage)
 
-//     for (i = 0; i < activityInputsEl.length; i++) {
+    for (i = 0; i < activityInputsEl.length; i++) {
 
-//         console.log(activityInputsEl[i])
+        console.log(activityInputsEl[i])
 
-//         // the key we want is the ID of the parent (ie the block number)
-//         // make a variable for key for each
-//         var keyEl = $(activityInputsEl[i]).parent().attr("id")
-//         console.log(keyEl)
+        // the key we want is the ID of the parent (ie the block number)
+        // make a variable for key for each
+        var keyEl = $(activityInputsEl[i]).parent().attr("id")
+        console.log(keyEl)
 
-//         // call the content by its key
-//         localStorage.getItem(keyEl)
+        // call the content by its key
+        localStorage.getItem(keyEl)
 
-//         // set the contents of textArea to the content from local storage
-//         activityInputsEl[i].textContent = itineraryFromStorage[i]
-//     }
-// }
-
-
+        // set the contents of textArea to the content from local storage
+        activityInputsEl[i].textContent = itineraryFromStorage[i]
+    }
+}
 
 $("#clear-itinerary").on("click", clearItinerary)
 
 function clearItinerary(event) {
-    console.log("modal works")
     event.preventDefault();
     localStorage.removeItem("itinerary")
-    // $("#itinerary-card-text").empty()
-    // // localStorage.clear()
-    // // localStorage.removeItem(key)
-
+    $("#itinerary-card-text").empty()
+    itineraryObject = {}
 }
 
 /**************************** End of Itinerary Functions ******************************************/
