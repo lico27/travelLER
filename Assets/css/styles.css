@@ -27,7 +27,6 @@
 ::placeholder {
     color: black;
     opacity: 1;
-    /* Firefox */
 }
 
 h1 {
@@ -92,10 +91,14 @@ h5 {
     width: auto !important;
 }
 
+.itineraryDay {
+    /* width: 500px ; */
+}
+
 #itinerary-card-text,
 #news-append {
     overflow-y: scroll;
-    height: 500px;
+    /* height: 500px; */
     max-height: 70vh;
 }
 
@@ -184,6 +187,8 @@ a {
     --bs-btn-disabled-border-color: #f8f9fa;
 } */
 
+
+/* */ custom bootstrap button stuff  */
 .btn-dark {
 
     color: #ffffff;
@@ -303,13 +308,24 @@ a.ui-button:active,
     background-color: rgb(215, 215, 215);
 }
 
+.saveItinerary:active {
+    color: var(--bs-btn-hover-color);
+    background-color: rgb(230, 230, 230);
+}
+
+
 /* save icon */
 i {
-    color: #7fc9cb;
+    color: #8c8c8c;
     font-size: large;
 }
 
-i :hover {
-    color: rgb(92, 147, 149);
+i:hover {
+    color: #454545 !important;
+    font-size: large;
+}
+
+i:active {
+    color: rgb(95, 95, 95) !important;
     font-size: large;
 }
