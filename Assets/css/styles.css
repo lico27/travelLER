@@ -37,6 +37,10 @@ h1 {
     margin: auto;
 }
 
+h2 {
+    color: #212241 !important;
+}
+
 h5 {
     font-size: 18px;
 }
@@ -80,11 +84,6 @@ h5 {
 
 #welcome p {
     color: white;
-}
-
-#destination {
-    /* display: inline-flex;
-    width: 10vw !important; */
 }
 
 .input-group {
@@ -142,6 +141,7 @@ h5 {
     overflow-y: scroll;
     max-height: 200px;
     justify-content: center;
+    margin: 20px 0 10px 0;
 }
 
 .btnHistory {
@@ -153,10 +153,17 @@ h5 {
     border-radius: 7px;
 }
 
-#btnClearHistory {
-    margin: 0 0 10px 0;
-    border-radius: 7px;
+#divClearHistory {
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    min-width: 40vw;
+}
 
+#btnClearHistory {
+    border-radius: 7px;
+    width: 12rem;
 }
 
 .hideSection {
@@ -197,7 +204,7 @@ a {
 }
 
 .btn-dark:hover {
-    color: #ffffff;
+    color: #7fc9cb;
     background-color: #1c1d37;
     border-color: #1a1b34;
 }
@@ -207,7 +214,6 @@ a {
     color: #ffffff;
     background-color: #1c1d37;
     border-color: #1a1b34;
-    box-shadow: 0 0 0 0.25rem rgba(66, 67, 94, 0.5);
 }
 
 .btn-check:checked+.btn-dark,
