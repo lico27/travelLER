@@ -99,7 +99,8 @@ function recallSearches(destination) {
 
 /**************************** Date Picker ******************************************/
 
-
+// TODO: Set it so users can't select an end date before the start date
+// TODO: Update the alt format/date displayed to user without messing up all the calculations
 $(function () {
     function highlightRange(date) {
         var startDate = $("#start-date").datepicker("getDate");
@@ -114,7 +115,7 @@ $(function () {
 
     $("#start-date").datepicker({
         minDate: -1,
-        maxDate: "+1M +10D",
+        // maxDate: "+1M +10D",
         dateFormat: "yy-mm-dd",
         // altFormat: "dd-mm-yy",
         // altField: "#start-date",
@@ -122,7 +123,8 @@ $(function () {
     });
 
     $("#end-date").datepicker({
-        minDate: -1,
+
+        minDate: new Date(),
         maxDate: "+12M",
         dateFormat: "yy-mm-dd",
         // altFormat: "dd-mm-yy",
@@ -130,6 +132,7 @@ $(function () {
         firstDay: 1
     });
 
+    // highlight the selected date period
     $("#start-date, #end-date").datepicker("option", "beforeShowDay", highlightRange);
 
 })
@@ -153,7 +156,6 @@ function renderItinerary(startDate) {
     // empty the card's previous content
     $("#itinerary-card-text").empty()
 
-
     // dayjs object for date of holiday
     var holidayDate = dayjs(startDate)
     var holidayEndDate = dayjs($("#end-date").val())
@@ -172,11 +174,9 @@ function renderItinerary(startDate) {
     holidayCountdown.text(days + " day(s) until your trip to " + $("#destination").val() + "!")
     $("#itinerary-card-text").append(holidayCountdown)
 
-
     // calculate length of holiday
     var holidayLength = holidayEndDate.diff(holidayDate, "days")
     // var holidayLength = 5
-
 
     // loop through each day of holiday and create an activity div for each,
     // containing a span, input and save button
@@ -195,8 +195,9 @@ function renderItinerary(startDate) {
         dayActivityInput.attr("id", "Day" + (i + 1))
 
         // add a save icon to each save button 
-        // var saveIcon = $("<i>").addClass("far fa-save")
-        saveItineraryBtn.text("Save")
+        var saveIcon = $("<i>").addClass("far fa-save")
+        saveItineraryBtn.append(saveIcon)
+        // saveItineraryBtn.text("Save")
 
         // section attached to each input box with the day
         dayActivitySpan.text("Day " + (i + 1))
@@ -205,24 +206,25 @@ function renderItinerary(startDate) {
         // add padding between day divs
         dayActivityDiv.addClass("py-3 input-group d-flex")
 
-        // append the span and input box to each day's activity div
+        // append the span, input box and save button to each day's activity div
         dayActivityDiv.append(dayActivitySpan)
         dayActivityDiv.append(dayActivityInput)
         dayActivityDiv.append(saveItineraryBtn)
 
+        // ID to be used for local storage
         dayActivityDiv.attr("id", "Day" + (i + 1))
-
-        console.log(dayActivityDiv)
 
         // dayBox.append(dayActivityDiv)
         $("#itinerary-card-text").append(dayActivityDiv)
-
     }
 
     // **************************** save itinerary function ****************************************
     $(".saveItinerary").on("click", saveItinerary)
 
 }
+
+// parent object equal to what's in local storage, else create a new object
+var itineraryObject
 
 // save the inputs for retrieval
 function saveItinerary() {
@@ -234,64 +236,72 @@ function saveItinerary() {
     // get the ID of the parent block
     var key = $(this).parent().attr("id")
 
-    // set array equal to what's in local storage, else a new array
-    var itineraryArray = JSON.parse(localStorage.getItem("itinerary")) || []
-    var itineraryObject = {}
+
+    // parent object equal to what's in local storage, else create a new object
+    // itineraryObject = JSON.parse(localStorage.getItem(destination)) || {}
+    itineraryObject = {}
+
+    // child object
+    var dayActivityObject = {}
+
 
     // create an object containing the city name and the itinerary array
-    console.log(destination)
+
     itineraryObject.cityName = destination
-    itineraryObject.array = itineraryArray
+    itineraryObject.array = dayActivityArray
+
+    console.log(itineraryObject)
 
     // expected output:
     // {cityName: MyCity, array: [{day1:’asdf’}, {day2: ‘fdfdf’}, etc..]}
 
 
-
-
-    // new itinerary for days
-
-    itineraryArray.push(itineraryObject)
-
+    // itineraryArray.push(itineraryObject)
 
     // save to object as a key-value pair
-    itineraryObject[key] = text
-    console.log(itineraryObject)
+    dayActivityObject[key] = text
+    console.log(dayActivityObject)
 
-    console.log(itineraryArray)
+    dayActivityArray.push(dayActivityObject)
+
+    // console.log(itineraryObject)
+
+    // console.log(itineraryArray)
     // save object to local storage
 
-    localStorage.setItem("itinerary", JSON.stringify(itineraryArray))
+    // localStorage.setItem("itinerary", JSON.stringify(itineraryArray))
+
+    localStorage.setItem(destination, itineraryObject)
 }
 
 // make an array of all the activity inputs
 var activityInputsEl = $(".day-activity")
 
 // loop through all the days and get the content from the inputs
-function retrieveItinerary() {
+// function retrieveItinerary() {
 
-    var itineraryFromStorage = JSON.parse(localStorage.getItem("itinerary"))
-    // // make an array of all the activity inputs
-    // var activityInputsEl = $(".day-activity")
+//     var itineraryFromStorage = JSON.parse(localStorage.getItem("itinerary"))
+//     // // make an array of all the activity inputs
+//     // var activityInputsEl = $(".day-activity")
 
-    console.log(itineraryFromStorage)
+//     console.log(itineraryFromStorage)
 
-    for (i = 0; i < activityInputsEl.length; i++) {
+//     for (i = 0; i < activityInputsEl.length; i++) {
 
-        console.log(activityInputsEl[i])
+//         console.log(activityInputsEl[i])
 
-        // the key we want is the ID of the parent (ie the block number)
-        // make a variable for key for each
-        var keyEl = $(activityInputsEl[i]).parent().attr("id")
-        console.log(keyEl)
+//         // the key we want is the ID of the parent (ie the block number)
+//         // make a variable for key for each
+//         var keyEl = $(activityInputsEl[i]).parent().attr("id")
+//         console.log(keyEl)
 
-        // call the content by its key
-        localStorage.getItem(keyEl)
+//         // call the content by its key
+//         localStorage.getItem(keyEl)
 
-        // set the contents of textArea to the content from local storage
-        activityInputsEl[i].textContent = itineraryFromStorage[i]
-    }
-}
+//         // set the contents of textArea to the content from local storage
+//         activityInputsEl[i].textContent = itineraryFromStorage[i]
+//     }
+// }
 
 
 
