@@ -87,11 +87,6 @@ h5 {
     color: white;
 }
 
-#destination {
-    /* display: inline-flex;
-    width: 10vw !important; */
-}
-
 .input-group {
     width: auto !important;
 }
@@ -142,6 +137,7 @@ h5 {
     overflow-y: scroll;
     max-height: 200px;
     justify-content: center;
+    margin: 20px 0 10px 0;
 }
 
 .btnHistory {
@@ -153,10 +149,17 @@ h5 {
     border-radius: 7px;
 }
 
-#btnClearHistory {
-    margin: 0 0 10px 0;
-    border-radius: 7px;
+#divClearHistory {
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    min-width: 40vw;
+}
 
+#btnClearHistory {
+    border-radius: 7px;
+    width: 12rem;
 }
 
 .hideSection {
