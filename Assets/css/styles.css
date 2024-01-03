@@ -146,7 +146,7 @@ h5 {
     max-height: 70vh;
 }
 
-#weather-card {
+#weather-card, #news-div, #currency-card {
     margin-bottom: 10px;
 }
 
@@ -166,7 +166,6 @@ h5 {
     overflow-y: scroll;
     max-height: 200px;
     justify-content: center;
-    margin: 20px 0 10px 0;
 }
 
 .btnHistory {
