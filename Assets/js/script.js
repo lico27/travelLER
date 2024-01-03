@@ -43,7 +43,7 @@ $("#search-submit").on("click", function (event) {
     };
 
     // Call functions
-    // getWeatherForecast(destination);
+    getWeatherForecast(destination);
     // getNewsInfo(destination);
     renderItinerary(startDate);
     buildHistory(destination);
