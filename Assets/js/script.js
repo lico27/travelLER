@@ -233,8 +233,6 @@ function renderInputs(number) {
 // parent object equal to what's in local storage, else create a new object
 var itineraryObject;
 
-// TODO: check if one of the objects/arrays in clearItinerary is redundant
-
 // save the inputs for retrieval
 function saveItinerary() {
 
