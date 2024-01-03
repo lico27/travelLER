@@ -8,7 +8,6 @@ let cities = [
     "Liverpool",
     "Leeds",
     "Sheffield",
-    "Teesside",
     "Bristol",
     "Bournemouth",
     "Stoke-on-Trent",

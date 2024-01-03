@@ -9,14 +9,48 @@
 
 .btn {
     margin: 10px;
-    /* background-color: #1c376c;
-    border: 0px; */
 }
 
 #search-btn {
     border-radius: 0rem !important;
     border-top-right-radius: var(--bs-border-radius) !important;
     border-bottom-right-radius: var(--bs-border-radius) !important;
+}
+
+/*************** custom button styling ****************/
+
+.btn-dark {
+    color: #ffffff;
+    background-color: #212241;
+    border-color: #212241 !important;
+}
+
+.btn-dark:hover {
+    color: #7fc9cb;
+    background-color: #191a35;
+    border-color: #191a35;
+}
+
+.btn-dark:focus {
+    color: #7fc9cb;
+    background-color: #1c1d37;
+    border-color: #1a1b34;
+}
+
+.btn-dark:active:focus,
+.btn-dark.active:focus,
+.show>.btn-dark.dropdown-toggle:focus {
+    box-shadow: inset 0 3px 5px rgba(66, 67, 94, 0.5);
+    color: #ffffff;
+    background-color: #2d2f53;
+    border-color: #2d2f53;
+}
+
+.btn-dark:disabled,
+.btn-dark.disabled {
+    color: #ffffff;
+    background-color: #212241;
+    border-color: #212241;
 }
 
 #curSubmit {
@@ -30,6 +64,7 @@
     border-top-right-radius: 0px;
 }
 
+
 .input-group .btn {
     position: relative;
     z-index: 0;
@@ -42,8 +77,6 @@
 
 h1 {
     color: white;
-    /* color: #7fc9cb; */
-    /* color: #1d6a8aff; */
     font-size: 24px;
     margin: auto;
 }
@@ -56,28 +89,24 @@ h5 {
     font-size: 18px;
 }
 
+/********************** navbar stuff *********************/
+
 .navbar {
     display: flexbox;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    /* margin-bottom: 15px; */
-
 }
 
 .welcome-box {
     background: rgba(24, 70, 89, 0.7);
     height: 60vh;
     width: 100%;
-    /* border-radius: 15px;
-    max-width: 80%; */
-    /* display: flexbox; */
     overflow: hidden;
     justify-content: center;
     align-items: center;
 
 }
-
 
 #logo {
     flex: 1;
@@ -97,53 +126,38 @@ h5 {
     color: white;
 }
 
+/****** search section + inputs for itinerary *******/
+
 .input-group {
     width: auto !important;
-}
-
-.itineraryDay {
-    /* width: 500px ; */
-}
-
-#itinerary-card-text,
-#news-append {
-    overflow-y: scroll;
-    /* height: 500px; */
-    max-height: 70vh;
-}
-
-#currency-card,
-#weather-card {
-    margin-bottom: 10px;
-}
-
-#currencyCard {
-    width: 90%;
-    margin: auto;
-    padding: 10px;
-}
-
-#past-searches {
-    margin: auto;
-    margin-top: 10px;
 }
 
 #search-form {
     width: 100%;
     background-color: #7fc9cb;
     --bs-gutter-x: 0;
-    /* margin: auto; */
 }
 
-.border-light {
-    border: 1px solid #ced4da !important;
+/***************** cards ***************/
+
+#itinerary-card-text,
+#news-append {
+    overflow-y: scroll;
+    max-height: 70vh;
 }
 
-.footer {
-    margin: 20px 0 0 0;
-    background-color: #212241;
-    padding: 10px 0 10px 0;
-    color: #7fc9cb;
+#weather-card {
+    margin-bottom: 10px;
+}
+
+#currencyCard {
+    width: 90%;
+    padding: 10px;
+}
+
+#past-searches {
+    margin: auto;
+    margin-top: 10px;
 }
 
 #history-container {
@@ -177,6 +191,22 @@ h5 {
     width: 12rem;
 }
 
+/************ border for itinerary bits  **************/
+.border-light {
+    border: 1px solid #ced4da !important;
+}
+
+/************ footer  **************/
+
+.footer {
+    margin: 20px 0 0 0;
+    background-color: #212241;
+    padding: 10px 0 10px 0;
+    color: #7fc9cb;
+}
+
+/*************** toggle visibility of cards  *************/
+
 .hideSection {
     display: none;
 }
@@ -189,70 +219,7 @@ a {
     color: #7fc9cb;
 }
 
-/* --bs-btn-color: #000;
-    --bs-btn-bg: #f8f9fa;
-    --bs-btn-border-color: #f8f9fa;
-    --bs-btn-hover-color: #000;
-    --bs-btn-hover-bg: #d3d4d5;
-    --bs-btn-hover-border-color: #c6c7c8;
-    --bs-btn-focus-shadow-rgb: 211,212,213;
-    --bs-btn-active-color: #000;
-    --bs-btn-active-bg: #c6c7c8;
-    --bs-btn-active-border-color: #babbbc;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #000;
-    --bs-btn-disabled-bg: #f8f9fa;
-    --bs-btn-disabled-border-color: #f8f9fa;
-} */
-
-
-/* */ custom bootstrap button stuff  */
-.btn-dark {
-
-    color: #ffffff;
-    background-color: #212241;
-    border-color: #212241;
-}
-
-.btn-dark:hover {
-    color: #7fc9cb;
-    background-color: #1c1d37;
-    border-color: #1a1b34;
-}
-
-.btn-check:focus+.btn-dark,
-.btn-dark:focus {
-    color: #ffffff;
-    background-color: #1c1d37;
-    border-color: #1a1b34;
-}
-
-.btn-check:checked+.btn-dark,
-.btn-check:active+.btn-dark,
-.btn-dark:active,
-.btn-dark.active,
-.show>.btn-dark.dropdown-toggle {
-    color: #ffffff;
-    background-color: #1a1b34;
-    border-color: #191a31;
-}
-
-.btn-check:checked+.btn-dark:focus,
-.btn-check:active+.btn-dark:focus,
-.btn-dark:active:focus,
-.btn-dark.active:focus,
-.show>.btn-dark.dropdown-toggle:focus {
-    box-shadow: inset 0 3px 5px rgba(66, 67, 94, 0.5);
-}
-
-.btn-dark:disabled,
-.btn-dark.disabled {
-    color: #ffffff;
-    background-color: #212241;
-    border-color: #212241;
-}
-
-/************************ STYLING THE DATEPICKER **********************************/
+/************************ datepicker styling **********************************/
 
 /* current day */
 .ui-state-highlight,
@@ -315,9 +282,12 @@ a.ui-button:active,
 /* highlight selected timeframe  */
 .ui-datepicker-calendar .highlight a {
     background-color: #7fc9cb !important;
-    border: none !important; /* Remove border to cover the entire button */
+    border: none !important;
+    /* Remove border to cover the entire button */
 }
 
+
+/******************** save itinerary buttons  ********/
 
 /* add hover and active states to save  */
 .saveItinerary:hover {
