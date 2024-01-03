@@ -37,14 +37,14 @@ $("#search-submit").on("click", function (event) {
     } else if (startDate > endDate) {
         $("#select-correct-dates").modal('show');
         return;
-    } else { // TODO: change format of start date
+    } else {
         searchCriteria.text("Your holiday to " + destination + " on " + startDate);
         showInfo();
     };
 
     // Call functions
-    // getWeatherForecast(destination);
-    // getNewsInfo(destination);
+    getWeatherForecast(destination);
+    getNewsInfo(destination);
     renderItinerary(startDate);
     buildHistory(destination);
 })
@@ -97,8 +97,6 @@ function recallSearches(destination) {
 
 /**************************** Date Picker ******************************************/
 
-// TODO: Set it so users can't select an end date before the start date
-// TODO: Update the alt format/date displayed to user without messing up all the calculations
 $(function () {
     function highlightRange(date) {
         var startDate = $("#start-date").datepicker("getDate");
@@ -114,18 +112,13 @@ $(function () {
     $("#start-date").datepicker({
         minDate: -1,
         dateFormat: "yy-mm-dd",
-        // altFormat: "dd-mm-yy",
-        // altField: "#start-date",
         firstDay: 1 // start the week on Mon
     });
 
     $("#end-date").datepicker({
 
-        // minDate: new Date(),
         maxDate: "+12M",
         dateFormat: "yy-mm-dd",
-        // altFormat: "dd-mm-yy",
-        // altField: "#end-date",
         firstDay: 1 // start the week on Mon
     });
 
@@ -143,7 +136,6 @@ $(function () {
 // array for daily activity objects
 var dayActivityArray = [];
 
-
 // function to render search into itinerary
 function renderItinerary(startDate) {
 
@@ -153,16 +145,12 @@ function renderItinerary(startDate) {
         $("#itinerary-title").text("My " + destination + " itinerary")
     };
 
-
     // empty the card's previous content
     $("#itinerary-card-text").empty();
 
     // dayjs object for date of holiday
     var holidayDate = dayjs(startDate);
     var holidayEndDate = dayjs($("#end-date").val());
-
-    console.log(holidayDate)
-    console.log(holidayEndDate)
 
     // dayjs object for today
     var today = dayjs().format("YYYY-MM-DD");
@@ -178,7 +166,6 @@ function renderItinerary(startDate) {
 
     // calculate length of holiday
     var holidayLength = holidayEndDate.diff(holidayDate, "days");
-    // var holidayLength = 5
 
     renderInputs(holidayLength)
 
@@ -195,7 +182,6 @@ function renderInputs(number) {
 
     for (var i = 0; i < number; i++) {
 
-
         var dayActivityDiv = $("<div>").addClass("itineraryDay py-3 input-group d-flex me-2")
         var dayActivitySpan = $("<span>")
         var dayActivityInput = $("<input>")
@@ -208,11 +194,9 @@ function renderInputs(number) {
         dayActivityInput.attr("id", "Day" + (i + 1))
         dayActivityInput.addClass("Day" + (i + 1))
 
-
         // add a save icon to each save button 
         var saveIcon = $("<i>").addClass("far fa-save");
         saveItineraryBtn.append(saveIcon);
-        // saveItineraryBtn.text("Save")
 
         // section attached to each input box with the day
         dayActivitySpan.text("Day " + (i + 1));
@@ -250,17 +234,12 @@ function saveItinerary() {
 
     // save to object as a key-value pair
     dayActivityObject[key] = text;
-    console.log(dayActivityObject)
 
     // add the object to the array
     dayActivityArray.push(dayActivityObject)
 
     // create a parent object containing the city name and the itinerary array
-    // itineraryObject.cityName = destination
     itineraryObject.array = dayActivityArray
-
-    console.log(itineraryObject)
-
 
     localStorage.setItem(destination, JSON.stringify(itineraryObject))
 
@@ -275,30 +254,18 @@ function retrieveItinerary(destination) {
     // empty the card's previous content
     $("#itinerary-card-text").empty()
 
-    console.log(destination)
     var itinerary = JSON.parse(localStorage.getItem(destination))
-    console.log(itinerary)
-    console.log(itinerary.array)
-    console.log(itinerary.array.length)
-
-    // $("#itinerary-card-text").clear()
 
     renderInputs(itinerary.array.length)
 
     for (i = 0; i < itinerary.array.length; i++) {
 
         var dayID = Object.keys(itinerary.array[i])[0]
-        console.log(dayID)
-
-        // var inputEl = $("#" + dayID)
 
         var inputEl = document.querySelector("." + dayID)
 
-        console.log(inputEl)
-
         var day = itinerary.array[i]
         inputEl.value = day[dayID]
-
     }
 
     $(".saveItinerary").on("click", saveItinerary)
@@ -401,7 +368,7 @@ $("#curSubmit").on("click", function (event) {
 // Make currency card with API info
 function makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, conversionRate2) {
     let card = $("<div>");
-    card.attr({"id": "currencyCard" });
+    card.attr({ "id": "currencyCard" });
     card.append("<h5>" + "Currency conversion: " + currencyCode + " to GBP" + "</h5>");
     card.append("<p>" + currencySymbol + " 1 is worth £" + conversionRate1 + " today." + "</p>");
     card.append("<p>" + " £ 1 is worth " + conversionRate2 + " " + currencyName + "." + "</p>");
@@ -426,7 +393,6 @@ function getWeatherForecast(destination) {
         .then(function (response) {
             return response.json();
         }).then(function (data) {
-            console.log(data);
 
             let apiCity = data.city.name;
             if (destination == 'select') { // if user doesn't select a city, change weather title to 'Weather'
@@ -529,15 +495,11 @@ function getNewsInfo(destination) {
     }
 
     let queryURLNews = "https://gnews.io/api/v4/search?q=" + apiDestination + "&country=uk&lang=en&max=5&token=70cdb701813ebdb29d8d18237c3a045e"// - this is my key 
-    console.log('queryURLNews:');
-    console.log(queryURLNews);
 
     fetch(queryURLNews)
         .then(function (response) {
             return response.json();
         }).then(function (newsData) {
-            console.log('News data object:');
-            console.log(newsData);
 
             if (destination == 'select') { // if user doesn't select a city, change weather title to 'News'
                 newsTitle.text(`News`);

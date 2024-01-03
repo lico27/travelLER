@@ -55,8 +55,7 @@ No installation required.
   - Select your home currency from the dropdown menu and click Submit
 
 ### Screenshot
-<!-- ![Screenshot of completed project](/screenshot.png) -->
-Coming soon
+![Screenshot of completed project](./Assets/images/travel.ler-screenshot.png)
 
 ## Credits
 👏 Project designed and built by [Liam Cottrell](https://github.com/lico27), [Emma Davies](https://github.com/E-Davies) and [Rosie Galezia](https://github.com/rosiegalezia)<br/>
@@ -67,7 +66,4 @@ Coming soon
 Produced under the MIT license.
 
 ## Badges
-![Static Badge](https://img.shields.io/badge/project-in_progress-blue)
-
-<!-- ## Badges
-![Static Badge](https://img.shields.io/badge/project-complete-brightgreen) -->
+![Static Badge](https://img.shields.io/badge/project-complete-brightgreen)

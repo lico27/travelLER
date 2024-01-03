@@ -53,8 +53,6 @@
     border-color: #212241;
 }
 
-
-
 #curSubmit {
     border-bottom-left-radius: 0px;
     border-top-left-radius: 0px;
@@ -200,6 +198,8 @@ h5 {
 .border-light {
     border: 1px solid #ced4da !important;
 }
+
+/************ footer  **************/
 
 .footer {
     margin: 20px 0 0 0;
