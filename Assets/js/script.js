@@ -350,8 +350,12 @@ function fetchCurrency(currencyCode) {
                             let currencySymbol = dataCurrency.data[currencyCode].symbol_native;
                             let currencyName = dataCurrency.data[currencyCode].name_plural;
                             makeCard(currencyCode, currencySymbol, currencyName, conversionRate1, conversionRate2);
+                        }).catch(function (error) {
+                            $("#api-error").modal('show');
                         });
                 });
+        }).catch(function (error) {
+            $("#api-error").modal('show');
         });
 };
 
@@ -432,8 +436,7 @@ function getWeatherForecast(destination) {
             isToday = true; //after for loop runs, change isToday back to true so when fetchCityForecast() runs again, the today section is rendered
 
         }).catch(function (error) {
-            console.log('error');
-            //create an alert on html or a modal pop up to alet user to try again
+            $("#api-error").modal('show');
         });
 
 };
@@ -527,6 +530,8 @@ function getNewsInfo(destination) {
                 };
             };
 
+        }).catch(function (error) {
+            $("#api-error").modal('show');
         });
 };
 
