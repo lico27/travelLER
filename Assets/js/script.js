@@ -90,8 +90,8 @@ historySection.on('click', '.btnHistory', function (event) {
 
 // Function to recall previous searches
 function recallSearches(destination) {
-    // getWeatherForecast(destination);
-    // getNewsInfo(destination);
+    getWeatherForecast(destination);
+    getNewsInfo(destination);
     retrieveItinerary(destination)
 };
 
