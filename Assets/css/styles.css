@@ -136,7 +136,6 @@ h5 {
     width: 100%;
     background-color: #7fc9cb;
     --bs-gutter-x: 0;
-    /* margin: auto; */
 }
 
 /***************** cards ***************/
@@ -144,17 +143,15 @@ h5 {
 #itinerary-card-text,
 #news-append {
     overflow-y: scroll;
-    /* height: 500px; */
     max-height: 70vh;
 }
 
-#weather-card {
+#weather-card, #news-div, #currency-card {
     margin-bottom: 10px;
 }
 
 #currencyCard {
     width: 90%;
-    /* margin: auto; */
     padding: 10px;
 }
 
@@ -169,7 +166,6 @@ h5 {
     overflow-y: scroll;
     max-height: 200px;
     justify-content: center;
-    margin: 20px 0 10px 0;
 }
 
 .btnHistory {
