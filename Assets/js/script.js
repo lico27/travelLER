@@ -137,8 +137,7 @@ var dayActivityArray = [];
 
 // function to render search into itinerary
 function renderItinerary(startDate) {
-
-    if (destination == 'select') { // if user doesn't select a city, change card title to 'My Itinerary'
+        if (destination == 'select') { // if user doesn't select a city, change card title to 'My Itinerary'
         $("#itinerary-title").text("My itinerary");
     } else {
         $("#itinerary-title").text("My " + destination + " itinerary")
@@ -252,6 +251,7 @@ function retrieveItinerary(destination) {
 
     // empty the card's previous content
     $("#itinerary-card-text").empty()
+    $("#itinerary-title").text("My " + destination + " itinerary")
 
     var itinerary = JSON.parse(localStorage.getItem(destination))
 
