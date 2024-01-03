@@ -1,4 +1,3 @@
-// Make currency dropdown
 var startLocation;
 var destination;
 var startDate;
